@@ -1,0 +1,22 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Jonathan D.A. Jewell (hyperpolymath) <j.d.a.jewell@open.ac.uk>
+#
+# LANGUAGES.a2ml — Languages present in this repository
+#
+[metadata]
+version = "0.1.0"
+last-updated = "2026-06-21"
+
+[present]
+# Languages currently in the tree.
+abi-proofs = "idris2"                 # src/interface/Abi/, verification/proofs/idris2/
+ffi = "zig"                           # src/interface/ffi/
+proofs = ["coq", "agda", "idris2"]    # verification/proofs/
+config = ["nickel", "a2ml"]           # .machine_readable/
+build = ["just", "bash"]
+
+[planned]
+# The Panoply Core checker, evidence formats, and manifest tooling are not yet
+# implemented (see STATE.a2ml). Their implementation language is TBD per the
+# design discipline (docs/architecture/DESIGN-DISCIPLINE.adoc).
+core = "TBD"
