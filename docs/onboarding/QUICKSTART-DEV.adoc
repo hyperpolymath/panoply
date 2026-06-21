@@ -1,14 +1,14 @@
 // SPDX-License-Identifier: MPL-2.0
 // Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
 // Template: QUICKSTART-DEV.adoc — clone → build → test → PR
-// Replace rsr-template-repo, {{BUILD_CMD}}, {{TEST_CMD}}, {{LANG_STACK}} with actuals
+// Replace rsr-template-repo, {{BUILD_CMD}}, {{TEST_CMD}}, Idris2, Zig with actuals
 = rsr-template-repo — Quick Start for Developers
 :toc:
 :toclevels: 2
 
 == Tech Stack
 
-{{LANG_STACK}}
+Idris2, Zig
 
 == Set Up Development Environment
 

@@ -5,11 +5,11 @@
 #
 [metadata]
 version = "0.1.0"
-last-updated = "{{CURRENT_DATE}}"
+last-updated = "2026-06-21"
 
 [project]
-name = "[YOUR-REPO-NAME]"
-purpose = "{{PROJECT_DESCRIPTION}}"
+name = "panoply"
+purpose = "An envelope-first language discipline: every safety claim explicit, scoped, inspectable, and mechanically accountable."
 
 [ai-allocation]
 agents = [
