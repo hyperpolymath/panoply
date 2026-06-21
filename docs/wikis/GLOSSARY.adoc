@@ -1,0 +1,75 @@
+// SPDX-License-Identifier: MPL-2.0
+// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
+// Last updated: 2026-06-21
+= Panoply Glossary
+:toc: preamble
+:icons: font
+
+The vocabulary of the envelope-first discipline. Definitions are normative to
+the xref:../architecture/DESIGN-DISCIPLINE.adoc[charter]; this page expands and
+cross-links them.
+
+Core::
+  The single *checked* target into which every accepted program projects. All
+  guarantees are reasoned about in Core, never in a surface syntax. (`src/core/`)
+
+Projection::
+  A surface syntax *together with its obligation* to elaborate every accepted
+  program into Core + evidence + manifest. Replaces the idea of a "face": a
+  projection is accountable. (`src/projections/`)
+
+Face::
+  *Rejected term.* A surface trusted merely because it looks like the language.
+  Panoply has projections, not faces — appearance earns nothing.
+
+Evidence::
+  The *witness* behind a claim, of one of three kinds: a *proof* (mechanical),
+  a *check* (decision-procedure result), or a *runtime discipline* (declared,
+  enforced invariant). No envelope without evidence. (`src/evidence/`)
+
+Envelope::
+  A *named, scoped guarantee*. States *which* guarantee holds and under *what
+  parameters* — feature subset, projection, compiler mode, backend contract,
+  proof/check status.
+
+Manifest::
+  The *per-program, per-backend* artefact listing the envelopes a program earned
+  *and*, explicitly, the guarantees it did *not* earn. The deliverable — not the
+  absence of type errors. (`src/manifest/`)
+
+Backend contract::
+  A backend's own statement of which guarantees it can uphold, by what means
+  (check / proof / runtime discipline), and which it cannot. Guarantees are
+  *backend-relative*; nothing survives lowering for free. (`src/backends/`)
+
+Composition rule::
+  A *named* rule under which two enveloped components combine into a larger
+  guarantee. Absent such a rule, no combined guarantee is asserted.
+
+Scope parameters::
+  The five axes that parameterise every envelope: *feature subset*, *projection*,
+  *compiler mode*, *backend contract*, and *proof/check status*. Safety is scoped
+  along these, never asserted globally.
+
+Outside-envelope::
+  A disposition for an accepted-but-unsupported feature combination: it is
+  flagged as carrying *no* Panoply guarantee (as opposed to being *rejected* or
+  *downgraded*).
+
+Downgrade::
+  A disposition for an unsupported combination: it is accepted, but the manifest
+  reflects the *weaker* guarantee actually earned.
+
+The central rule::
+  _No guarantee without an envelope. No envelope without evidence. No composition
+  without a composition rule._
+
+AffineScript::
+  A *separate* project — a broad experimental language (affine types, borrowing,
+  effects, rows, traits, faces, multiple backends). Panoply is an envelope-first
+  *discipline* extracted from one of its lessons; the two share no
+  implementation. Do not conflate them.
+
+== See also
+
+* xref:../architecture/DESIGN-DISCIPLINE.adoc[Design Discipline] · xref:../architecture/ARCHITECTURE.adoc[Architecture] · xref:../guide/README.adoc[Learning Path]

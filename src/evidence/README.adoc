@@ -1,0 +1,40 @@
+// SPDX-License-Identifier: MPL-2.0
+// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
+= Evidence (sketch)
+:icons: font
+
+[.lead]
+*Evidence* is the witness behind every claim. No envelope without evidence.
+
+[IMPORTANT]
+====
+*Not yet implemented.* Sketch area per the
+xref:../../docs/architecture/DESIGN-DISCIPLINE.adoc[charter]. The evidence
+formats do not exist yet (design phase).
+====
+
+== The three kinds of evidence
+
+. *Proof* — a mechanical proof (Coq / Agda / Idris2; see `../../verification/proofs/`).
+. *Check* — a checker result (a decision procedure that ran and accepted).
+. *Runtime discipline* — a declared, enforced runtime invariant.
+
+Each envelope in a manifest cites evidence of one of these kinds, and the
+manifest records *which* kind (its proof/check status). Prefer the weakest kind
+that genuinely holds, and never label a check as a proof.
+
+== What will live here
+
+* The on-disk/in-memory representation of each evidence kind.
+* The link from a Core checking result to the evidence it produced.
+* Validation that an envelope's cited evidence actually supports its claim.
+
+== Obligations
+
+* An envelope with no evidence is a *bug*, not a guarantee.
+* Evidence kind is load-bearing: downstream readers trust a proof differently
+  from a runtime discipline, so the kind must be honest and explicit.
+
+== See also
+
+* xref:../manifest/README.adoc[Manifest] · xref:../../docs/status/PROOF-NEEDS.adoc[Proof Needs]

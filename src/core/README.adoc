@@ -1,0 +1,34 @@
+// SPDX-License-Identifier: MPL-2.0
+// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
+= Core (sketch)
+:icons: font
+
+[.lead]
+The *checked Core*: the single target into which every accepted Panoply program
+projects. All guarantees are reasoned about here — never in a surface syntax.
+
+[IMPORTANT]
+====
+*Not yet implemented.* This is a sketch area describing intended contents and
+obligations per the xref:../../docs/architecture/DESIGN-DISCIPLINE.adoc[charter].
+No Core checker exists today (design phase).
+====
+
+== What will live here
+
+* The Core abstract syntax (terms, types, the substructural/affine fragment).
+* The checking judgements — what it means for a Core term to be well-formed and
+  what facts a successful check establishes.
+* The interface every projection elaborates *into* and every backend lowers
+  *from*.
+
+== Obligations
+
+* Core is the *only* place guarantees are established; a surface feature that
+  cannot be expressed/constrained in Core cannot be guaranteed.
+* A successful check yields *evidence* (see `../evidence/`), not just a pass/fail.
+* Core makes no global safety claim — it produces the facts that envelopes name.
+
+== See also
+
+* xref:../../docs/architecture/ARCHITECTURE.adoc[Architecture] · xref:../../docs/guide/for-developers.adoc[For Developers]

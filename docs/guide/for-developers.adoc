@@ -1,0 +1,133 @@
+// SPDX-License-Identifier: MPL-2.0
+// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
+// Last updated: 2026-06-21
+= Panoply for Developers
+:toc:
+:toc-placement: preamble
+
+For people who *build* with Panoply: writing a surface projection, defining a
+backend, or contributing to the Core. This page is the working model and the
+obligations you sign up to. It assumes you've read the
+xref:README.adoc[60-second model].
+
+== The pipeline
+
+[literal]
+....
+  surface program
+        │  (a PROJECTION elaborates it)
+        ▼
+   ┌─────────┐     ┌──────────┐     ┌────────────┐
+   │  Core   │ ──► │ Evidence │ ──► │  Manifest  │
+   │(checked)│     │(witness) │     │(per-backend)│
+   └─────────┘     └──────────┘     └────────────┘
+        │
+        ▼  (a BACKEND lowers Core under its own CONTRACT)
+   target artefact + backend-relative manifest
+....
+
+Every accepted program must produce *all three* of Core, evidence, and manifest.
+A pipeline stage that can produce some but not all of them for a program has not
+accepted that program.
+
+== The four things you'll work with
+
+Core::
+  The single checked target. All reasoning about guarantees happens *in Core*,
+  never in a surface syntax. If you're adding a language feature, you're
+  ultimately adding (or constraining) something in Core.
+
+Evidence::
+  The witness for a claim, in one of three kinds: a *mechanical proof*, a
+  *checker result*, or a *declared runtime discipline*. Evidence is what turns
+  an assertion into an envelope entry. Pick the weakest kind that actually holds
+  — and record which kind it is (the manifest carries proof/check status).
+
+Manifest::
+  The per-program, per-backend artefact listing earned envelopes *and* explicitly
+  un-earned guarantees. It is the deliverable. Code that emits Core without a
+  manifest is incomplete.
+
+Backend contract::
+  A backend's own statement of which guarantees it can uphold, by what means, and
+  which it cannot. Guarantees do not survive lowering for free.
+
+== Projections, not faces
+
+A *surface syntax is a projection*, and a projection has obligations: it must
+elaborate every program it accepts into Core + evidence + manifest. There is no
+"face" that is trusted just because it looks like Panoply.
+
+If two projections appear to express the same program, their equivalence is *not
+assumed* — it must be *witnessed*, either by projection evidence relating the two
+elaborations or by a named envelope under which they're equivalent.
+
+=== Adding a projection — obligation checklist
+
+* [ ] Every accepted surface program elaborates to a well-formed *Core* term.
+* [ ] The elaboration emits *evidence* for each claim the surface makes.
+* [ ] The elaboration emits a *manifest* (earned + un-earned).
+* [ ] Any equivalence you assert with another projection is *witnessed*, not asserted.
+* [ ] Programs you cannot fully elaborate are *rejected*, not silently dropped.
+
+== Backends define their own contracts
+
+A backend does not inherit source guarantees. To add one, you write its
+*contract*: the guarantees it can uphold, the means (check / proof / runtime
+discipline) for each, and an honest list of what it cannot uphold.
+
+=== Adding a backend — obligation checklist
+
+* [ ] A written *contract* enumerating upheld guarantees and their means.
+* [ ] A *backend envelope* the program's manifest is computed against.
+* [ ] Guarantees the source can state but the backend cannot uphold are *absent*
+  from the manifest for that backend (not silently assumed).
+
+== Experimental features may not borrow claims
+
+New, experimental features are welcome — but standing next to a proved feature
+does not make an experimental one proved. An unsupported combination must be one
+of: *rejected*, *downgraded* (manifest reflects the weaker earned guarantee), or
+*explicitly marked outside-envelope*. Silently accepting it as if supported is
+the one outcome the discipline forbids.
+
+== Where the code will live (sketch areas)
+
+These directories map the charter to the tree. They are *sketches* today —
+READMEs describing intended contents, not implementations (see
+xref:../architecture/ARCHITECTURE.adoc[Architecture]):
+
+[cols="1,2",options="header"]
+|===
+| Path | Charter artefact
+
+| `src/core/`        | the checked Core + its checker
+| `src/evidence/`    | evidence kinds (proof / check / runtime discipline) and their formats
+| `src/manifest/`    | the safety-envelope manifest schema + emitter
+| `src/projections/` | surface projections + projection-equivalence witnesses
+| `src/backends/`    | per-backend contracts and envelopes
+| `src/interface/`   | the typed ABI (Idris2) + FFI (Zig) seam (exists today)
+| `verification/`    | proof scripts (Coq / Agda / Idris2) backing evidence
+|===
+
+== The central rule, as a development habit
+
+Before you claim anything in code, ask: *what envelope names it, what evidence
+backs it, and — if it's a combination — what composition rule licenses it?* If
+you can't answer all three, you don't yet have a guarantee; you have an
+assertion. Mark it as such.
+
+== Contributing
+
+* New normative behaviour traces back to a charter clause; if it diverges, amend
+  the charter via an ADR (`docs/decisions/`) rather than weakening it in code.
+* Honesty over optimism: never overclaim. The estate norm is no `believe_me`,
+  no `Admitted`, no `unsafeCoerce` in load-bearing tracks (see
+  `.github/copilot-instructions.md`).
+* See xref:../../CONTRIBUTING.md[CONTRIBUTING] and the planned work in
+  xref:../status/ROADMAP.adoc[the roadmap] / the repo's issues.
+
+== See also
+
+* xref:for-maintainers.adoc[For Maintainers] · xref:../wikis/GLOSSARY.adoc[Glossary]
+* xref:../architecture/DESIGN-DISCIPLINE.adoc[Design Discipline] · xref:../status/PROOF-NEEDS.adoc[Proof Needs]

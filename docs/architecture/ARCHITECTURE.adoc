@@ -1,0 +1,129 @@
+// SPDX-License-Identifier: MPL-2.0
+// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
+// Last updated: 2026-06-21
+= Panoply Architecture
+:toc:
+:toc-placement: preamble
+
+How the xref:DESIGN-DISCIPLINE.adoc[charter] maps onto a tree of components and
+where each mechanism will be built. This document is *descriptive of intent*:
+most components are *sketch areas* (README + manifest) today, not
+implementations. It exists so the repository's intended shape is legible and
+engageable before the code lands.
+
+== The pipeline, as components
+
+[source]
+----
+            ┌──────────────────────────────────────────────────────┐
+            │                     PROJECTIONS                      │
+   surface  │   surface syntax ─► elaborate ─► (Core, Evidence,    │
+   program ─┼─►                                 Manifest)          │
+            │   obligation: accept ⇒ produce ALL THREE             │
+            └───────────────┬──────────────────────────────────────┘
+                            │ Core term + evidence
+                            ▼
+                     ┌─────────────┐        ┌──────────────┐
+                     │    CORE     │ ─────► │   EVIDENCE   │
+                     │  (checker)  │        │ proof/check/ │
+                     └──────┬──────┘        │ runtime disc.│
+                            │               └──────┬───────┘
+                            │ lower under contract │
+                            ▼                      ▼
+                     ┌─────────────┐        ┌──────────────┐
+                     │  BACKENDS   │ ─────► │   MANIFEST   │
+                     │ (contracts/ │        │ earned + NOT │
+                     │  envelopes) │        │ earned, per  │
+                     └─────────────┘        │   backend    │
+                                            └──────────────┘
+----
+
+Mermaid view (same graph):
+
+[source,mermaid]
+----
+flowchart TD
+    S[Surface program] -->|projection elaborates| P{{Projection}}
+    P --> C[Core: checked]
+    P --> E[Evidence: proof / check / runtime discipline]
+    P --> M[Manifest: earned + un-earned]
+    C -->|lower under contract| B[Backend contract + envelope]
+    E --> M
+    B --> M
+    M --> O[Target artefact + backend-relative manifest]
+----
+
+== Component map
+
+[cols="1,2,1",options="header"]
+|===
+| Component (charter artefact) | Responsibility | Tree location
+
+| *Core*
+| The single checked target; all guarantees are reasoned about here.
+| `src/core/`
+
+| *Evidence*
+| Witness formats for the three evidence kinds (proof / check / runtime discipline).
+| `src/evidence/`
+
+| *Manifest*
+| The per-program, per-backend safety-envelope manifest schema + emitter.
+| `src/manifest/`
+
+| *Projections*
+| Surface syntaxes + their elaboration + projection-equivalence witnesses.
+| `src/projections/`
+
+| *Backends*
+| Per-backend contracts and envelopes; what each target can uphold and how.
+| `src/backends/`
+
+| *ABI/FFI seam*
+| Typed boundary (Idris2 ABI over Zig FFI) — exists today as scaffolding.
+| `src/interface/`
+
+| *Proofs*
+| Mechanized metatheory (Coq / Agda / Idris2) backing proof-kind evidence.
+| `verification/proofs/`
+|===
+
+== Status of each component
+
+None of the charter mechanisms are implemented yet (design phase). The sketch
+areas exist so contributors can see *where* and *to what obligations* each will
+be built:
+
+[cols="1,1,2",options="header"]
+|===
+| Component | State | Next step (tracked as an issue)
+
+| Core           | sketch | specify abstract syntax + checking judgements
+| Evidence       | sketch | define the three evidence kinds and their on-disk formats
+| Manifest       | sketch | define the manifest schema (earned / un-earned, per backend)
+| Projections    | sketch | first projection + a projection-equivalence witness
+| Backends       | sketch | first backend contract + envelope
+| ABI/FFI seam   | scaffolding | wire Core ↔ target through the typed seam
+| Proofs         | seed   | mechanize the first preservation obligation
+|===
+
+See xref:../status/ROADMAP.adoc[the roadmap] and the repository's issues for the
+live plan.
+
+== Invariants this architecture must preserve
+
+* *No guarantee without an envelope* — components never assert a guarantee that
+  no envelope names.
+* *No envelope without evidence* — the manifest emitter refuses an envelope with
+  no backing evidence.
+* *No composition without a composition rule* — combined guarantees require a
+  named rule; the manifest does not infer them by adjacency.
+* *Projections are accountable* — the projection layer produces all three of
+  Core, evidence, manifest, or rejects the program.
+* *Backends are honest* — the manifest is backend-relative; nothing survives
+  lowering unsupported.
+
+== See also
+
+* xref:DESIGN-DISCIPLINE.adoc[Design Discipline] (the charter) · xref:TOPOLOGY.adoc[Topology]
+* xref:../guide/for-developers.adoc[For Developers] · xref:../wikis/GLOSSARY.adoc[Glossary]

@@ -15,6 +15,7 @@ description: |
 canonical_locations:
   quickstart: "QUICKSTART.adoc"
   state_visualizer: "STATE-VISUALIZER.adoc"
+  guide: "guide/"
   governance: "governance/"
   architecture: "architecture/"
   decisions: "decisions/"

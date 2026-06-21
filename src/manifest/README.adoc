@@ -1,0 +1,45 @@
+// SPDX-License-Identifier: MPL-2.0
+// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
+= Manifest (sketch)
+:icons: font
+
+[.lead]
+The *safety-envelope manifest*: the per-program, per-backend statement of which
+guarantees were earned and which were not. It is the deliverable — not the
+absence of type errors.
+
+[IMPORTANT]
+====
+*Not yet implemented.* Sketch area per the
+xref:../../docs/architecture/DESIGN-DISCIPLINE.adoc[charter]. No manifest schema
+or emitter exists yet (design phase).
+====
+
+== What a manifest records
+
+* The *earned* envelopes — each a named guarantee with its scope parameters
+  (feature subset, projection, compiler mode, backend contract, proof/check status)
+  and a pointer to its evidence.
+* The *un-earned* guarantees — explicitly named, so absence is never inferred
+  from silence.
+* The backend it is relative to (the same program yields different manifests on
+  different backends).
+
+== What will live here
+
+* The manifest schema (the data model above).
+* The emitter that assembles a manifest from Core + evidence + a backend envelope.
+* The reader/validator used by consumers and by CI.
+
+== Obligations
+
+* *No guarantee without an envelope* — the emitter never writes a guarantee that
+  no envelope names.
+* *No envelope without evidence* — the emitter refuses an envelope whose evidence
+  is missing or insufficient.
+* *No composition without a composition rule* — combined guarantees appear only
+  when a named rule licenses them.
+
+== See also
+
+* xref:../evidence/README.adoc[Evidence] · xref:../backends/README.adoc[Backends] · xref:../../docs/guide/for-users.adoc[For Users] (reading a manifest)

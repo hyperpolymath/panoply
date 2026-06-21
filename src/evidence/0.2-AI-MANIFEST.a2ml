@@ -1,0 +1,15 @@
+# SPDX-License-Identifier: MPL-2.0
+---
+### [META]
+id: "source-unit-evidence"
+level: 2
+parent: "../0.1-AI-MANIFEST.a2ml"
+
+---
+### [AI_MANIFEST]
+description: |
+  Evidence (sketch): witness formats for the three evidence kinds —
+  proof, check, runtime discipline. Backs every manifest envelope.
+  Not yet implemented (design phase).
+
+status: "sketch"

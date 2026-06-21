@@ -1,0 +1,22 @@
+# SPDX-License-Identifier: MPL-2.0
+---
+### [META]
+id: "guide-track"
+level: 2
+parent: "../0.1-AI-MANIFEST.a2ml"
+
+---
+### [AI_MANIFEST]
+description: |
+  Role-divided learning path for Panoply (users, developers, maintainers),
+  grounded in the design-discipline charter. Education beyond setup.
+
+canonical_locations:
+  index: "README.adoc"
+  users: "for-users.adoc"
+  developers: "for-developers.adoc"
+  maintainers: "for-maintainers.adoc"
+
+invariants:
+  - "Every guide page is grounded in docs/architecture/DESIGN-DISCIPLINE.adoc; the charter wins on conflict."
+  - "No page may overclaim: the design-phase status (mechanisms unimplemented) must remain visible."

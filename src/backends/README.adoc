@@ -1,0 +1,41 @@
+// SPDX-License-Identifier: MPL-2.0
+// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
+= Backends (sketch)
+:icons: font
+
+[.lead]
+*Backends define their own contracts.* A program receives only the guarantees a
+backend's envelope names and its checks, proofs, or runtime discipline support.
+Nothing survives lowering for free.
+
+[IMPORTANT]
+====
+*Not yet implemented.* Sketch area per the
+xref:../../docs/architecture/DESIGN-DISCIPLINE.adoc[charter]. No backend exists
+yet (design phase).
+====
+
+== What a backend contract states
+
+* The guarantees the backend *can* uphold, and the *means* for each
+  (check / proof / runtime discipline).
+* The guarantees it *cannot* uphold — honestly, so the manifest omits them
+  rather than letting them ride along unsupported.
+
+== What will live here
+
+* Per-backend contracts and their envelopes.
+* The lowering from Core to each target, annotated with which guarantees it
+  preserves and how.
+* The inputs the manifest emitter uses to compute the backend-relative manifest.
+
+== Obligations
+
+* A guarantee earned in Core does *not* appear in a backend's manifest unless the
+  backend's contract upholds it.
+* The manifest is *backend-relative*: one Core program, two backends, possibly
+  two different manifests — by design.
+
+== See also
+
+* xref:../manifest/README.adoc[Manifest] · xref:../../docs/guide/for-maintainers.adoc[For Maintainers] (reviewing a backend)
