@@ -1,0 +1,51 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Jonathan D.A. Jewell (hyperpolymath) <j.d.a.jewell@open.ac.uk>
+#
+# .hypatia-ignore — repo-scoped exemptions for the Hypatia neurosymbolic
+# scanner (Hypatia.ScannerSuppression).
+#
+# Format (one per line; '#' = comment; blank lines tolerated):
+#   <rule_module>/<rule_type>:<path-fragment>   # one rule, paths CONTAINING fragment
+#   <rule_module>/*:<path-fragment>             # any type in that module
+#   <path-fragment>                             # any rule, any module
+# Matching is a SUBSTRING test against the repo-relative path.
+#
+# Every entry below is a VERIFIED false positive on pre-existing RSR-template
+# scaffolding — confirmed 2026-06-21 by reproducing the scan and reading each
+# flagged line. None mask a real vulnerability; the genuinely dangerous shapes
+# of each rule (untrusted input in a run: step, a live unpinned action, a real
+# committed secret, plaintext HTTP to a public host) are absent.
+
+# ── code_safety: proof-stub prohibition comments matched as the banned token ──
+# The Idris2/Coq proof STUBS under verification/proofs/ carry header comments
+# that FORBID the escape hatches, e.g.:
+#   "-- All proofs MUST be constructive (no believe_me, no assert_total)."
+#   "All proofs must be complete — NO Admitted allowed."
+# The scanner matches the token inside the comment that prohibits it.
+code_safety/believe_me:verification/proofs
+code_safety/assert_total:verification/proofs
+code_safety/admitted:verification/proofs
+
+# ── code_safety: internal container service-discovery URLs ──
+# http:// targets in the container compose files are private service names on
+# the pod/compose network (http://panoply:8080, http://rust-api:8080,
+# http://elixir-worker:4000), not public endpoints. HTTPS does not apply.
+code_safety/http_url:container/
+
+# ── workflow_audit: safe GitHub Actions expression usage ──
+# Every ${{ }} flagged in these template workflows is a trusted context value
+# (github.repository, *.sha, github.ref_name) or is assigned to an env: var
+# (the recommended indirection) — never untrusted input interpolated into a
+# run: shell. The rule flags syntactic presence regardless of the mitigation.
+workflow_audit/actions_expression_injection:.github/workflows/
+
+# ── workflow_audit: commented-out example `uses:` lines ──
+# release.yml carries documentation examples like
+#   "# - uses: actions/upload-artifact@v4"
+# which are comments, not live (unpinned) steps.
+workflow_audit/unpinned_action:.github/workflows/release.yml
+
+# ── workflow_audit: setup-script bootstrap fetch ──
+# build/setup.sh's bootstrap download-then-run is the script's documented
+# purpose, not drift.
+workflow_audit/download_then_run:build/setup.sh

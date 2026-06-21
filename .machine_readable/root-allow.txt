@@ -35,6 +35,7 @@ abi.ipkg                   # Idris2 package for the ABI seam; sourcedir=src/inte
 .gitattributes
 .gitignore
 .tool-versions
+.hypatia-ignore            # repo-scoped Hypatia scanner exemptions (read from repo root)
 
 # ─── Directories ─────────────────────────────────────────────────────────────
 .devcontainer/             # VS Code dev container spec; tool-required at root
