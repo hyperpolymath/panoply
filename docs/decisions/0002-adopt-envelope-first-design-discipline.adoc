@@ -1,0 +1,91 @@
+// SPDX-License-Identifier: MPL-2.0
+// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
+= Architecture Decision Record: 0002-adopt-envelope-first-design-discipline
+
+# 2. Adopt the Envelope-First Design Discipline
+
+Date: 2026-06-21
+
+## Status
+
+Accepted
+
+## Context
+
+Panoply is extracted from the lessons of AffineScript, a broad experimental
+language exploring affine types, borrowing, effects, rows, traits, faces, and
+multiple backends. AffineScript's breadth is deliberate, but breadth created a
+recurring trust problem: a large surface invites a single, global "is it safe?"
+question that no whole-language proof can honestly answer for every program,
+feature combination, and backend at once.
+
+The repository needs a single, normative statement of what Panoply *is* before
+any of its mechanisms — Core checker, evidence formats, manifest schema,
+backend contracts — are built. Without that charter, the mechanisms would
+accrete without a shared rule, and "safety" would drift back into an unscoped
+global claim. At the time of this decision the repository is a freshly
+scaffolded RSR template carrying none of Panoply's identity, so the charter is
+the first load-bearing artefact to establish.
+
+## Decision
+
+Adopt the *envelope-first design discipline* as Panoply's founding principle,
+recorded canonically in
+xref:../architecture/DESIGN-DISCIPLINE.adoc[docs/architecture/DESIGN-DISCIPLINE.adoc].
+
+The discipline fixes the following non-negotiables:
+
+- Panoply is defined by three artefacts — a checked Core, explicit evidence,
+  and a safety-envelope manifest — not by a surface language, a family of
+  faces, or a global safety claim.
+- The central rule governs every layer: **no guarantee without an envelope; no
+  envelope without evidence; no composition without a composition rule.**
+- Safety is scoped and parameterised by feature subset, projection, compiler
+  mode, backend contract, and proof/check status — never asserted globally.
+- Surface syntaxes are *projections* (which must elaborate accepted programs
+  into Core + evidence + manifest), not *faces*; apparent equivalence between
+  projections must be witnessed, not assumed.
+- Backends define their own contracts and do not inherit source guarantees;
+  a program receives only the guarantees a backend's envelope names and its
+  checks, proofs, or runtime discipline support.
+- Experimental features are permitted but may not borrow stronger claims from
+  neighbours; unsupported combinations must be rejected, downgraded, or
+  explicitly marked outside-envelope.
+
+The charter is normative. Future mechanisms must trace back to its clauses, and
+any divergence is reconciled by amending the charter through a subsequent ADR
+rather than by weakening behaviour in code.
+
+## Consequences
+
+What becomes easier or more difficult to do because of this change?
+
+### Positive
+
+- Every safety claim Panoply makes becomes explicit, scoped, and inspectable
+  via a per-program manifest, instead of resting on an unprovable global
+  assertion.
+- New surface syntaxes and new backends can be added incrementally: each is
+  accountable to the same projection/contract obligations without requiring a
+  whole-language re-proof.
+- Experimental work is unblocked without contaminating proved features, because
+  unsupported combinations are forced to declare their weakened status.
+- Agents and contributors have one normative source of truth for "what is
+  Panoply," reducing conflation with AffineScript.
+
+### Negative
+
+- More upfront ceremony: a program is not "done" when it typechecks; it must
+  also project, carry evidence, and emit a manifest.
+- The mechanisms named by the charter (Core checker, evidence formats, manifest
+  schema, backend contracts, projection-equivalence witnesses) are not yet
+  implemented, so the charter currently leads the code it governs.
+- Projection equivalence and cross-backend reasoning require explicit witnesses
+  and composition rules, which is more work than assuming sameness.
+
+### Neutral
+
+- Panoply remains a narrowing of one AffineScript lesson, not a rejection of
+  it; AffineScript continues to explore breadth independently.
+- The charter is amendable: this ADR can be superseded by a later ADR as the
+  discipline is refined against real implementation experience.

@@ -1,0 +1,205 @@
+// SPDX-License-Identifier: MPL-2.0
+// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
+// Last updated: 2026-06-21
+= Panoply Design Discipline
+:toc:
+:toc-placement: preamble
+
+This document is Panoply's founding charter. It states what Panoply *is*,
+what it deliberately *is not*, and the rules every projection, backend, and
+feature must obey. It is normative: where this document and any other
+description of Panoply disagree, this document wins until it is itself
+superseded by an Architecture Decision Record under `docs/decisions/`.
+
+The adoption of this discipline is recorded in
+xref:../decisions/0002-adopt-envelope-first-design-discipline.adoc[ADR-0002].
+
+== What Panoply is not
+
+Panoply is *not* defined by a surface language, a family of faces, or a
+global claim of safety. There is no single syntax that "is" Panoply, and
+there is no whole-language theorem that, once proved, blesses every program
+Panoply will ever accept. Panoply makes no global safety claim, by design.
+
+== What Panoply is
+
+Panoply is defined by three artefacts:
+
+1. *a checked core* — the Core into which every accepted program projects;
+2. *explicit evidence* — the witnesses for the claims a program makes;
+3. *a safety-envelope manifest* — the per-program statement of which
+   guarantees have been earned and which have not.
+
+A Panoply program does not simply "typecheck." It does three things:
+
+* it *projects* into Core;
+* it *carries evidence* for the claims it makes;
+* it *emits a manifest* describing which guarantees it has earned and which
+  guarantees it has not.
+
+A program that typechecks but produces no manifest has not produced a Panoply
+result. The manifest — not the absence of type errors — is the deliverable.
+
+== The central rule
+
+[quote]
+____
+No guarantee without an envelope. +
+No envelope without evidence. +
+No composition without a composition rule.
+____
+
+These three clauses are read together and apply at every layer:
+
+* *No guarantee without an envelope.* A guarantee that is not named by some
+  envelope is not a guarantee Panoply will assert. Unnamed safety is not
+  safety.
+* *No envelope without evidence.* An envelope is only as good as the evidence
+  backing it. An envelope that names a guarantee it cannot witness is a bug,
+  not a guarantee.
+* *No composition without a composition rule.* Two enveloped components do not
+  compose into a larger guarantee by adjacency. Composition holds only where a
+  named composition rule says it holds, and only as strongly as that rule
+  allows.
+
+== Safety is scoped, not global
+
+Panoply deliberately does *not* require the entire language surface to close
+under one final whole-language proof. Instead it treats safety as scoped,
+inspectable, and *parameterised* by:
+
+* *feature subset* — which language features the program actually uses;
+* *projection* — which surface syntax elaborated the program into Core;
+* *compiler mode* — the configuration under which the program was checked;
+* *backend contract* — the target the program is compiled for;
+* *proof/check status* — whether each claim is mechanically proved, checked,
+  or merely asserted.
+
+Two programs that "do the same thing" may therefore earn different envelopes,
+because they used different feature subsets, projections, modes, backends, or
+arrived at different proof/check statuses. That is the intended behaviour: the
+envelope describes *this* program as *actually* checked, not an idealised
+sibling.
+
+== Projections, not faces
+
+Surface syntaxes are *not* "faces" in the trust model. They are *projections*.
+
+A projection carries obligations. It must elaborate every program it accepts
+into:
+
+* Core, *plus*
+* evidence, *plus*
+* manifest.
+
+A projection that accepts a program but cannot produce all three for it has
+failed its obligation; the program is not accepted by Panoply through that
+projection.
+
+If two projections appear to express the same program, their equivalence is
+*not assumed*. It must be *witnessed* — either by projection evidence relating
+the two elaborations, or by a named envelope under which the equivalence
+holds. "It looks the same" is not a Panoply equivalence claim.
+
+== Backends define their own contracts
+
+Backends do *not* inherit source-language guarantees automatically. A
+guarantee earned in Core does not silently survive lowering to a target.
+
+Each backend must define its own *contract*. A program targeting a backend
+receives only:
+
+* the guarantees *named by the backend envelope*, and
+* the guarantees *supported by that backend's checks, proofs, or runtime
+  discipline*.
+
+A guarantee that the source could state but the backend cannot uphold does not
+appear in the program's manifest for that backend. The manifest is
+backend-relative.
+
+== Experimental features may not borrow claims
+
+Experimental features are *allowed* in Panoply. The discipline is not a
+freeze. But an experimental feature *cannot borrow stronger claims from
+neighbouring features*: standing next to a proved feature does not make an
+experimental feature proved.
+
+Unsupported combinations must be one of:
+
+* *rejected* — the combination is refused outright; or
+* *downgraded* — the combination is accepted, but the manifest reflects the
+  weaker guarantee actually earned; or
+* *explicitly marked outside-envelope* — the combination is accepted and
+  flagged as carrying no Panoply guarantee.
+
+Silently accepting an unsupported combination *as if* it were supported is the
+one outcome the discipline forbids.
+
+== Relationship to AffineScript
+
+Panoply is extracted from AffineScript, and the two must not be conflated.
+
+[cols="1,3"]
+|===
+| Project | Character
+
+| *AffineScript*
+| A broad, experimental language exploring affine types, borrowing, effects,
+  rows, traits, faces, and multiple backends. Its remit is breadth.
+
+| *Panoply*
+| An envelope-first language *discipline* extracted from those lessons. Its
+  purpose is not to present many forms of one language, but to make every
+  safety claim explicit, scoped, inspectable, and mechanically accountable.
+|===
+
+Panoply is *not a rejection* of AffineScript. It is a *narrowing of one lesson*
+from AffineScript — that broad language surfaces need explicit trust envelopes
+— taken as a founding principle. AffineScript explores the surface; Panoply
+disciplines the claim.
+
+== Glossary
+
+Core:: The single checked target into which every accepted program projects.
+  Guarantees are reasoned about in Core, not in any surface syntax.
+
+Projection:: A surface syntax together with its obligation to elaborate
+  accepted programs into Core + evidence + manifest. Replaces the notion of a
+  "face": a projection is accountable, a face is not.
+
+Evidence:: The witness backing a claim — a proof, a check result, or a
+  declared runtime discipline. Evidence is what turns an assertion into an
+  envelope entry.
+
+Envelope:: A named, scoped guarantee. An envelope states *which* guarantee
+  holds and *under what parameters* (feature subset, projection, mode,
+  backend, proof/check status).
+
+Manifest:: The per-program, per-backend artefact listing the envelopes the
+  program has earned and, explicitly, the guarantees it has *not* earned.
+
+Backend contract:: A backend's own statement of which guarantees it can
+  uphold, by what means (check, proof, or runtime discipline), and which it
+  cannot.
+
+Composition rule:: A named rule under which two enveloped components combine
+  into a larger guarantee. Absent such a rule, no combined guarantee is
+  asserted.
+
+== Status of this charter
+
+This document states the *discipline*. The mechanisms that enforce it — the
+Core checker, the evidence formats, the manifest schema, the per-backend
+contracts, and the projection-equivalence witnesses — are *not yet
+implemented* in this repository at the time of writing. Naming them here is
+charter, not claim: per the central rule, this document asserts no guarantee
+it cannot yet witness.
+
+As those mechanisms land, they must be traceable back to the clauses above,
+and any divergence must be reconciled by amending this charter through an ADR
+rather than by quietly weakening it in code.
+
+== See also
+
+* xref:../decisions/0002-adopt-envelope-first-design-discipline.adoc[ADR-0002: Adopt the envelope-first design discipline]
+* xref:TOPOLOGY.adoc[Architecture Topology]
