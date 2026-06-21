@@ -8,10 +8,13 @@ parent: "../0.1-AI-MANIFEST.a2ml"
 ---
 ### [AI_MANIFEST]
 description: |
-  Documentation track for system architecture and threat models.
+  Documentation track for system architecture, the design discipline charter,
+  and threat models.
 
 canonical_locations:
+  design_discipline: "DESIGN-DISCIPLINE.adoc"
   threat_model: "THREAT-MODEL.adoc"
+  topology: "TOPOLOGY.adoc"
 
 invariants:
   - "Visual diagrams MUST include ASCII or Mermaid representations"
