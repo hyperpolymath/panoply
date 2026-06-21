@@ -1,0 +1,93 @@
+// SPDX-License-Identifier: MPL-2.0
+// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
+// Last updated: 2026-06-21
+= Panoply for Users
+:toc:
+:toc-placement: preamble
+
+For people who *consume* a Panoply program — running it, depending on it, or
+trusting one of its claims. You do not need to write Core or proofs to use
+Panoply well; you need to read what it tells you, and know what it does *not*
+tell you.
+
+== What Panoply gives you (and what it doesn't)
+
+Most languages hand you a binary outcome: it compiled, or it didn't. A clean
+compile is then quietly treated as a blanket assurance.
+
+Panoply refuses that move. Instead of one global "it's safe," every accepted
+program ships a *safety-envelope manifest*: an explicit, inspectable list of the
+guarantees it *earned* and the guarantees it *did not*. You are never asked to
+infer safety from silence.
+
+So as a user you get *less hand-waving and more paper*: a document you can read,
+diff, and audit — scoped to exactly the program in front of you.
+
+== Reading a manifest
+
+A manifest answers three questions for the specific program and backend you are
+using:
+
+. *Which guarantees hold?* Each is a named *envelope* — e.g. "no use-after-free
+  on this backend," "total termination of function `f`."
+. *Why does each hold?* Each envelope points at its *evidence*: a mechanical
+  proof, a checker result, or a declared runtime discipline. No evidence, no
+  envelope.
+. *What is explicitly NOT guaranteed?* Just as important — the manifest names the
+  guarantees the program did *not* earn, so you are never surprised by an absence.
+
+If a guarantee you care about is not in the manifest, treat it as *not provided*.
+That is the system working as designed, not a gap to paper over.
+
+== What a "guarantee" means here
+
+A Panoply guarantee is *scoped*, never global. The same logical program can earn
+different envelopes depending on five parameters:
+
+* *feature subset* — which language features it actually used;
+* *projection* — which surface syntax produced it;
+* *compiler mode* — the configuration it was checked under;
+* *backend contract* — the target it was compiled for;
+* *proof/check status* — whether each claim is proved, checked, or asserted.
+
+So "is program X safe?" is the wrong question. The right one is: "which
+envelopes did *this build* of X earn, on *this backend*?" — and the manifest is
+the answer.
+
+== Your guarantees are backend-relative
+
+A guarantee earned in Core does *not* automatically survive being lowered to a
+target. Each backend defines its own *contract* and upholds only the guarantees
+that contract names and its checks/proofs/runtime discipline support. The same
+program on two backends can legitimately ship two different manifests. Always
+read the manifest for *the backend you are actually running*.
+
+== The rule, in plain terms
+
+[quote]
+____
+No guarantee without an envelope — if it isn't named, Panoply isn't claiming it. +
+No envelope without evidence — a named guarantee with nothing behind it is a bug, not a promise. +
+No composition without a composition rule — two safe parts don't make a safe whole unless a rule says so.
+____
+
+== Panoply is not AffineScript
+
+If you arrived from AffineScript: these are *different projects* with no shared
+implementation. AffineScript is a broad, experimental language exploring affine
+types, borrowing, effects, rows, traits, faces, and many backends. Panoply is an
+envelope-first *discipline* extracted from one lesson of that work — that broad
+language surfaces need explicit trust envelopes. Don't carry assumptions across.
+
+== Current status — there is nothing to run yet
+
+Honestly: Panoply is at the design stage. There is no compiler, no manifest
+emitter, and no backend to target today. This page teaches you how to *read*
+Panoply once those exist, and what its claims will and won't mean. Watch
+xref:../status/ROADMAP.adoc[the roadmap] and
+xref:../../README.adoc[the README] for when the first runnable pieces land.
+
+== See also
+
+* xref:README.adoc[Learning Path] · xref:../wikis/GLOSSARY.adoc[Glossary]
+* xref:../architecture/DESIGN-DISCIPLINE.adoc[Design Discipline] (the charter)

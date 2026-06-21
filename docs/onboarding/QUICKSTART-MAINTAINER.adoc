@@ -1,130 +1,55 @@
 // SPDX-License-Identifier: MPL-2.0
 // Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
-// Template: QUICKSTART-MAINTAINER.adoc — packaging, deploying, and maintaining
-// Replace rsr-template-repo, panoply, {{DEPS}} with actuals
-= rsr-template-repo — Quick Start for Platform Maintainers
+// Last updated: 2026-06-21
+= Panoply — Quick Start for Maintainers
 :toc:
 :toclevels: 2
 
-== Overview
+== Read this first
 
-This guide covers packaging, deploying, and maintaining rsr-template-repo for
-distribution on your platform.
+The substantive maintainer education is the xref:../guide/for-maintainers.adoc[Maintainer
+guide] — how the envelope discipline functions as a *review gate*, and how to
+evaluate new projections, backends, and experimental features against it. This
+page is the operational entry point.
 
-== Runtime Dependencies
+== Honest status
 
-{{DEPS}}
+Design phase: there is no release to package yet. "Maintaining" Panoply today
+means *guarding the discipline* — keeping the charter, the docs, and the
+machine-readable state honest and consistent — not packaging a binary.
 
-== Build from Source
+== What you gate
 
-[source,bash]
-----
-git clone https://github.com/hyperpolymath/rsr-template-repo.git
-cd rsr-template-repo
-just build-release
-----
+* *Projections* — must elaborate accepted programs into Core + evidence + manifest,
+  or reject them; claimed equivalences must be witnessed.
+* *Backends* — must ship an explicit contract; the manifest is backend-relative.
+* *Experimental features* — may not borrow neighbours' claims; reject / downgrade
+  / mark outside-envelope.
+* *The charter* — amend via ADR (`docs/decisions/`), never weaken in code.
 
-Output: `{{BUILD_OUTPUT_PATH}}`
+== CI / governance gates
 
-== Packaging
+* Estate gates: `estate-rules`, `governance`, `openssf-compliance`,
+  `lint-workflows`. Keep the `hyperpolymath/standards` reusable pins fresh
+  (refresh to the current standards SHA when the staleness check flags them).
+* Hypatia neurosymbolic scan is *advisory* here: the current findings are
+  documented false positives on template scaffolding (see `.hypatia-ignore`) and
+  the check is non-blocking. Treat a *new* finding in changed files as signal.
 
-=== Guix
+== Honesty ledgers (keep distinct)
 
-[source,bash]
-----
-guix build -f guix.scm
-----
+* Implementation state — `.machine_readable/6a2/STATE.a2ml`,
+  xref:../status/READINESS.adoc[READINESS].
+* Metatheory state — xref:../status/PROOF-NEEDS.adoc[PROOF-NEEDS],
+  xref:../status/PROOF-STATUS.adoc[PROOF-STATUS]. Closing an implementation hole
+  is not proving soundness.
 
-=== Nix
+== Release
 
-[source,bash]
-----
-nix build
-----
+Gated by xref:../../AUDIT.adoc[AUDIT.adoc]. Before a release, confirm the
+manifest story is real end-to-end — that accepted programs genuinely project,
+carry evidence, and emit manifests.
 
-=== Container (Stapeln)
+== See also
 
-[source,bash]
-----
-just stapeln-export    # Generates Containerfile
-podman build -t rsr-template-repo .
-----
-
-=== Manual Package
-
-[source,bash]
-----
-just install --prefix=/usr/local
-----
-
-Files installed:
-
-[cols="1,2"]
-|===
-| Path | Contents
-
-| `$PREFIX/bin/`
-| Executables
-
-| `$PREFIX/share/panoply/`
-| Data files, assets
-
-| `$PREFIX/share/doc/panoply/`
-| Documentation
-
-| `$PREFIX/share/applications/`
-| .desktop file (Linux, if GUI)
-
-| `$PREFIX/share/man/man1/`
-| Man pages
-|===
-
-== Configuration
-
-Default config location: `$XDG_CONFIG_HOME/panoply/config.toml`
-
-Fallback: `$HOME/.config/panoply/config.toml`
-
-== Health Checks
-
-[source,bash]
-----
-just doctor            # Full diagnostic
-just run --version   # Version check
-just run --selftest  # Built-in self-test
-----
-
-== Updating
-
-[source,bash]
-----
-git pull
-just build-release
-just install --prefix=/usr/local
-----
-
-Or via OPSM: `opsm update panoply`
-
-== Security Notes
-
-* License: MPL-2.0 (Palimpsest License)
-* All dependencies SHA-pinned
-* `panic-attacker` scan results: link:INSTALL-SECURITY-REPORT.adoc[]
-* OpenSSF Scorecard: see badge in README
-
-== Multi-Instance Deployment
-
-For deploying multiple instances (e.g., different users or tenants):
-
-[source,bash]
-----
-just install --prefix=/opt/panoply-instance1 --config=/etc/panoply/instance1.toml
-just install --prefix=/opt/panoply-instance2 --config=/etc/panoply/instance2.toml
-----
-
-Each instance has isolated config, data, and logs.
-
-== Reporting Issues
-
-* Upstream: https://github.com/hyperpolymath/rsr-template-repo/issues
-* With diagnostic: `just help-me` (pre-fills context)
+* xref:../guide/for-maintainers.adoc[Maintainer guide] · xref:../../GOVERNANCE.adoc[Governance] · xref:../wikis/GLOSSARY.adoc[Glossary]

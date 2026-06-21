@@ -1,0 +1,38 @@
+// SPDX-License-Identifier: MPL-2.0
+// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
+= Projections (sketch)
+:icons: font
+
+[.lead]
+*Projections*, not faces. A surface syntax is a projection with obligations: it
+must elaborate every program it accepts into Core + evidence + manifest.
+
+[IMPORTANT]
+====
+*Not yet implemented.* Sketch area per the
+xref:../../docs/architecture/DESIGN-DISCIPLINE.adoc[charter]. No projection
+exists yet (design phase).
+====
+
+== Why "projection" and not "face"
+
+A *face* would be a surface that is trusted because it looks like the language.
+Panoply rejects that: a *projection* is accountable. It earns trust only by
+discharging its elaboration obligation, every time, or rejecting the program.
+
+== What will live here
+
+* Each surface syntax and its elaboration into Core.
+* The evidence and manifest each elaboration emits.
+* *Projection-equivalence witnesses* — explicit evidence that two projections
+  express the same program. Equivalence is never assumed from appearance.
+
+== Obligations
+
+* Accept ⇒ produce *all three* of Core, evidence, manifest; otherwise *reject*.
+* Apparent sameness across projections must be *witnessed*, not asserted.
+* A projection may not smuggle in a guarantee Core did not establish.
+
+== See also
+
+* xref:../core/README.adoc[Core] · xref:../../docs/guide/for-developers.adoc[For Developers] (adding a projection)

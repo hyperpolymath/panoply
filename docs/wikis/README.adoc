@@ -1,17 +1,48 @@
 // SPDX-License-Identifier: MPL-2.0
 // Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
-= Project Wikis
+// Last updated: 2026-06-21
+= Panoply Wiki
 :toc: preamble
 :icons: font
 
-This directory contains the source files for the project wiki. It is intended for long-form documentation, deep-dives, and community-maintained knowledge.
+The long-form, community knowledge hub for Panoply. For the structured,
+role-divided learning path, start with xref:../guide/README.adoc[the Learning
+Path]; this wiki is for deep-dives, cross-cutting notes, and the shared
+vocabulary.
 
-== Structure
+== Start here
 
-* **Core Concepts:** Fundamental architectural ideas.
-* **Workflows:** Step-by-step guides for contributors.
-* **Glossary:** Definitions of project-specific terminology.
+[cols="1,2",options="header"]
+|===
+| If you want… | Go to
 
-== Wiki Synchronization
+| The 60-second model + your role's track | xref:../guide/README.adoc[Learning Path]
+| The normative definition of Panoply | xref:../architecture/DESIGN-DISCIPLINE.adoc[Design Discipline] (charter)
+| How the charter maps to components | xref:../architecture/ARCHITECTURE.adoc[Architecture]
+| The vocabulary | xref:GLOSSARY.adoc[Glossary]
+| Why the discipline was adopted | xref:../decisions/0002-adopt-envelope-first-design-discipline.adoc[ADR-0002]
+|===
 
-Changes made here should be synchronised with the forge-hosted wiki (GitHub/GitLab) using the project's sync scripts.
+== Core concepts
+
+Panoply is three artefacts — a *checked Core*, *explicit evidence*, and a
+*safety-envelope manifest* — governed by one rule: _no guarantee without an
+envelope; no envelope without evidence; no composition without a composition
+rule_. The xref:GLOSSARY.adoc[Glossary] defines each term; the
+xref:../architecture/DESIGN-DISCIPLINE.adoc[charter] is the source of truth.
+
+== Audience map
+
+* *Users* — xref:../guide/for-users.adoc[for-users] (reading a manifest; what a guarantee means).
+* *Developers* — xref:../guide/for-developers.adoc[for-developers] (Core, projections, evidence, manifest, backends; the sketch areas).
+* *Maintainers* — xref:../guide/for-maintainers.adoc[for-maintainers] (the discipline as a review gate; governance).
+
+== Status
+
+Design phase: the charter is set; the mechanisms are not yet implemented. Pages
+here must not overclaim — keep the "not yet" visible, per the central rule.
+
+== Wiki synchronisation
+
+These `.adoc` sources are canonical. Changes should be synchronised to the
+forge-hosted wiki (GitHub/GitLab) via the project's sync scripts.

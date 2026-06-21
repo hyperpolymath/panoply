@@ -1,0 +1,71 @@
+// SPDX-License-Identifier: MPL-2.0
+// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
+// Last updated: 2026-06-21
+= Panoply — Learning Path
+:toc:
+:toc-placement: preamble
+
+This is the front door for *understanding* Panoply, not just running it. It is
+deliberately layered: read the 60-second model, then follow the track for your
+role. Everything here is grounded in the normative charter,
+xref:../architecture/DESIGN-DISCIPLINE.adoc[the Design Discipline]; where this
+guide and the charter disagree, the charter wins.
+
+== The 60-second model
+
+Panoply is *not* a surface language, a family of faces, or a global promise of
+safety. It is three artefacts:
+
+1. a *checked Core* — what every accepted program projects into;
+2. *explicit evidence* — the witnesses for the claims a program makes;
+3. a *safety-envelope manifest* — the per-program statement of which guarantees
+   were earned and which were not.
+
+And one rule that governs all of it:
+
+[quote]
+____
+No guarantee without an envelope. +
+No envelope without evidence. +
+No composition without a composition rule.
+____
+
+A Panoply program doesn't just "typecheck." It *projects* into Core, *carries
+evidence*, and *emits a manifest*. The manifest — not the absence of type
+errors — is the deliverable.
+
+== Pick your track
+
+[cols="1,2,1",options="header"]
+|===
+| You are… | You want to… | Start here
+
+| A *user*
+| consume a Panoply program and understand what its guarantees actually mean
+| xref:for-users.adoc[For Users]
+
+| A *developer*
+| build with Panoply — write a projection, a backend, or contribute to Core
+| xref:for-developers.adoc[For Developers]
+
+| A *maintainer*
+| govern the language — review projections/backends/features against the discipline
+| xref:for-maintainers.adoc[For Maintainers]
+|===
+
+== Beyond this guide
+
+* xref:../architecture/DESIGN-DISCIPLINE.adoc[Design Discipline] — the normative charter (the source of truth).
+* xref:../architecture/ARCHITECTURE.adoc[Architecture] — how the charter maps to components and where code will live.
+* xref:../decisions/0002-adopt-envelope-first-design-discipline.adoc[ADR-0002] — the decision adopting the discipline.
+* xref:../wikis/GLOSSARY.adoc[Glossary] — the vocabulary (Core, projection, evidence, envelope, manifest, backend contract, composition rule).
+
+== Honest status
+
+Panoply is at the *design* phase. The charter is in place; the mechanisms it
+names — the Core checker, evidence formats, the manifest schema, per-backend
+contracts, projection-equivalence witnesses — are *not yet implemented*. This
+guide therefore teaches the *model and obligations* you will work within, and
+points at the xref:../architecture/ARCHITECTURE.adoc[sketch areas] where each
+mechanism will be built. Per the central rule, the repository asserts no
+guarantee it cannot yet witness — and neither does this guide.

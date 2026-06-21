@@ -1,0 +1,15 @@
+# SPDX-License-Identifier: MPL-2.0
+---
+### [META]
+id: "source-unit-backends"
+level: 2
+parent: "../0.1-AI-MANIFEST.a2ml"
+
+---
+### [AI_MANIFEST]
+description: |
+  Backends (sketch): per-backend contracts and envelopes. Each backend upholds
+  only the guarantees its contract names; the manifest is backend-relative.
+  Not yet implemented (design phase).
+
+status: "sketch"

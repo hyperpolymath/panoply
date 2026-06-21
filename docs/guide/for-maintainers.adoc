@@ -1,0 +1,108 @@
+// SPDX-License-Identifier: MPL-2.0
+// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
+// Last updated: 2026-06-21
+= Panoply for Maintainers
+:toc:
+:toc-placement: preamble
+
+For people who *govern* Panoply: deciding what gets accepted into the language,
+and holding contributions to the discipline. Your job is to be the keeper of the
+central rule. This page turns the charter into review practice.
+
+== The discipline IS the review gate
+
+[quote]
+____
+No guarantee without an envelope. +
+No envelope without evidence. +
+No composition without a composition rule.
+____
+
+Read every change through these three clauses. Most review decisions reduce to
+"which clause is at risk here, and is it satisfied?"
+
+== Reviewing a new projection
+
+A projection is accountable. Reject it unless:
+
+* it elaborates *every* accepted program into Core *and* evidence *and* manifest;
+* programs it cannot fully elaborate are *rejected*, not silently dropped;
+* any claimed equivalence with an existing projection is *witnessed* (projection
+  evidence or a named envelope) — "it looks the same" is not an equivalence claim.
+
+The failure mode to watch for: a projection that accepts programs and produces
+Core but quietly omits the manifest. That is not a Panoply result; do not merge it.
+
+== Reviewing a new backend
+
+A backend earns trust only by an explicit *contract*. Reject it unless:
+
+* the contract enumerates the guarantees it upholds *and* the means for each
+  (check / proof / runtime discipline);
+* the contract is honest about what it *cannot* uphold;
+* the backend envelope omits source-stated guarantees the backend can't keep —
+  rather than letting them ride along unsupported.
+
+The failure mode to watch for: a guarantee silently inherited from the source
+across lowering, with nothing in the backend upholding it.
+
+== Reviewing experimental features
+
+Experimental work is allowed, but it *may not borrow stronger claims from
+neighbours*. For any unsupported combination, require exactly one of:
+
+* *reject* it, or
+* *downgrade* it (the manifest must reflect the weaker guarantee actually earned), or
+* *mark it outside-envelope* (accepted, flagged as carrying no Panoply guarantee).
+
+If a PR's net effect is "an experimental feature now appears proved because it
+sits next to a proved one," that is the drift the discipline exists to stop.
+
+== Composition
+
+Two enveloped components do not compose into a larger guarantee by adjacency.
+A combined guarantee holds only where a *named composition rule* says it holds,
+and only as strongly as that rule allows. When a PR asserts a whole-is-safe
+claim, ask for the composition rule by name.
+
+== Amending the charter
+
+The charter (`docs/architecture/DESIGN-DISCIPLINE.adoc`) is normative and
+*amendable*. When reality demands a change, reconcile it by a new ADR in
+`docs/decisions/` that supersedes or revises the relevant clause — never by
+quietly weakening behaviour in code while the charter still claims the stronger
+rule. Code and charter must not drift apart.
+
+== Honesty posture: implementation ≠ soundness
+
+Closing an implementation hole is not the same as proving soundness. Keep two
+ledgers distinct:
+
+* *implementation* state — what runs, tracked in `.machine_readable/6a2/STATE.a2ml`
+  and xref:../status/READINESS.adoc[READINESS];
+* *metatheory* state — what is mechanically proved, tracked in
+  xref:../status/PROOF-NEEDS.adoc[PROOF-NEEDS] / xref:../status/PROOF-STATUS.adoc[PROOF-STATUS].
+
+Load-bearing proof tracks carry no axiomatic escapes (no `Admitted`, no
+`believe_me`, no `unsafeCoerce`). Prefer an honest "not yet" over an inflated
+"done."
+
+== Governance & CI gates
+
+* Estate governance/anti-pattern checks gate PRs (`estate-rules`, `governance`,
+  `openssf-compliance`, `lint-workflows`). Keep `standards`-reusable pins fresh.
+* The Hypatia neurosymbolic scan is advisory here: its current findings are
+  documented false positives on template scaffolding (see the repo's
+  `.hypatia-ignore`); it is non-blocking. Treat a *new* finding in changed files
+  as signal; treat the known residual as noise.
+
+== Release readiness
+
+A release is gated by `AUDIT.adoc`. Before cutting one, confirm the manifest
+story is real end-to-end: that accepted programs genuinely project, carry
+evidence, and emit manifests — not that the type-checker merely stayed quiet.
+
+== See also
+
+* xref:for-developers.adoc[For Developers] · xref:../architecture/DESIGN-DISCIPLINE.adoc[Design Discipline]
+* xref:../../GOVERNANCE.adoc[Governance] · xref:../../AUDIT.adoc[Audit gate]

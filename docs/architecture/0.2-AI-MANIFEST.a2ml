@@ -13,6 +13,7 @@ description: |
 
 canonical_locations:
   design_discipline: "DESIGN-DISCIPLINE.adoc"
+  architecture: "ARCHITECTURE.adoc"
   threat_model: "THREAT-MODEL.adoc"
   topology: "TOPOLOGY.adoc"
 
