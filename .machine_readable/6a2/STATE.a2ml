@@ -20,13 +20,17 @@ phase = "design"           # design | implementation | testing | maintenance | a
 maturity = "experimental"  # experimental | alpha | beta | production | lts
 
 [route-to-mvp]
+# Sketch areas exist under src/{core,evidence,manifest,projections,backends}/ and
+# docs/architecture/ARCHITECTURE.adoc; the learning path is docs/guide/.
 milestones = [
   { name = "Charter: envelope-first design discipline (docs/architecture/DESIGN-DISCIPLINE.adoc + ADR-0002)", completion = 100 },
-  { name = "Core: the checked core language and its checker", completion = 0 },
-  { name = "Evidence: witness formats for claims (proof / check / runtime discipline)", completion = 0 },
-  { name = "Manifest: per-program, per-backend safety-envelope manifest schema", completion = 0 },
-  { name = "Projections: first surface projection + projection-equivalence witnesses", completion = 0 },
-  { name = "Backend contracts: first backend envelope and its contract", completion = 0 },
+  { name = "Docs foundation: learning path, architecture map, sketch areas, glossary", completion = 100 },
+  { name = "Core: the checked core language and its checker", completion = 0, issue = 5 },
+  { name = "Evidence: witness formats for claims (proof / check / runtime discipline)", completion = 0, issue = 6 },
+  { name = "Manifest: per-program, per-backend safety-envelope manifest schema", completion = 0, issue = 7 },
+  { name = "Projections: first surface projection + projection-equivalence witnesses", completion = 0, issue = 8 },
+  { name = "Backend contracts: first backend envelope and its contract", completion = 0, issue = 9 },
+  { name = "Proofs: mechanize the first metatheory obligation", completion = 0, issue = 10 },
 ]
 
 [blockers-and-issues]
@@ -35,10 +39,10 @@ milestones = [
 
 [critical-next-actions]
 actions = [
-  "Specify the Core: abstract syntax, typing/checking judgements, and the projection target.",
-  "Specify the evidence model: what counts as a witness for each guarantee class.",
-  "Specify the manifest schema: how earned and un-earned guarantees are recorded per backend.",
-  "Define the first backend contract and what guarantees it can uphold.",
+  "Specify the Core: abstract syntax, typing/checking judgements, and the projection target (#5).",
+  "Specify the evidence model: what counts as a witness for each guarantee class (#6).",
+  "Specify the manifest schema: how earned and un-earned guarantees are recorded per backend (#7).",
+  "Define the first backend contract and what guarantees it can uphold (#9).",
 ]
 
 [maintenance-status]
