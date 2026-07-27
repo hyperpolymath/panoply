@@ -177,7 +177,7 @@ Real-world external feedback confirming value. Populate
 
 * `docs/governance/CRG-CRITERIA.adoc` — grade definitions (boilerplate).
 * `docs/governance/CRG-AUDIT-<DATE>.adoc` — formal audit (populate from
-  `rsr-template-repo/docs/governance/CRG-AUDIT-TEMPLATE.adoc`).
+  `docs/governance/CRG-AUDIT-TEMPLATE.adoc`).
 * `docs/practice/DOGFOOD-LOG.adoc` — dated dogfood evidence (required for C).
 * `.machine_readable/6a2/STATE.a2ml` — authoritative state (canonical keys
   `[dogfooding-status]`, `[external-targets]`, `[issues-fed-back]`,

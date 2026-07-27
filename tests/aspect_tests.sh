@@ -68,7 +68,7 @@ fi
 bold "Aspect 2: Dangerous patterns"
 
 # Idris2 dangerous patterns
-DANGEROUS_IDRIS=$(grep -rn 'believe_me\|assert_total\|really_believe_me' src/abi/ 2>/dev/null | grep -v "^Binary" | grep -v "test" || true)
+DANGEROUS_IDRIS=$(grep -rn 'believe_me\|assert_total\|really_believe_me' src/interface/Abi/ 2>/dev/null | grep -v "^Binary" | grep -v "test" || true)
 if [ -n "$DANGEROUS_IDRIS" ]; then
     fail "Dangerous Idris2 patterns found:"
     echo "$DANGEROUS_IDRIS" | head -5
