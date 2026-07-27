@@ -7,7 +7,9 @@
 ;;   guix shell -D -f guix.scm    # Enter development shell
 ;;   guix build -f guix.scm       # Build package
 ;;
-;; TODO: Replace Panoply and customize inputs for your language/stack.
+;; TODO: wire real build/check phases and native/runtime inputs once the
+;; Core/Evidence/Manifest artefacts land (currently text-level placeholders
+;; only — no guix toolchain was available locally to verify a real build).
 ;; See: https://guix.gnu.org/manual/en/html_node/Defining-Packages.html
 
 (use-modules (guix packages)
@@ -18,7 +20,7 @@
              (gnu packages base))
 
 (package
-  (name "Panoply")
+  (name "panoply")
   (version "0.1.0")
   (source (local-file "." "source"
                        #:recursive? #t
@@ -63,9 +65,15 @@
    (list
     ;; TODO: Add runtime dependencies
     ))
-  (home-page "https://github.com/hyperpolymath/Panoply")
+  (home-page "https://github.com/hyperpolymath/panoply")
   (synopsis "An envelope-first language discipline: every safety claim explicit, scoped, inspectable, and mechanically accountable.")
-  (description "RSR-compliant project. See README.adoc for details.")
+  (description "Panoply is defined by three artefacts: a checked Core into
+which every accepted program projects, explicit evidence for the claims a
+program makes, and a safety-envelope manifest recording which guarantees
+have been earned and which have not.  It is not yet feature-complete; the
+Core checker, evidence formats, manifest schema, and backend contracts
+named by the charter are still being built.  See README.adoc and
+docs/architecture/DESIGN-DISCIPLINE.adoc for details.")
   (license (list
             ;; MPL-2.0 extends MPL-2.0
             mpl2.0)))

@@ -9,16 +9,18 @@ Get up and running in 60 seconds.
 
 * Git 2.40+
 * just (command runner)
-* Your language toolchain (see Justfile for details)
+* Idris2 0.7.0+
+* Zig 0.16.0+
 
-== From Template (New Project)
+== Get panoply Running
 
 [source,bash]
 ----
-git clone https://github.com/hyperpolymath/rsr-template-repo my-project
-cd my-project
-rm -rf .git && git init -b main
-just init       # interactive placeholder replacement
+git clone https://github.com/hyperpolymath/panoply
+cd panoply
+just deps        # verify idris2/zig/just are on PATH
+just build       # idris2 --build abi.ipkg + zig build
+just test        # idris2 --typecheck abi.ipkg + zig build test
 ----
 
 == Project Structure

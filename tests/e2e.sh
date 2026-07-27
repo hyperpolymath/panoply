@@ -69,62 +69,56 @@ echo ""
 # ─── Preflight ───────────────────────────────────────────────────────
 bold "Preflight checks"
 
-# TODO: Check that your binary/server is built
-# Example:
-# BINARY="$PROJECT_DIR/target/release/my-tool"
-# if [ ! -f "$BINARY" ]; then
-#     red "Binary not found at $BINARY — run 'just build' first"
-#     exit 1
-# fi
-# green "  Binary found: $BINARY"
+if command -v idris2 >/dev/null 2>&1; then
+    green "  Found idris2: $(idris2 --version 2>&1 | head -1)"
+else
+    red "idris2 not found on PATH"
+    exit 1
+fi
 
-# TODO: Check dependencies
-# command -v curl >/dev/null 2>&1 || { red "curl not found"; exit 1; }
-# command -v jq >/dev/null 2>&1   || { red "jq not found"; exit 1; }
+if command -v zig >/dev/null 2>&1; then
+    green "  Found zig: $(zig version)"
+else
+    red "zig not found on PATH"
+    exit 1
+fi
 
 echo ""
 
 # ═══════════════════════════════════════════════════════════════════════
-# TODO: Add your E2E test sections below. Examples:
+# Section 1: Idris2 ABI build
 # ═══════════════════════════════════════════════════════════════════════
+bold "Section 1: Idris2 ABI (abi.ipkg)"
 
-# ─── Example: CLI tool E2E ───────────────────────────────────────────
-# bold "Section 1: CLI happy path"
-# OUTPUT=$($BINARY --help 2>&1)
-# check "help flag works" "Usage:" "$OUTPUT"
-#
-# OUTPUT=$($BINARY process input.txt --output /tmp/e2e-output.json 2>&1)
-# check "process command succeeds" "complete" "$OUTPUT"
-#
-# OUTPUT=$(cat /tmp/e2e-output.json)
-# check "output is valid JSON" '"status"' "$OUTPUT"
+cd "$PROJECT_DIR"
+ABI_OUTPUT=$(idris2 --build abi.ipkg 2>&1)
+ABI_STATUS=$?
+if [ "$ABI_STATUS" -eq 0 ]; then
+    green "  PASS: idris2 --build abi.ipkg"
+    PASS=$((PASS + 1))
+else
+    red "  FAIL: idris2 --build abi.ipkg"
+    echo "$ABI_OUTPUT" | tail -20
+    FAIL=$((FAIL + 1))
+fi
 
-# ─── Example: Server E2E ────────────────────────────────────────────
-# bold "Section 2: Server lifecycle"
-# $BINARY serve --port 9999 &
-# SERVER_PID=$!
-# trap "kill $SERVER_PID 2>/dev/null" EXIT
-# sleep 2
-#
-# STATUS=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:9999/health)
-# check_status "health endpoint" "200" "$STATUS"
-#
-# BODY=$(curl -s http://localhost:9999/health)
-# check "health response" '"status":"ok"' "$BODY"
-#
-# kill $SERVER_PID 2>/dev/null
+# ═══════════════════════════════════════════════════════════════════════
+# Section 2: Zig FFI build + test
+# ═══════════════════════════════════════════════════════════════════════
+bold "Section 2: Zig FFI (src/interface/ffi)"
 
-# ─── Example: VeriSimDB integration ─────────────────────────────────
-# bold "Section 3: VeriSimDB persistence"
-# VERISIM_URL="${VERISIM_API_URL:-http://localhost:9090}"
-# if ! curl -sf "$VERISIM_URL/health" >/dev/null 2>&1; then
-#     skip_test "VeriSimDB integration" "gateway not available"
-# else
-#     STATUS=$(curl -s -o /dev/null -w "%{http_code}" -X POST "$VERISIM_URL/api/v1/hexads" \
-#         -H "Content-Type: application/json" \
-#         -d '{"tool":"PANOPLY","modality":"document","content":"e2e test"}')
-#     check_status "hexad POST" "201" "$STATUS"
-# fi
+cd "$PROJECT_DIR/src/interface/ffi"
+ZIG_OUTPUT=$(zig build test --summary all 2>&1)
+ZIG_STATUS=$?
+if [ "$ZIG_STATUS" -eq 0 ]; then
+    green "  PASS: zig build test"
+    PASS=$((PASS + 1))
+else
+    red "  FAIL: zig build test"
+    echo "$ZIG_OUTPUT" | tail -40
+    FAIL=$((FAIL + 1))
+fi
+cd "$PROJECT_DIR"
 
 # ═══════════════════════════════════════════════════════════════════════
 # Summary
