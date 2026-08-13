@@ -15,11 +15,13 @@ K9!
 
 # The component's pedigree (self-description across five layers)
 let component_pedigree = {
+    name = "deploy.k9.ncl",
+    security = { leash = 'Yard },
   # ─────────────────────────────────────────────────────────────
   # L1: The Snout — Identity
   # ─────────────────────────────────────────────────────────────
   metadata = {
-    name = "panoply-deploy",
+    
     version = "0.1.0",
     breed = "application/vnd.k9+nickel",
     magic_number = "K9!",
