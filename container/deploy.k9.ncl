@@ -1,4 +1,3 @@
-K9!
 # SPDX-License-Identifier: MPL-2.0
 # deploy.k9.ncl — Panoply deployment component (Hunt level)
 #
@@ -40,7 +39,6 @@ let component_pedigree = {
   # L3: The Leash — Security
   # ─────────────────────────────────────────────────────────────
   security = {
-    leash = 'Hunt,
     trust_level = 'Hunt,
     allow_network = true,
     allow_filesystem_write = true,

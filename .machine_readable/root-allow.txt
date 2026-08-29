@@ -20,12 +20,9 @@ AFFIRMATION.adoc           # dated/signed honesty snapshot (README/EXPLAINME/AFF
 GOVERNANCE.adoc            # governance model (validator accepts root or docs/governance/)
 MAINTAINERS.adoc           # maintainer roster
 CONTRIBUTING.md            # REQUIRED AT ROOT by scorecard-enforcer/openssf-compliance/quality CI (test -f, no .github fallback). The fuller copy in .github/ is GitHub's auto-discovery convention; dedupe is an owner decision (would need those CI checks updated to accept .github/).
-CONTRIBUTING.adoc          # canonical AsciiDoc contribution guide
 SECURITY.md                # REQUIRED AT ROOT by scorecard-enforcer CI + the security-policy contractile (test -f SECURITY.md). See CONTRIBUTING.md note re: the .github/ copy.
-SECURITY.adoc              # canonical AsciiDoc security policy
 LICENSE
 CHANGELOG.md
-CHANGELOG.adoc             # canonical AsciiDoc project change history
 
 # ─── Build entry points (must live at root for their tooling) ────────────────
 Justfile                   # delegates phases to build/just/*.just
@@ -44,7 +41,6 @@ abi.ipkg                   # Idris2 package for the ABI seam; sourcedir=src/inte
 .devcontainer/             # VS Code dev container spec; tool-required at root
 .git/
 .github/                   # CONTRIBUTING.md, CODE_OF_CONDUCT.md, SECURITY.md, workflows/
-.githooks/                 # repository validation hooks
 LICENSES/                  # REUSE/SPDX licence texts (LICENSES/MPL-2.0.txt)
 .machine_readable/         # AI manifests, contractiles, custom-format configs
 .well-known/
