@@ -4,7 +4,7 @@
 #
 # validate-k9.sh — K9 configuration file validation script
 #
-# Scans for .k9 and .k9.ncl files and validates:
+# Scans for Nickel K9 contractiles (.k9.ncl) and validates:
 #   1. K9! magic number on line 1
 #   2. Pedigree block presence with required fields (name, version)
 #   3. Security level is one of: kennel, yard, hunt (case-insensitive)
@@ -179,7 +179,8 @@ validate_k9() {
         # brace, depth started at 0, and the first nested block's close
         # prematurely terminated the validator's view of the pedigree —
         # making `pedigree.metadata.name` invisible.
-        if [[ "$line" =~ ^[[:space:]]*pedigree[[:space:]]*= ]]; then
+        if [[ "$line" =~ ^[[:space:]]*pedigree[[:space:]]*= ]] || \
+           [[ "$line" =~ ^[[:space:]]*let[[:space:]]+[[:alnum:]_]*pedigree[[:space:]]*=[[:space:]]*\{ ]]; then
             has_pedigree=true
             in_pedigree=true
             pedigree_depth=0
@@ -292,11 +293,12 @@ validate_k9() {
 # ---------------------------------------------------------------------------
 
 echo "::group::K9 Configuration Validation"
-echo "Scanning ${SCAN_PATH} for K9 files (.k9, .k9.ncl)..."
+echo "Scanning ${SCAN_PATH} for Nickel K9 contractiles (.k9.ncl)..."
 echo ""
 
-# Find all K9 files, excluding .git directory
-mapfile -t k9_candidates < <(find "$SCAN_PATH" \( -name '*.k9' -o -name '*.k9.ncl' \) -not -path '*/.git/*' -type f | sort)
+# Plain .k9 files are session-policy YAML, not Nickel K9 contractiles.
+# Validate only the application/vnd.k9+nickel form documented by this repo.
+mapfile -t k9_candidates < <(find "$SCAN_PATH" -name '*.k9.ncl' -not -path '*/.git/*' -type f | sort)
 
 # Apply paths-ignore filter
 k9_files=()

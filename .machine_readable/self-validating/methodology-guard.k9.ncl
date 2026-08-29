@@ -1,3 +1,4 @@
+K9!
 # SPDX-License-Identifier: MPL-2.0
 # Copyright (c) 2026 Jonathan D.A. Jewell (hyperpolymath) <j.d.a.jewell@open.ac.uk>
 #
@@ -64,4 +65,22 @@ let methodology_guard = {
     },
   },
 }
-in methodology_guard
+in {
+  pedigree = {
+    schema_version = "1.0.0",
+    component_type = "methodology-validator",
+    security = {
+      leash = 'Yard,
+      trust_level = "validated-configuration",
+      allow_network = false,
+      allow_filesystem_write = false,
+      allow_subprocess = false,
+    },
+    metadata = {
+      name = "methodology-guard",
+      version = "1.0.0",
+      description = "Validates declared repository methodology constraints",
+    },
+  },
+  guard = methodology_guard,
+}
