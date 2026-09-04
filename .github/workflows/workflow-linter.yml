@@ -63,23 +63,12 @@ jobs:
           echo "All workflows have permissions declared"
 
       - name: Check SHA-Pinned Actions
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
-          echo "=== Checking Action Pinning ==="
-          # Find any uses: lines that don't have @SHA format
-          # Pattern: uses: owner/repo@<40-char-hex>
-          unpinned=$(grep -rnE "^[[:space:]]+uses:" .github/workflows/ | \
-            grep -v "@[a-f0-9]\{40\}" | \
-            grep -v "uses: \./\|uses: docker://\|uses: actions/github-script" || true)
-
-          if [ -n "$unpinned" ]; then
-            echo "ERROR: Found unpinned actions:"
-            echo "$unpinned"
-            echo ""
-            echo "Replace version tags with SHA pins, e.g.:"
-            echo "  uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v6.0.1"
-            exit 1
-          fi
-          echo "All actions are SHA-pinned"
+          # The lockfile is the pin authority for direct and transitive actions.
+          gh extension install github/gh-actions-lock --pin v0.1.6
+          gh actions-lock --verify-local
 
       - name: Check for Duplicate Workflows
         run: |
