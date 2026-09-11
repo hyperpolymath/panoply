@@ -83,38 +83,29 @@ import? "build/just/assess.just"
 # Build the project (debug mode)
 build *args:
     @echo "Building {{project}} (debug)..."
-    # TODO: Replace with your build command
-    # Examples:
-    #   cargo build {{args}}                    # Rust
-    #   mix compile {{args}}                    # Elixir
-    #   zig build {{args}}                      # Zig
-    #   deno task build {{args}}                # Deno/ReScript
+    idris2 --build abi.ipkg
+    cd src/interface/ffi && zig build {{args}}
     @echo "Build complete"
 
 # Build in release mode with optimizations
 build-release *args:
     @echo "Building {{project}} (release)..."
-    # TODO: Replace with your release build command
-    # Examples:
-    #   cargo build --release {{args}}
-    #   MIX_ENV=prod mix compile {{args}}
-    #   zig build -Doptimize=ReleaseFast {{args}}
+    idris2 --build abi.ipkg
+    cd src/interface/ffi && zig build -Doptimize=ReleaseFast {{args}}
     @echo "Release build complete"
 
 # Build and watch for changes (requires entr or similar)
 build-watch:
     @echo "Watching for changes..."
-    # TODO: Customize file patterns for your language
-    # Examples:
-    #   find src -name '*.rs' | entr -c just build
-    #   mix compile --force --warnings-as-errors
-    #   deno task dev
+    find src -name '*.idr' -o -name '*.zig' | entr -c just build
 
 # Clean build artifacts [reversible: rebuild with `just build`]
+# NOTE: does NOT touch the tracked root `build/` directory (imported by
+# this Justfile — see the `import?` lines below) — only real generated
+# artifacts: Zig's cache/output and Idris2's compiled .ttc under build/ttc/.
 clean:
     @echo "Cleaning..."
-    # TODO: Customize for your build system
-    rm -rf target/ _build/ build/ dist/ out/ obj/ bin/
+    rm -rf src/interface/ffi/.zig-cache src/interface/ffi/zig-out .zig-cache zig-out build/ttc
 
 # Deep clean including caches [reversible: rebuild]
 clean-all: clean
@@ -127,63 +118,38 @@ clean-all: clean
 # Run all tests
 test *args:
     @echo "Running tests..."
-    # TODO: Replace with your test command
-    # Examples:
-    #   cargo test {{args}}
-    #   mix test {{args}}
-    #   zig build test {{args}}
-    #   deno test {{args}}
+    idris2 --typecheck abi.ipkg
+    cd src/interface/ffi && zig build test {{args}}
     @echo "Tests passed!"
 
 # Run tests with verbose output
 test-verbose:
     @echo "Running tests (verbose)..."
-    # TODO: Replace with verbose test command
+    idris2 --typecheck abi.ipkg
+    cd src/interface/ffi && zig build test --summary all
 
-# Smoke test
+# Smoke test — compiles but does not run
 test-smoke:
     @echo "Smoke test..."
-    # TODO: Add basic sanity checks
+    cd src/interface/ffi && zig build
 
 # Run end-to-end tests (full pipeline: build → run → verify)
 e2e:
     @echo "Running E2E tests..."
-    # TODO: Replace with your E2E test command. Examples:
-    #   bash tests/e2e.sh                    # Shell-based E2E
-    #   npx playwright test                  # Browser E2E
-    #   mix test test/integration/e2e_test.exs  # Elixir E2E
-    #   cargo test --test end_to_end         # Rust E2E
-    @echo "E2E tests passed!"
+    bash tests/e2e.sh
 
 # Run aspect tests (cross-cutting concern validation)
 aspect:
     @echo "Running aspect tests..."
-    # TODO: Replace with your aspect test command. Examples:
-    #   bash tests/aspect_tests.sh           # Shell-based aspect tests
-    #   cargo test --test aspects             # Rust aspect tests
     # Aspect tests validate architectural invariants:
-    #   - Thread safety (mutex in FFI modules)
-    #   - ABI/FFI contract (declarations match exports)
     #   - SPDX compliance (all files have license headers)
-    #   - No dangerous patterns (believe_me, assert_total, etc.)
-    @echo "Aspect tests passed!"
+    #   - No dangerous patterns (believe_me, assert_total, sorry, Admitted, etc.)
+    bash tests/aspect_tests.sh
 
 # Run benchmarks (performance regression detection)
 bench:
     @echo "Running benchmarks..."
-    # TODO: Replace with your benchmark command. Examples:
-    #   cargo bench                           # Rust criterion
-    #   zig build bench                       # Zig benchmarks
-    #   mix run bench/benchmarks.exs          # Elixir benchee
-    #   deno bench                            # Deno bench
-    @echo "Benchmarks complete!"
-
-# Run readiness tests (Component Readiness Grade: D/C/B)
-readiness:
-    @echo "Running readiness tests..."
-    # TODO: Replace with your readiness test command. Examples:
-    #   cargo test --test readiness -- --nocapture
-    @echo "Readiness tests complete!"
+    bash benches/template_bench.sh
 
 # Print the current CRG grade (reads from READINESS.md '**Current Grade:** X' line)
 crg-grade:
@@ -209,7 +175,7 @@ crg-badge:
 
 # Run the full merge-requirement test suite (ALL categories)
 # Per STANDING rule: P2P + E2E + aspect + execution + lifecycle + bench
-test-all: test e2e aspect bench readiness
+test-all: test e2e aspect bench
     @echo "All test categories passed — safe to merge!"
 
 # Run all quality checks
@@ -227,49 +193,30 @@ fix: fmt
 # Format all source files [reversible: git checkout]
 fmt:
     @echo "Formatting source files..."
-    # TODO: Replace with your formatter
-    # Examples:
-    #   cargo fmt
-    #   mix format
-    #   gleam format
-    #   deno fmt
+    zig fmt src/interface/ffi
 
 # Check formatting without changes
 fmt-check:
     @echo "Checking formatting..."
-    # TODO: Replace with your format check
-    # Examples:
-    #   cargo fmt --check
-    #   mix format --check-formatted
-    #   gleam format --check
+    zig fmt --check src/interface/ffi
 
-# Run linter
+# Run linter — no separate Idris2/Zig linter exists; both compilers surface
+# real warnings/errors on typecheck/build, so use those as the lint gate.
 lint:
     @echo "Linting source files..."
-    # TODO: Replace with your linter
-    # Examples:
-    #   cargo clippy -- -D warnings
-    #   mix credo --strict
-    #   gleam check
+    idris2 --typecheck abi.ipkg
+    cd src/interface/ffi && zig build
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # RUN & EXECUTE
 # ═══════════════════════════════════════════════════════════════════════════════
-
-# Run the application
-run *args: build
-    # TODO: Replace with your run command
-    echo "Run not configured yet"
-
-# Run with verbose output
-run-verbose *args: build
-    # TODO: Replace with verbose run command
-    echo "Run not configured yet"
+# NOTE: panoply is a library (Idris2 ABI + Zig FFI), not an executable — there
+# is no `run` recipe. Use `just build`/`just test` instead.
 
 # Install to user path
-install: build-release
+install prefix="~/.local": build-release
     @echo "Installing {{project}}..."
-    # TODO: Replace with your install command
+    cd src/interface/ffi && zig build --prefix {{prefix}} -Doptimize=ReleaseFast
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # DEPENDENCIES
@@ -278,12 +225,9 @@ install: build-release
 # Install/check all dependencies
 deps:
     @echo "Checking dependencies..."
-    # TODO: Replace with your dependency check
-    # Examples:
-    #   cargo check
-    #   mix deps.get
-    #   gleam deps download
-    @echo "All dependencies satisfied"
+    @command -v idris2 >/dev/null 2>&1 && echo "  [OK] idris2" || echo "  [FAIL] idris2 not found"
+    @command -v zig >/dev/null 2>&1 && echo "  [OK] zig" || echo "  [FAIL] zig not found"
+    @command -v just >/dev/null 2>&1 && echo "  [OK] just" || echo "  [FAIL] just not found"
 
 # Audit dependencies for vulnerabilities
 deps-audit:
@@ -681,7 +625,7 @@ assail:
 
 # Self-diagnostic — checks dependencies, permissions, paths
 doctor:
-    @echo "Running diagnostics for rsr-template-repo..."
+    @echo "Running diagnostics for panoply..."
     @echo "Checking required tools..."
     @command -v just >/dev/null 2>&1 && echo "  [OK] just" || echo "  [FAIL] just not found"
     @command -v git >/dev/null 2>&1 && echo "  [OK] git" || echo "  [FAIL] git not found"
@@ -691,7 +635,7 @@ doctor:
 
 # Guided tour of key features
 tour:
-    @echo "=== rsr-template-repo Tour ==="
+    @echo "=== panoply Tour ==="
     @echo ""
     @echo "1. Project structure:"
     @ls -la
@@ -706,12 +650,12 @@ tour:
 
 # Open feedback channel with diagnostic context
 help-me:
-    @echo "=== rsr-template-repo Help ==="
+    @echo "=== panoply Help ==="
     @echo "Platform: $(uname -s) $(uname -m)"
     @echo "Shell: $SHELL"
     @echo ""
     @echo "To report an issue:"
-    @echo "  https://github.com/hyperpolymath/rsr-template-repo/issues/new"
+    @echo "  https://github.com/hyperpolymath/panoply/issues/new"
     @echo ""
     @echo "Include the output of 'just doctor' in your report."
 

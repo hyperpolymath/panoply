@@ -1,118 +1,52 @@
 // SPDX-License-Identifier: CC-BY-SA-4.0
 // Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
-= TEST-NEEDS: rsr-template-repo
+= TEST-NEEDS: panoply
 
-== CRG Grade: C — ACHIEVED 2026-04-04
+== Current State
 
-== Current State (Updated 2026-04-04)
+Panoply is at the design phase (see `.machine_readable/6a2/STATE.a2ml`):
+the Core, Evidence, and Manifest artefacts described by the charter are not
+yet implemented. Test infrastructure at this stage necessarily covers the
+Idris2 ABI / Zig FFI scaffold, not language semantics.
 
 [cols="2,1,4", options="header"]
 |===
 | Category | Count | Details
 
-| *Source modules* | 6 | 3 Idris2 ABI (Foreign, Layout, Types), 2 Zig FFI (build, main), 1 Zig integration test template
-| *Unit tests* | 0 | None in main source (inline tests in main.zig)
-| *Integration tests* | 1 | `test/integration_test.zig` (documented template, 1 placeholder test)
-| *E2E tests* | 1 | `tests/e2e/template_instantiation_test.sh` (full instantiation + validation)
-| *Workflow tests* | 1 | `tests/workflows/validate_workflows_test.sh` (21 workflows validated)
-| *Validation tests* | 1 | `scripts/validate-template.sh` (8-phase comprehensive validation)
-| *Benchmarks* | 5 | `benches/template_bench.sh` (validation, Zig build, tests, workflows, instantiation)
-| *Fuzz tests* | 0 | `README.adoc` scaffold with harness instructions
+| *Source modules* | 3 | Idris2 ABI (`src/interface/Abi/{Types,Layout,Foreign}.idr`)
+| *FFI modules* | 1 | `src/interface/ffi/src/main.zig` (11 exported functions)
+| *Unit tests* | 3 | Inline `test` blocks in `main.zig` (lifecycle, error handling, version)
+| *Integration tests* | 15 | `src/interface/ffi/test/integration_test.zig` — exercises every exported FFI function (lifecycle, process, process_array incl. null-buffer, strings, version/build_info, error handling, callbacks)
+| *E2E tests* | 1 | `tests/e2e.sh` — preflight (idris2/zig on PATH) + `idris2 --build abi.ipkg` + `zig build test`
+| *Aspect tests* | 1 | `tests/aspect_tests.sh` — SPDX header coverage + dangerous-pattern scan (real gate; currently reports one known false positive on doc prose mentioning "Admitted"/"sorry")
+| *Workflow tests* | 1 | `tests/workflows/validate_workflows_test.sh`
+| *Benchmarks* | 3 | `benches/template_bench.sh` (Zig build, Zig tests, workflow validation)
+| *Fuzz tests* | 0 | `verification/fuzzing/` scaffold present; no harness wired yet
 |===
 
-== Completed Work (CRG C - Testing & Benchmarking)
+== Verified 2026-07-27
 
-=== Template Validation Script ✅
+* `zig fmt --check .` — exit 0
+* `idris2 --build abi.ipkg` — exit 0 (builds `Abi.Types`, `Abi.Layout`, `Abi.Foreign`)
+* `cd src/interface/ffi && zig build` — exit 0
+* `zig build test --summary all` — exit 0, 20/20 tests pass (3 unit + 17 integration checks across 15 `test` blocks)
+* `bash tests/e2e.sh` — PASS=2 FAIL=0
+* `bash tests/aspect_tests.sh` — PASS=2 FAIL=1 (the known Admitted/sorry doc-prose false positive above)
 
-* [x] `scripts/validate-template.sh` — 8-phase validation
-** Phase 1: Core repository structure (root files, directories)
-** Phase 2: Machine-readable metadata (`.machine_readable/`)
-** Phase 3: GitHub Actions workflows (17 required + all present)
-** Phase 4: Idris2 ABI and Zig FFI source files
-** Phase 5: Placeholder token replacement (skipped in template)
-** Phase 6: SPDX license headers (100% coverage, 6/6 files)
-** Phase 7: Build system verification (`zig build` + `idris2` syntax check)
-** Phase 8: Documentation requirements (TOPOLOGY, ABI-FFI-README, etc)
-* Status: *PASSING* (0 errors, 3 warnings about template placeholders)
+== What was removed
 
-=== E2E Template Instantiation Test ✅
+The template-distribution machinery that does not apply to an instantiated
+downstream repository has been removed:
 
-* [x] `tests/e2e/template_instantiation_test.sh` — full workflow
-** Clones template to temp directory
-** Replaces all `{{PLACEHOLDER}}` tokens with test values
-** Validates resulting structure with `scripts/validate-template.sh`
-** Verifies Zig build works after instantiation
-** Checks no remaining placeholders
-** Cleans up temp directory
-* Status: *READY TO TEST* (can be verified by CI)
+* `scripts/validate-template.sh` (8-phase template-distribution validator)
+* `tests/e2e/template_instantiation_test.sh` (clone-and-substitute E2E test)
 
-=== Workflow Validation Test ✅
+`benches/template_bench.sh` had benchmark sections gated on both scripts;
+those sections were removed and the remaining benchmarks (Zig build, Zig
+test, workflow validation) were kept and renumbered.
 
-* [x] `tests/workflows/validate_workflows_test.sh`
-** Validates all 21 workflows exist and have proper structure
-** Checks SPDX headers, `name` field
-** Verifies all 15 required workflows present
-* Status: *PASSING* (0 errors, 15/15 required workflows found)
+== Next Steps
 
-=== Zig FFI Tests ✅
-
-* [x] `src/interface/ffi/test/integration_test.zig` — template with examples
-** Converted from `panoply` placeholders to "template" namespace
-** Added comprehensive comments for how to instantiate
-** Tests grouped by category (lifecycle, operations, strings, errors, version, memory safety, threading)
-** Compiles and passes placeholder test
-* Status: *PASSING* (1 test: `placeholder_test_implementation_required` passes)
-
-=== Benchmarks ✅
-
-* [x] `benches/template_bench.sh` — 5 benchmark suites
-** Validation script: ~5.8s average (3 runs)
-** Zig build: ~19ms (clean build)
-** Zig tests: ~20ms
-** Workflow validation: ~117ms
-** Template instantiation: ~427ms
-* Formats: human, json, csv
-* Status: *PASSING* (all benchmarks execute)
-
-=== Build System ✅
-
-* [x] `src/interface/ffi/build.zig` — updated for Zig 0.15.2
-** Simplified to test-only configuration
-** Supports both unit tests and integration tests
-** Works with `zig build` without errors
-* Status: *PASSING* (builds successfully)
-
-== Test Results Summary
-
-----
-Validation Script:    PASS (0 errors, 3 warnings)
-Workflow Validation:  PASS (21/21 workflows valid)
-Integration Tests:    PASS (1/1 placeholder test)
-E2E Instantiation:    READY (needs CI confirmation)
-Benchmarks:           PASS (5/5 benchmark suites)
-Build System:         PASS (zig build succeeds)
-----
-
-== CRG C Compliance
-
-* *Coverage*: 6/6 test categories (unit, integration, E2E, workflow, validation, benchmarks)
-* *Documentation*: All test files have SPDX headers + inline documentation
-* *Author Attribution*: Jonathan D.A. Jewell <6759885+hyperpolymath@users.noreply.github.com>
-* *License*: MPL-2.0 on all new files
-* *Automation*: All scripts executable + working
-
-== FLAGGED ISSUES - ALL RESOLVED
-
-* [.line-through]#*Template repo used by ALL new repos has 0 validation tests*# → FIXED: 4 test suites + validation script
-* [.line-through]#*fuzz/placeholder.txt*# → FIXED: replaced with `README.adoc` containing real harness instructions
-* [.line-through]#*No E2E tests for template instantiation*# → FIXED: full E2E test suite
-* [.line-through]#*Zig FFI integration tests are placeholders*# → FIXED: converted to documented template format
-
-== Next Steps (Future Sessions)
-
-* [ ] Integrate test scripts into CI/CD workflows
-* [ ] Generate test coverage reports
-* [ ] Add more specialized benchmarks (memory, threading stress)
-* [ ] Document test instantiation patterns for new repos
-
-== Priority: P0 (COMPLETE) ✅
+* [ ] Wire a fuzz harness once the Core parser/checker exists (`verification/fuzzing/`)
+* [ ] Add readiness/CRG-grade tests once there is a component to grade beyond the ABI scaffold
+* [ ] Expand integration tests as the Core/Evidence/Manifest artefacts land

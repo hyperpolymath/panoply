@@ -6,15 +6,15 @@
 ;; To use this channel, add to ~/.config/guix/channels.scm:
 ;;
 ;;   (channel
-;;     (name 'Panoply)
-;;     (url "https://github.com/hyperpolymath/Panoply")
+;;     (name 'panoply)
+;;     (url "https://github.com/hyperpolymath/panoply")
 ;;     (branch "main"))
 ;;
 ;; Then: guix pull
 
 (channel
   (version 0)
-  (url "https://github.com/hyperpolymath/Panoply")
+  (url "https://github.com/hyperpolymath/panoply")
   (dependencies
    (channel
      (name 'guix)

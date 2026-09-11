@@ -1,6 +1,6 @@
 #!/bin/sh
 # SPDX-License-Identifier: MPL-2.0
-# setup.sh — Universal setup script for rsr-template-repo
+# setup.sh — Universal RSR setup script, as instantiated for panoply
 #
 # Detects your shell, platform, and installs prerequisites.
 # Then hands off to `just setup` for project-specific configuration.
@@ -167,7 +167,7 @@ install_just() {
 
 # ── Main ──
 main() {
-    printf "%s=== rsr-template-repo Setup ===%s\n\n" "$BOLD" "$RESET"
+    printf "%s=== panoply Setup ===%s\n\n" "$BOLD" "$RESET"
 
     # Detect environment
     SHELL_NAME=$(detect_shell)
