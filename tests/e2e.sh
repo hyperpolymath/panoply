@@ -88,16 +88,16 @@ echo ""
 # ═══════════════════════════════════════════════════════════════════════
 # Section 1: Idris2 ABI build
 # ═══════════════════════════════════════════════════════════════════════
-bold "Section 1: Idris2 ABI (abi.ipkg)"
+bold "Section 1: Idris2 ABI (src/interface/abi.ipkg)"
 
 cd "$PROJECT_DIR"
-ABI_OUTPUT=$(idris2 --build abi.ipkg 2>&1)
+ABI_OUTPUT=$(idris2 --build src/interface/abi.ipkg 2>&1)
 ABI_STATUS=$?
 if [ "$ABI_STATUS" -eq 0 ]; then
-    green "  PASS: idris2 --build abi.ipkg"
+    green "  PASS: idris2 --build src/interface/abi.ipkg"
     PASS=$((PASS + 1))
 else
-    red "  FAIL: idris2 --build abi.ipkg"
+    red "  FAIL: idris2 --build src/interface/abi.ipkg"
     echo "$ABI_OUTPUT" | tail -20
     FAIL=$((FAIL + 1))
 fi
