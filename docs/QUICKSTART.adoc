@@ -19,8 +19,8 @@ Get up and running in 60 seconds.
 git clone https://github.com/hyperpolymath/panoply
 cd panoply
 just deps        # verify idris2/zig/just are on PATH
-just build       # idris2 --build abi.ipkg + zig build
-just test        # idris2 --typecheck abi.ipkg + zig build test
+just build       # idris2 --build src/interface/abi.ipkg + zig build
+just test        # idris2 --typecheck src/interface/abi.ipkg + zig build test
 ----
 
 == Project Structure

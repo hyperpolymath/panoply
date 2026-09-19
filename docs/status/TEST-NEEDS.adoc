@@ -17,7 +17,7 @@ Idris2 ABI / Zig FFI scaffold, not language semantics.
 | *FFI modules* | 1 | `src/interface/ffi/src/main.zig` (11 exported functions)
 | *Unit tests* | 3 | Inline `test` blocks in `main.zig` (lifecycle, error handling, version)
 | *Integration tests* | 15 | `src/interface/ffi/test/integration_test.zig` — exercises every exported FFI function (lifecycle, process, process_array incl. null-buffer, strings, version/build_info, error handling, callbacks)
-| *E2E tests* | 1 | `tests/e2e.sh` — preflight (idris2/zig on PATH) + `idris2 --build abi.ipkg` + `zig build test`
+| *E2E tests* | 1 | `tests/e2e.sh` — preflight (idris2/zig on PATH) + `idris2 --build src/interface/abi.ipkg` + `zig build test`
 | *Aspect tests* | 1 | `tests/aspect_tests.sh` — SPDX header coverage + dangerous-pattern scan (real gate; currently reports one known false positive on doc prose mentioning "Admitted"/"sorry")
 | *Workflow tests* | 1 | `tests/workflows/validate_workflows_test.sh`
 | *Benchmarks* | 3 | `benches/template_bench.sh` (Zig build, Zig tests, workflow validation)
@@ -27,7 +27,7 @@ Idris2 ABI / Zig FFI scaffold, not language semantics.
 == Verified 2026-07-27
 
 * `zig fmt --check .` — exit 0
-* `idris2 --build abi.ipkg` — exit 0 (builds `Abi.Types`, `Abi.Layout`, `Abi.Foreign`)
+* `idris2 --build src/interface/abi.ipkg` — exit 0 (builds `Abi.Types`, `Abi.Layout`, `Abi.Foreign`)
 * `cd src/interface/ffi && zig build` — exit 0
 * `zig build test --summary all` — exit 0, 20/20 tests pass (3 unit + 17 integration checks across 15 `test` blocks)
 * `bash tests/e2e.sh` — PASS=2 FAIL=0
