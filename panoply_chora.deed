@@ -1,0 +1,26 @@
+;; SPDX-FileCopyrightText: © 2026 Jonathan D.A. Jewell (hyperpolymath) <j.d.a.jewell@open.ac.uk>
+;; SPDX-License-Identifier: MPL-2.0
+(repo-deed
+  :schema-version "1.0.0"
+  :canonical-name "panoply"
+  :repo-uuid #u5"hyperpolymath/panoply"
+  :beholding-chora #u5"estate/chora"
+
+  (project
+    :purpose "envelope-first language discipline"
+    :phase design
+    :maturity experimental
+    :completion-percentage 5
+    :license "MPL-2.0")
+
+  (artefacts
+    (artefact :name core :status specified :issue 5)
+    (artefact :name evidence :status specified :issue 6)
+    (artefact :name manifest :status sketch :issue 7)
+    (artefact :name projections :status sketch :issue 8)
+    (artefact :name backends :status sketch :issue 9))
+
+  (warrant
+    :kind check
+    :claim "no-global-safety"
+    :note "charter forbids a whole-language safety theorem"))

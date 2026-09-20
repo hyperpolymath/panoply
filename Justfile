@@ -511,7 +511,7 @@ state-touch:
 
 # Show current phase from STATE.deed
 state-phase:
-    @grep -oP 'phase\s*=\s*"\K[^"]+' .machine_readable/6a2/STATE.deed 2>/dev/null | head -1 || echo "unknown"
+    @grep -oP ':phase\s+\K[A-Za-z]+' .machine_readable/6a2/STATE.deed 2>/dev/null | head -1 || echo "unknown"
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # GUIX (channels — Nix is deprecated in this estate)

@@ -1,0 +1,14 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Jonathan D.A. Jewell (hyperpolymath) <j.d.a.jewell@open.ac.uk>
+#
+# Honest refused check: no Core checker exists yet. This file exists so
+# the evidence format is instantiated, not so a guarantee is claimed.
+(evidence
+  :schema-version "0.1.0"
+  :kind check
+  :obligation-id core.typing
+  :subject "sha256:none"
+  :status refused
+  :witness-ref "none"
+  :produced-by "panoply-spec@0.1.0"
+  (facts))

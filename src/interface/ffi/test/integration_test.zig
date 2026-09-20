@@ -30,7 +30,7 @@ test "operations: process with a valid handle" {
 
 test "operations: process with a null handle returns null_pointer" {
     const result = panoply.panoply_process(null, 0);
-    try std.testing.expectEqual(panoply.Result.null_pointer, result);
+    try std.testing.expectEqual(panoply.Result.invalid_param, result);
 }
 
 test "operations: process_array with a valid buffer" {
@@ -47,13 +47,13 @@ test "operations: process_array with a null buffer returns null_pointer" {
     defer panoply.panoply_free(handle);
 
     const result = panoply.panoply_process_array(handle, null, 0);
-    try std.testing.expectEqual(panoply.Result.null_pointer, result);
+    try std.testing.expectEqual(panoply.Result.invalid_param, result);
 }
 
 test "operations: process_array with a null handle returns null_pointer" {
     const buf = [_]u8{1};
     const result = panoply.panoply_process_array(null, &buf, buf.len);
-    try std.testing.expectEqual(panoply.Result.null_pointer, result);
+    try std.testing.expectEqual(panoply.Result.invalid_param, result);
 }
 
 test "strings: get_string returns a value that can be freed" {
@@ -123,7 +123,7 @@ test "callbacks: register_callback with a null callback returns null_pointer" {
     defer panoply.panoply_free(handle);
 
     const result = panoply.panoply_register_callback(handle, null);
-    try std.testing.expectEqual(panoply.Result.null_pointer, result);
+    try std.testing.expectEqual(panoply.Result.invalid_param, result);
 }
 
 test "utility: is_initialized is false for a null handle" {

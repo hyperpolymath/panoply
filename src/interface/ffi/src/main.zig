@@ -29,13 +29,12 @@ fn clearError() void {
 // Core Types (must match src/abi/Types.idr)
 //==============================================================================
 
-/// Result codes (must match Idris2 Result type)
+/// Result codes (must match Idris2 `data Result = Ok | Error | InvalidParam | Busy`)
 pub const Result = enum(c_int) {
     ok = 0,
     @"error" = 1,
     invalid_param = 2,
-    out_of_memory = 3,
-    null_pointer = 4,
+    busy = 3,
 };
 
 /// Library handle. Declared as a plain struct (not `opaque`) because Zig
@@ -90,7 +89,7 @@ pub export fn panoply_free(handle: ?*Handle) void {
 pub export fn panoply_process(handle: ?*Handle, input: u32) Result {
     const h = handle orelse {
         setError("Null handle");
-        return .null_pointer;
+        return .invalid_param;
     };
 
     if (!h.initialized) {
@@ -153,12 +152,12 @@ pub export fn panoply_process_array(
 ) Result {
     const h = handle orelse {
         setError("Null handle");
-        return .null_pointer;
+        return .invalid_param;
     };
 
     const buf = buffer orelse {
         setError("Null buffer");
-        return .null_pointer;
+        return .invalid_param;
     };
 
     if (!h.initialized) {
@@ -219,12 +218,12 @@ pub export fn panoply_register_callback(
 ) Result {
     const h = handle orelse {
         setError("Null handle");
-        return .null_pointer;
+        return .invalid_param;
     };
 
     const cb = callback orelse {
         setError("Null callback");
-        return .null_pointer;
+        return .invalid_param;
     };
 
     if (!h.initialized) {
@@ -262,7 +261,7 @@ test "lifecycle" {
 
 test "error handling" {
     const result = panoply_process(null, 0);
-    try std.testing.expectEqual(Result.null_pointer, result);
+    try std.testing.expectEqual(Result.invalid_param, result);
 
     const err = panoply_last_error();
     try std.testing.expect(err != null);
