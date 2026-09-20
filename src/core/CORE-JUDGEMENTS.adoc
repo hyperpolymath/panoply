@@ -1,0 +1,149 @@
+// SPDX-License-Identifier: CC-BY-SA-4.0
+// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
+= Panoply Core — Checking Judgements
+:toc:
+:toc-placement: preamble
+
+Normative checking judgements for Core. Syntax is
+xref:CORE-SYNTAX.adoc[CORE-SYNTAX.adoc].
+
+A *successful check is not a boolean*. It yields **evidence**: a
+structured witness of the facts established. Pass/fail without evidence
+is not a Panoply check (charter: no envelope without evidence).
+
+The *format* of evidence (proof / check / runtime-discipline) is owned
+by `src/evidence/` (issue #6). This document names **which facts** a
+successful check establishes so evidence can point at them.
+
+== Judgement forms
+
+[cols="2,3,3",options="header"]
+|===
+| Form | Read as | Establishes
+
+| `⊢ Γ ctx` | `Γ` is a well-formed context | name uniqueness; sorts of binders
+| `Γ ⊢ A : s` | `A` is a type of sort `s` | well-sortedness of `A`
+| `Γ ⊢ t : q A` | `t` has type `A` at usage `q` under `Γ` | typing *and* usage
+| `Γ ⊢ t ↝ E : q A` | checking `t` produces evidence `E` | the Panoply result
+| `Γ ⊢ A ≡ B` | definitional equality | conversion
+|===
+
+The operational judgement used by projections is **`Γ ⊢ t ↝ E : q A`**.
+The boolean “it typechecks” is the special case “`E` is well-formed”.
+Implementations MUST NOT expose a public API that returns only a boolean.
+
+== Facts a successful check establishes
+
+When `Γ ⊢ t ↝ E : q A` holds, the following facts are *named* (and must
+appear inside `E` or be pointed to by `E`):
+
+. **Well-typedness** — `t` inhabits `A` under `Γ`.
+. **Usage** — every affine (`1`) binding in `Γ` is used at most once
+  along every path of `t`; unrestricted (`ω`) bindings may be copied;
+  erased (`0`) bindings do not occur in computationally relevant
+  positions.
+. **Sort** — `A` itself is well-sorted (`Γ ⊢ A : s` for some `s`).
+. **No implicit promotion** — no `Linear` value was treated as
+  `Type` without an explicit `Lift`/`wrap`.
+. **Feature wrappers** — every `wrap k` in `t` is recorded; wrappers
+  do not inherit neighbour envelopes.
+. **Absence of global safety** — `E` does **not** contain a fact
+  “this program is safe”. It contains the finite list above.
+
+What a check does *not* establish (must not be smuggled into `E`):
+
+* backend preservation (that is a backend-contract fact, issue #9);
+* projection equivalence (issue #8);
+* soundness of Core itself (metatheory, issue #10).
+
+== Evidence yield (interface to issue #6)
+
+`E` is an evidence *bundle*:
+
+----
+E ::= { kind, obligation-id, subject, facts, status }
+----
+
+* `kind` ∈ { `proof`, `check`, `runtime-discipline` }.
+  A Core *implementation* of these judgements is a **check** unless a
+  mechanised metatheory (issue #10) elevates a fact to `proof`.
+* `obligation-id` names which judgement was run (e.g. `core.typing`).
+* `subject` identifies `t` (hash of Core AST).
+* `facts` is the finite list in the previous section.
+* `status` ∈ { `established`, `refused` }.
+
+A refused check still yields `E` with `status = refused` and empty
+`facts`. Silence is not a result.
+
+Until `src/evidence/` defines on-disk syntax, `E` is an abstract
+record. The checker MUST still construct it in memory. The manifest
+emitter (issue #7) MUST refuse an envelope whose `E` is missing or
+whose `kind` is mislabelled.
+
+== Selected rules (sketch, affine fragment)
+
+=== Contexts
+
+----
+─────────────  (ctx-empty)
+⊢ · ctx
+
+⊢ Γ ctx    Γ ⊢ A : s    x ∉ Γ
+────────────────────────────────  (ctx-ext)
+⊢ Γ, x : q A ctx
+----
+
+=== Variables (usage split)
+
+----
+⊢ Γ, x : q A, Γ′ ctx     q ≠ 0 or computationally-irrelevant
+────────────────────────────────────────────────────────────  (var)
+Γ, x : q A, Γ′ ⊢ x ↝ E_var : q A
+----
+
+The remainder of `Γ, Γ′` must be weakenable (all `ω` or `0`) when they
+are unused. Affine leftovers are an error — not implicit `drop`.
+
+=== Abstraction and application
+
+----
+Γ, x : q A ⊢ t ↝ E_body : r B
+──────────────────────────────────────────────  (λ)
+Γ ⊢ λ (x : q A) → t ↝ E_λ(E_body) : ω (Π (x : q A) → B)
+
+Γ ⊢ t ↝ E_fn : ω (Π (x : q A) → B)
+Γ ⊢ u ↝ E_arg : q A
+──────────────────────────────────────────────  (app)
+Γ ⊢ t u ↝ E_app(E_fn, E_arg) : ω B[u/x]
+----
+
+Usage of `u` is exactly `q` from the Π. Applying a `1`-function twice
+is not derivable.
+
+=== Tensor
+
+----
+Γ₁ ⊢ t ↝ E_t : q A     Γ₂ ⊢ u ↝ E_u : r B     Γ = Γ₁ ⋈ Γ₂
+────────────────────────────────────────────────────────  (⊗-i)
+Γ ⊢ (t, u) ↝ E_pair : (q A ⊗ r B)
+
+Γ ⊢ t ↝ E_t : (q A ⊗ r B)
+Γ, x : q A, y : r B ⊢ u ↝ E_u : s C
+────────────────────────────────────────────────────────  (⊗-e)
+Γ ⊢ let (x, y) = t in u ↝ E_split : s C
+----
+
+`⋈` is context split: affine bindings go to exactly one side.
+
+== Implementation status
+
+| Piece | Status |
+| --- | --- |
+| Syntax | specified (`CORE-SYNTAX.adoc`) |
+| Judgements | specified (this file) |
+| Checker | **not implemented** |
+| Evidence on disk | **not implemented** (issue #6) |
+| Mechanised preservation | **not implemented** (issue #10) |
+
+Per the charter, this document asserts no guarantee it cannot witness.
+The specification is the artefact issue #5 asked for.

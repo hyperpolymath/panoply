@@ -151,32 +151,43 @@ bench:
     @echo "Running benchmarks..."
     bash benches/template_bench.sh
 
-# Print the current CRG grade (reads from READINESS.md '**Current Grade:** X' line)
+# Print the current CRG grade (docs/status/READINESS.adoc)
 crg-grade:
-    @grade=$$(grep -oP '(?<=\*\*Current Grade:\*\* )[A-FX]' READINESS.md 2>/dev/null | head -1); \
-    [ -z "$$grade" ] && grade="X"; \
-    echo "$$grade"
+    #!/usr/bin/env bash
+    set -euo pipefail
+    grade=$(grep -oP '(?<=\*\*Current Grade:\*\* )[A-FX]' docs/status/READINESS.adoc 2>/dev/null | head -1 || true)
+    [ -z "$grade" ] && grade="X"
+    echo "$grade"
 
 # Print a shields.io CRG badge for embedding in README files
-# Looks for '**Current Grade:** X' in READINESS.md; falls back to X
 crg-badge:
-    @grade=$$(grep -oP '(?<=\*\*Current Grade:\*\* )[A-FX]' READINESS.md 2>/dev/null | head -1); \
-    [ -z "$$grade" ] && grade="X"; \
-    case "$$grade" in \
-      A) color="brightgreen" ;; \
-      B) color="green" ;; \
-      C) color="yellow" ;; \
-      D) color="orange" ;; \
-      E) color="red" ;; \
-      F) color="critical" ;; \
-      *) color="lightgrey" ;; \
-    esac; \
-    echo "[![CRG $$grade](https://img.shields.io/badge/CRG-$$grade-$$color?style=flat-square)](https://github.com/hyperpolymath/standards/tree/main/component-readiness-grades)"
+    #!/usr/bin/env bash
+    set -euo pipefail
+    grade=$(grep -oP '(?<=\*\*Current Grade:\*\* )[A-FX]' docs/status/READINESS.adoc 2>/dev/null | head -1 || true)
+    [ -z "$grade" ] && grade="X"
+    case "$grade" in
+      A) color="brightgreen" ;;
+      B) color="green" ;;
+      C) color="yellow" ;;
+      D) color="orange" ;;
+      E) color="red" ;;
+      F) color="critical" ;;
+      *) color="lightgrey" ;;
+    esac
+    echo "[![CRG ${grade}](https://img.shields.io/badge/CRG-${grade}-${color}?style=flat-square)](https://github.com/hyperpolymath/standards/tree/main/component-readiness-grades)"
 
-# Run the full merge-requirement test suite (ALL categories)
-# Per STANDING rule: P2P + E2E + aspect + execution + lifecycle + bench
-test-all: test e2e aspect bench
+# Run the full merge-requirement test suite
+# Categories: execution (`test`) + E2E + aspect + bench + lifecycle + P2P
+test-all: test e2e aspect bench lifecycle p2p
     @echo "All test categories passed — safe to merge!"
+
+# Lifecycle: build → test → clean (FFI); skips Idris2 if absent
+lifecycle:
+    bash tests/lifecycle.sh
+
+# P2P: honest skip until a peer protocol exists; fails if P2P source appears untested
+p2p:
+    bash tests/p2p.sh
 
 # Run all quality checks
 quality: fmt-check lint test
