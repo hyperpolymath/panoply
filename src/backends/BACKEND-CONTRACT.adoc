@@ -34,4 +34,11 @@ Path: `src/backends/zig-ffi/CONTRACT.adoc`
 Same program, two backends ⇒ two manifests. `scripts/emit-manifest.sh`
 takes the backend id as argv. Both current backends refuse Core envelopes.
 
+== Coprocessor catalogue (`src/backends/coprocessor/CONTRACT.adoc`)
+
+Named ids (`cpu-x86-64`, `gpu-cuda`, `gpu-rocm`, `gpu-oneapi`, `tpu`,
+`npu`, `vpu`, `fpga`, `qpu`, `crypto-pu`, `math-pu`, `physics-pu`,
+`io-pu`, `audio-pu`, `video-pu`) all **uphold nothing**. They are
+inventory for a future lowering, not Intel/NVIDIA/AMD product support.
+
 Do not close #9 until a lowering exists that preserves a named guarantee.

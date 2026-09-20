@@ -1,8 +1,0 @@
-// SPDX-License-Identifier: CC-BY-SA-4.0
-// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
-= arrival-pack
-
-Holding directory required by `rsr-template-repo`.
-Not yet populated with panoply-specific content.
-
-Holding — see `docs/status/ROADMAP.adoc` (H1). Not a product surface.

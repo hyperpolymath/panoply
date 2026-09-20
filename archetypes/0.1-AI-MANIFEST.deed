@@ -1,6 +1,0 @@
-# SPDX-License-Identifier: MPL-2.0
-# Copyright (c) 2026 Jonathan D.A. Jewell (hyperpolymath) <j.d.a.jewell@open.ac.uk>
-[metadata]
-version = "0.1.0"
-layer = "archetypes"
-note = "Holding 0.1-AI-MANIFEST — gatekeeper prose, not DEED ABNF chora."

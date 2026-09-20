@@ -10,9 +10,9 @@ Nothing survives lowering for free.
 
 [IMPORTANT]
 ====
-*Contracts written for `none` and `zig-ffi`.* See
-xref:BACKEND-CONTRACT.adoc[BACKEND-CONTRACT.adoc]. No lowering that preserves
-a Core guarantee. Issue #9 stays open.
+*Contracts written for `none`, `zig-ffi`, and a coprocessor **catalogue**
+(FPGA/QPU/TPU/NPU/GPU/…).* All coprocessor ids refuse. No lowering that
+preserves a Core guarantee. Issue #9 stays open.
 ====
 
 == What a backend contract states
