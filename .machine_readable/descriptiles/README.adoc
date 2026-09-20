@@ -3,8 +3,7 @@
 = descriptiles
 
 Canonical live path for STATE / META / ECOSYSTEM / AGENTIC / NEUROSYM /
-PLAYBOOK / CLADE (s-expression repo-deeds). The old template name `6a2/`
-is **not** used in this repository.
+PLAYBOOK / CLADE (s-expression repo-deeds).
 
 [cols="1,3"]
 |===
