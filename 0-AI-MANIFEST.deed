@@ -20,7 +20,7 @@ agents = [
 ]
 
 [startup]
-read-first = ["0-AI-MANIFEST.deed", ".machine_readable/6a2/STATE.deed", "docs/onboarding/SETUP.adoc"]
+read-first = ["0-AI-MANIFEST.deed", ".machine_readable/descriptiles/STATE.deed", "docs/onboarding/SETUP.adoc"]
 estate = "AsciiDoc + .deed; not README.md or .a2ml"
 js-reach = "Bun, Deno, pnpm, npm"
 no-core-checker = true

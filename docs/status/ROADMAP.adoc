@@ -33,7 +33,7 @@ Effort: S <1d · M 2–5d · L >1w
 | ID | Item | Rationale | Class | Effort | Deps
 
 | H1 | Populate or drop `arrival-pack/` `coaptation/` | empty holdings | 🟡 | S | owner
-| H2 | Document `6a2/` as live path *or* collapse to `descriptiles/` | path law | 🟡 | S | owner
+| H2 | Collapse `6a2/` → `descriptiles/` | **done** 2026-09-20 | 🟡 | S | —
 | H3 | `www/dns` keep or delete | not a site | 🟡 | S | owner
 | H4 | Remove `archetypes/` if not a mint | template leftover | 🟢 | S | owner
 | H5 | Relocate `.gitlab-ci.yml` → `ci/` | GitLab setting | 🟡 | S | GitLab

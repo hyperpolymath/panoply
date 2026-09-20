@@ -12,12 +12,12 @@ Per-tool config files (.cursorrules, .clinerules, etc.) reference this document.
 ## Session Startup
 
 1. Read `0-AI-MANIFEST.deed` FIRST (mandatory gatekeeper).
-2. Read `.machine_readable/6a2/STATE.deed` for current status and blockers.
-3. Read `.machine_readable/6a2/anchors/ANCHOR.deed` for canonical authority boundaries.
+2. Read `.machine_readable/descriptiles/STATE.deed` for current status and blockers.
+3. Read `.machine_readable/descriptiles/anchors/ANCHOR.deed` for canonical authority boundaries.
 4. Read `.machine_readable/policies/MAINTENANCE-AXES.deed` for maintenance/audit sequencing.
 5. Read `.machine_readable/policies/MAINTENANCE-CHECKLIST.deed` for baseline controls.
 6. Read `.machine_readable/policies/SOFTWARE-DEVELOPMENT-APPROACH.deed` for execution order.
-7. Read `.machine_readable/6a2/AGENTIC.deed` for agent constraints.
+7. Read `.machine_readable/descriptiles/AGENTIC.deed` for agent constraints.
 
 ## License
 
@@ -79,9 +79,9 @@ Use `just` (Justfile) for all build, test, lint, and format tasks.
 ## References
 
 - `0-AI-MANIFEST.deed` -- universal AI entry point
-- `.machine_readable/6a2/AGENTIC.deed` -- agent permissions and constraints
-- `.machine_readable/6a2/STATE.deed` -- current project state
-- `.machine_readable/6a2/anchors/ANCHOR.deed` -- canonical authority and policy boundary
+- `.machine_readable/descriptiles/AGENTIC.deed` -- agent permissions and constraints
+- `.machine_readable/descriptiles/STATE.deed` -- current project state
+- `.machine_readable/descriptiles/anchors/ANCHOR.deed` -- canonical authority and policy boundary
 - `.machine_readable/policies/MAINTENANCE-AXES.deed` -- canonical axis sequencing and audit requirements
 - `.machine_readable/policies/MAINTENANCE-CHECKLIST.deed` -- baseline maintenance checklist policy
 - `.machine_readable/policies/SOFTWARE-DEVELOPMENT-APPROACH.deed` -- axis execution approach policy

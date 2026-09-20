@@ -20,7 +20,7 @@ of CRG): overall **TRG X**.
 | Item | State | Source
 
 | Workflows | PARTIAL (28 files; not claimed RSR-full green) | `.github/workflows/`
-| `.machine_readable/6a2/` | PRESENT (repo-deed STATE) | `STATE.deed`
+| `.machine_readable/descriptiles/` | PRESENT (repo-deed STATE) | `STATE.deed`
 | `0-AI-MANIFEST.deed` | PRESENT | root
 | Docs EXPLAINME / READINESS / ROADMAP | PRESENT | `docs/`, `docs/status/`
 | `build/guix.scm` | PRESENT | Guix primary

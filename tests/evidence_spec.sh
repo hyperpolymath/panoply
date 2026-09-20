@@ -15,9 +15,9 @@ grep -q ':status refused' src/evidence/examples/core-typing.evidence && pass "ho
 # ABNF-shaped chora
 head -5 panoply_chora.deed | grep -q 'repo-deed' && pass "panoply_chora.deed is repo-deed" || fail "chora"
 grep -q '\[metadata\]' panoply_chora.deed && fail "chora must not be TOML" || pass "chora is not TOML"
-grep -q '\[metadata\]' .machine_readable/6a2/STATE.deed && fail "STATE still TOML" || pass "STATE is s-expression"
-grep -q '\[metadata\]' .machine_readable/6a2/LANGUAGES.deed && fail "LANGUAGES still TOML" || pass "LANGUAGES is s-expression"
-grep -q '\[metadata\]' .machine_readable/6a2/AGENTIC.deed && fail "AGENTIC still TOML" || pass "AGENTIC is s-expression"
+grep -q '\[metadata\]' .machine_readable/descriptiles/STATE.deed && fail "STATE still TOML" || pass "STATE is s-expression"
+grep -q '\[metadata\]' .machine_readable/descriptiles/LANGUAGES.deed && fail "LANGUAGES still TOML" || pass "LANGUAGES is s-expression"
+grep -q '\[metadata\]' .machine_readable/descriptiles/AGENTIC.deed && fail "AGENTIC still TOML" || pass "AGENTIC is s-expression"
 
 echo "FAIL=$FAIL"
 exit "$FAIL"
