@@ -32,10 +32,10 @@ Effort: S <1d · M 2–5d · L >1w
 |===
 | ID | Item | Rationale | Class | Effort | Deps
 
-| H1 | Populate or drop `arrival-pack/` `coaptation/` | empty holdings | 🟡 | S | owner
+| H1 | Drop empty `arrival-pack/` `coaptation/` | **done** 2026-09-20 | 🟡 | S | —
 | H2 | Live deeds under `descriptiles/` only | **done** 2026-09-20 | 🟡 | S | —
-| H3 | `www/dns` keep or delete | not a site | 🟡 | S | owner
-| H4 | Remove `archetypes/` if not a mint | template leftover | 🟢 | S | owner
+| H3 | Drop `www/dns` (keep `www/.well-known`) | **done** 2026-09-20 | 🟡 | S | —
+| H4 | Remove `archetypes/` (not a mint) | **done** 2026-09-20 | 🟢 | S | —
 | H5 | Relocate `.gitlab-ci.yml` → `ci/` | GitLab setting | 🟡 | S | GitLab
 | H6 | Relocate `.pre-commit-config.yaml` → `ci/` | invocation | 🟡 | S | hooks
 | H7 | Gatekeeper `0.x-AI-MANIFEST.deed` stay kv or convert | G1.1 remainder | 🟡 | M | ABNF

@@ -1,0 +1,59 @@
+// SPDX-License-Identifier: CC-BY-SA-4.0
+// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
+= Coprocessor backends (catalogue, not a lowering)
+:revdate: 2026-09-20
+
+These ids are **named contracts with empty earned sets**. There is no
+codegen, no bitstream, no CUDA/ROCm kernel, no QASM. A Core program
+lowered here (when lowering exists) **refuses** until a named guarantee
+has a check/proof/runtime means.
+
+Do **not** treat this file as “full support” for Intel / NVIDIA / AMD /
+Xeon / Ryzen. Host *detection* is a later tool surface; it does not
+mint envelopes.
+
+== Classes (ids)
+
+[cols="1,2,3",options="header"]
+|===
+| Id | Class | Upholds today
+
+| `cpu-x86-64` | High-end x86-64 (Core i9 / Ryzen 9 / Xeon / Ryzen Pro class) | nothing
+| `gpu-cuda` | NVIDIA CUDA-class | nothing
+| `gpu-rocm` | AMD ROCm-class | nothing
+| `gpu-oneapi` | Intel oneAPI/Level Zero-class | nothing
+| `tpu` | Tensor / systolic | nothing
+| `npu` | On-die NPU | nothing
+| `vpu` | Vector (AVX-512 / SVE-class) | nothing
+| `fpga` | FPGA bitstream / HLS | nothing
+| `qpu` | Quantum (QASM-class) | nothing
+| `crypto-pu` | AES-NI / SHA-NI / dedicated crypto | nothing
+| `math-pu` | Decimal / big-float / CAS offload | nothing
+| `physics-pu` | Physics/simulation offload | nothing
+| `io-pu` | DPDK / SPDK / SmartNIC-class | nothing
+| `audio-pu` | DSP / audio pipeline | nothing
+| `video-pu` | Encode/decode / media | nothing
+|===
+
+== Means (all absent)
+
+* Check: none (no Core checker, no ISA verifier).
+* Proof: none (no preservation theorem for any class).
+* Runtime discipline: none (no driver contract, no device fence).
+
+== Cannot uphold (all classes)
+
+Total-correctness, Core typing, memory-safety of Idris values, timing
+side-channel freedom, quantum correctness, FPGA timing closure,
+cross-vendor portability.
+
+== Emitter
+
+`scripts/emit-manifest.sh <id>` must refuse (`:earned` empty) for every
+id above until that class has a lowering. Default remains `none`.
+
+== Gate to leave this catalogue
+
+A class leaves “nothing” only when: (1) Core checker exists, (2) a
+lowering preserves a *named* guarantee, (3) tests fire on a refused
+program and pass on an accepted one. Until then issue **#9 stays open**.
