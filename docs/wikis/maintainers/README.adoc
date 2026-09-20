@@ -1,8 +1,0 @@
-// SPDX-License-Identifier: CC-BY-SA-4.0
-// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
-= Wiki — maintainers
-
-Rulesets (Optimus-Branch, Immutable-Tags) beat `.github/settings.yml`
-classic protection. Guix only. Wiki feature off. CRG remains **X**.
-See xref:../../github/PROTECTION.adoc[protection] and
-xref:../../status/ROADMAP.adoc[roadmap].

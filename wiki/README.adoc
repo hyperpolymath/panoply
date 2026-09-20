@@ -1,0 +1,12 @@
+// SPDX-License-Identifier: CC-BY-SA-4.0
+// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
+= wiki/ — BerryWiki Markdown store
+
+Pages are **Markdown** with a hidden `berrywiki` HTML comment (id, parent,
+position). This directory is a `LocalFolderStore` notebook.
+
+Technical documentation remains **AsciiDoc under `docs/`** (estate:
+`check-no-md-in-docs.sh`). Do not put wiki `.md` in `docs/`.
+
+Publish: enable GitHub wiki and copy/sync to `panoply.wiki.git`, or run
+`berrywiki sidebar` / `berrywiki serve` against this folder.
