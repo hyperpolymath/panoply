@@ -8,9 +8,8 @@
 
 [IMPORTANT]
 ====
-*Not yet implemented.* Sketch area per the
-xref:../../docs/architecture/DESIGN-DISCIPLINE.adoc[charter]. The evidence
-formats do not exist yet (design phase).
+*Formats specified; no emitter yet.* See xref:EVIDENCE-KINDS.adoc[EVIDENCE-KINDS.adoc]
+and `examples/core-typing.evidence` (honest `:status refused`).
 ====
 
 == The three kinds of evidence

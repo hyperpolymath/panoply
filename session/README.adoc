@@ -39,6 +39,13 @@ Run `+just session-help+` to list aliases, then use recipes such as:
 * `+just close-planned path=.+`
 * `+just handover-model path=.+`
 
+=== Git hooks
+
+* `.pre-commit-config.yaml` at root (tool-required); a copy may live under `ci/` later.
+* `just install-hooks` writes `.git/hooks/pre-commit` (fmt-check, lint, assail).
+* `session/local-hooks.sh` is the session-protocol hook, not a Git hook.
+* Do not use `pip` as a project language; `pre-commit` is an optional host tool.
+
 === Runtime Artifacts
 
 Runtime files are generated per repository in `+.session/+` and are not

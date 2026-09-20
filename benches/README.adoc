@@ -1,0 +1,6 @@
+// SPDX-License-Identifier: CC-BY-SA-4.0
+// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
+= benches
+
+`template_bench.sh` — Zig build/test + workflow validation timings.
+Not a Core-language benchmark (no checker yet).

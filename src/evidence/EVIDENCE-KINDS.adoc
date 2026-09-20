@@ -1,0 +1,92 @@
+// SPDX-License-Identifier: CC-BY-SA-4.0
+// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
+= Panoply Evidence — Three Kinds and Formats
+:toc:
+
+Normative for issue #6. Core judgements (`src/core/CORE-JUDGEMENTS.adoc`)
+yield a bundle `E`. This document says what `E` *is* on disk and in memory.
+
+A check is **never** labelled a proof. A runtime discipline is never
+labelled a check.
+
+== Kinds
+
+[cols="1,2,3",options="header"]
+|===
+| `kind` | What it is | Honest use
+
+| `proof`
+| Mechanised derivation in Coq / Agda / Idris2 / Lean, no `Admitted` /
+  `sorry` / `believe_me` on the load-bearing path. `Print Assumptions`
+  (or equivalent) clean.
+| Metatheory (issue #10). Core typing facts may *become* proof-kind only
+  after a mechanised theorem names them.
+
+| `check`
+| Result of a *decision procedure* that ran (Core checker, ABI layout
+  checker, schema validator). Reproducible command + exit + artefact hash.
+| Default for `Γ ⊢ t ↝ E : q A` until metatheory exists.
+
+| `runtime-discipline`
+| A named invariant enforced while the program runs (affine drop, lock,
+  capability check). Not a theorem. Must name the enforcer.
+| Backend contracts (issue #9) that cannot be proved or decided statically.
+|===
+
+== In-memory record
+
+----
+E ::= {
+  kind          : proof | check | runtime-discipline
+  obligation-id : symbol          ; e.g. core.typing, abi.layout
+  subject       : sha256 of Core AST or artefact
+  facts         : list of named facts (see CORE-JUDGEMENTS)
+  status        : established | refused
+  witness-ref   : path or prover locator
+  produced-by   : tool@version
+}
+----
+
+== On-disk (not a DEED chora)
+
+Evidence instances are **not** `*_chora.deed` files. They live as:
+
+`src/evidence/examples/<obligation-id>.evidence`
+
+UTF-8, SPDX header as `#` comments (not DEED `;;`), then a single
+s-expression whose head is `evidence`:
+
+----
+# SPDX-License-Identifier: MPL-2.0
+(evidence
+  :schema-version "0.1.0"
+  :kind check
+  :obligation-id core.typing
+  :subject "sha256:…"
+  :status refused
+  :witness-ref "none"
+  :produced-by "panoply-spec@0.1.0"
+  (facts))
+----
+
+`:kind` MUST be one of the three symbols above. A manifest emitter
+(issue #7) MUST refuse an envelope whose evidence file is missing, whose
+`:status` is `refused`, or whose `:kind` is not in that set.
+
+== Link from Core
+
+`Γ ⊢ t ↝ E : q A` constructs this record. Until a checker exists, the
+only honest on-disk example is `:status refused` with empty `(facts)` —
+silence is not a result; a refused bundle *is*.
+
+== Validation rules (for the future emitter)
+
+. Missing file → refuse envelope.
+. `:kind proof` without a prover artefact path → refuse (do not
+  relabel as check).
+. `:kind check` citing a `.v`/`.idr` proof file → refuse (wrong kind).
+. `:kind runtime-discipline` without `:enforcer` field → refuse.
+
+== Status
+
+Specified. No emitter. Example: `examples/core-typing.evidence`.

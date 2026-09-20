@@ -17,11 +17,11 @@ import Abi.Layout
 --------------------------------------------------------------------------------
 
 ||| Raw FFI call to initialize the library
-%foreign "C:rsr_init,librsr"
+%foreign "C:panoply_init,libpanoply"
 prim__init : PrimIO Bits64
 
 ||| Raw FFI call to free library resources
-%foreign "C:rsr_free,librsr"
+%foreign "C:panoply_free,libpanoply"
 prim__free : Bits64 -> PrimIO ()
 
 ||| Safe wrapper for initialization
@@ -41,7 +41,7 @@ free h = primIO (prim__free h.ptr)
 --------------------------------------------------------------------------------
 
 ||| Raw FFI call for main processing
-%foreign "C:rsr_process,librsr"
+%foreign "C:panoply_process,libpanoply"
 prim__process : Bits64 -> Bits32 -> PrimIO Bits32
 
 ||| Safe wrapper with error handling
@@ -58,7 +58,7 @@ process h input = do
 --------------------------------------------------------------------------------
 
 ||| Get the current error description from the library
-%foreign "C:rsr_get_error,librsr"
+%foreign "C:panoply_last_error,libpanoply"
 prim__getError : Bits64 -> PrimIO (Ptr String)
 
 ||| Detailed error string helper

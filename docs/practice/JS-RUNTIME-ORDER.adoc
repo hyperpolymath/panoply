@@ -1,0 +1,16 @@
+// SPDX-License-Identifier: CC-BY-SA-4.0
+// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
+= JavaScript runtime reach order (panoply)
+:revdate: 2026-09-20
+
+Owner ruling for this repository (overrides the older “Deno first / Bun
+banned” table in `hyperpolymath/standards` language policy until that
+document is amended):
+
+. **Bun** — default JS runtime and package manager
+. **Deno** — fallback
+. **pnpm** — if a Node-shaped tree is unavoidable
+. **npm** — last resort only
+
+Do not add Python or Go. Zig remains the FFI/API layer; Idris2 the ABI.
+Guix remains the packager (`build/guix.scm`); Nix stays out.

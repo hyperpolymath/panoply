@@ -176,6 +176,21 @@ crg-badge:
     esac
     echo "[![CRG ${grade}](https://img.shields.io/badge/CRG-${grade}-${color}?style=flat-square)](https://github.com/hyperpolymath/standards/tree/main/component-readiness-grades)"
 
+# CLI help (library: just is the CLI)
+cli-help:
+    @just --list --unsorted
+    @echo ""
+    @echo "Man: just man   → docs/man/panoply.1"
+    @echo "Arity: docs/cli-arity.adoc"
+
+# Language / interface audit notes
+language-audit:
+    @echo "See docs/reports/LANGUAGE-AUDIT.adoc"
+
+# API adapter stub tests
+api-test:
+    cd src/api/zig && zig test adapter.zig
+
 # Run the full merge-requirement test suite
 # Categories: execution (`test`) + E2E + aspect + bench + lifecycle + P2P
 test-all: test e2e aspect bench lifecycle p2p
@@ -511,7 +526,7 @@ state-touch:
 
 # Show current phase from STATE.deed
 state-phase:
-    @grep -oP 'phase\s*=\s*"\K[^"]+' .machine_readable/6a2/STATE.deed 2>/dev/null | head -1 || echo "unknown"
+    @grep -oP ':phase\s+\K[A-Za-z]+' .machine_readable/6a2/STATE.deed 2>/dev/null | head -1 || echo "unknown"
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # GUIX (channels — Nix is deprecated in this estate)

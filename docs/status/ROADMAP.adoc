@@ -1,23 +1,33 @@
 // SPDX-License-Identifier: CC-BY-SA-4.0
 // Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
-= YOUR Template Repo Roadmap
+= Panoply roadmap
 
-== Current Status
+== Current status
 
-Initial development phase.
+Design phase. Charter + RSR spine + Core/Evidence *specs*. No Core checker.
 
-== Milestones
+== Phase 1 structural placeholders (TODO)
 
-=== v0.1.0 - Foundation
-* [ ] Core functionality
-* [ ] Basic documentation
-* [ ] CI/CD pipeline
+* [ ] Populate `.machine_readable/arrival-pack/` and `coaptation/` or drop if unused
+* [ ] Collapse `6a2/` into template `descriptiles/` *or* document 6a2 as the live path
+* [ ] Fill `src/api/zig/` (interface law) or record an explicit escape
+* [ ] `www/dns` and related site-ops trees — panoply is not a site; keep holding or delete after owner ruling
+* [ ] `archetypes/` — not a minting template; candidate for removal
+* [ ] Relocate `.gitlab-ci.yml` → `ci/` after GitLab setting update
+* [ ] Relocate `.pre-commit-config.yaml` → `ci/` after invocation pattern decided
+* [ ] Convert remaining `0.x-AI-MANIFEST.deed` files from TOML/prose or keep as exempt gatekeeper docs
+* [ ] Wire `e2e.yml` jobs (aspect + zig) with SHA-pinned actions
+* [ ] Owner: keep or delete Coq/Agda/Lean/TLA proof stubs (Idris2-only FV policy vs RSR template)
+* [ ] Implement Zig API adapter beyond `NotImplemented` when a gateway exists
+* [ ] Desktop launcher via launch-scaffolder when a GUI exists
+* [ ] Root `Mustfile` (contractile, not Makefile)
 
-=== v1.0.0 - Stable Release
-* [ ] Full feature set
-* [ ] Comprehensive tests
-* [ ] Production ready
+== Charter product
 
-== Future Directions
-
-_To be determined based on community feedback._
+* [x] #5 Core syntax + judgements specified (checker not implemented)
+* [x] #6 Evidence kinds specified (no emitter)
+* [ ] #7 Manifest schema + emitter
+* [ ] #8 Projections
+* [ ] #9 Backends
+* [ ] #10 First mechanised obligation
+* [ ] #11 Hypatia ignore from findings dump
