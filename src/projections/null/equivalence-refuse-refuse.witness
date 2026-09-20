@@ -1,0 +1,8 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Jonathan D.A. Jewell (hyperpolymath) <j.d.a.jewell@open.ac.uk>
+(projection-equivalence
+  :schema-version "0.1.0"
+  :left (projection :name null :input "" :result rejected)
+  :right (projection :name null :input "" :result rejected)
+  :status witnessed
+  :note "Both sides reject; no Core term exists to compare.")

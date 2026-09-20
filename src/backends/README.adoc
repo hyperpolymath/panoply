@@ -10,9 +10,9 @@ Nothing survives lowering for free.
 
 [IMPORTANT]
 ====
-*Not yet implemented.* Sketch area per the
-xref:../../docs/architecture/DESIGN-DISCIPLINE.adoc[charter]. No backend exists
-yet (design phase).
+*Contracts written for `none` and `zig-ffi`.* See
+xref:BACKEND-CONTRACT.adoc[BACKEND-CONTRACT.adoc]. No lowering that preserves
+a Core guarantee. Issue #9 stays open.
 ====
 
 == What a backend contract states

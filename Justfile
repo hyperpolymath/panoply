@@ -196,6 +196,9 @@ spec-tests:
     bash tests/core_spec.sh
     bash tests/evidence_spec.sh
     bash tests/manifest_spec.sh
+    bash tests/backend_spec.sh
+    bash tests/projection_spec.sh
+    bash scripts/emit-manifest.sh >/dev/null
 
 # Run the full merge-requirement test suite
 # Categories: execution (`test`) + E2E + aspect + bench + lifecycle + P2P

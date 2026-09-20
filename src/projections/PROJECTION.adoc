@@ -1,0 +1,26 @@
+// SPDX-License-Identifier: CC-BY-SA-4.0
+// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
+= Projections (issue #8)
+:revdate: 2026-09-20
+
+A projection elaborates an accepted program into **Core + evidence +
+manifest**, or **rejects**. There is no Core checker, so the only honest
+projection today is **`null`**: it rejects every program.
+
+== `null` projection
+
+Path: `src/projections/null/`
+
+* Accept: never.
+* Reject: always (no Core elaboration).
+* Evidence: none produced.
+* Manifest: emitter writes `:status refused`.
+
+== Equivalence witness
+
+Two rejections of the empty input are the same program (the empty
+program, not accepted). Witness file:
+`src/projections/null/equivalence-refuse-refuse.witness`
+
+This is **not** an equivalence of two accepted elaborations. Do not close
+#8 until a surface exists that can accept a program.

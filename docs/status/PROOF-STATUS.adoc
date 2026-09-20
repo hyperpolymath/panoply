@@ -10,8 +10,8 @@
 |===
 | Category | Total | Done | In Progress | Blocked | Remaining
 
-| ABI/FFI (ABI) | 5 | 0 | 0 | 0 | 5
-| Typing (TP) | 2 | 0 | 0 | 0 | 2
+| ABI/FFI (ABI) | 5 | 1 | 0 | 0 | 4
+| Typing (TP) | 2 | 0 | 0 | 1 | 1
 | Invariant (INV) | 0 | 0 | 0 | 0 | 0
 | Security (SEC) | 0 | 0 | 0 | 0 | 0
 | Concurrency (CONC) | 0 | 0 | 0 | 0 | 0
@@ -65,7 +65,7 @@
 | ABI-4 | FFI function return type proofs | ABI | Idris2 | P1 | 2h
 | ABI-5 | C ABI compliance | ABI | Idris2 | P1 | 4h
 | TP-1 | Core data type well-formedness | TP | Idris2 | P1 | 4h
-| TP-2 | Public API type safety | TP | Lean4 | P2 | 4h
+| TP-2 | Public API type safety | TP | Idris2 | P2 | 4h |
 |===
 
 == Verification Commands

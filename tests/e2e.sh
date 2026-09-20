@@ -71,9 +71,11 @@ bold "Preflight checks"
 
 if command -v idris2 >/dev/null 2>&1; then
     green "  Found idris2: $(idris2 --version 2>&1 | head -1)"
+    HAVE_IDRIS2=1
 else
-    red "idris2 not found on PATH"
-    exit 1
+    yellow "  SKIP: idris2 not on PATH (ABI section)"
+    HAVE_IDRIS2=0
+    SKIP=$((SKIP + 1))
 fi
 
 if command -v zig >/dev/null 2>&1; then

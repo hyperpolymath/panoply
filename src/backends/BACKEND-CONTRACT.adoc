@@ -1,0 +1,37 @@
+// SPDX-License-Identifier: CC-BY-SA-4.0
+// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
+= Backend contracts (issue #9)
+:revdate: 2026-09-20
+
+A backend does **not** inherit Core guarantees. It upholds only what this
+contract names.
+
+== `none` (design-phase default)
+
+Path: `src/backends/none/CONTRACT.adoc`
+
+* Upholds: nothing.
+* Means: none.
+* Cannot uphold: total-correctness, memory-safety, confluence, any Core
+  envelope.
+* Envelope the emitter uses: `:backend none`.
+
+A Core program lowered to `none` always yields a **refused** manifest with
+empty `:earned`.
+
+== `zig-ffi` (FFI scaffold)
+
+Path: `src/backends/zig-ffi/CONTRACT.adoc`
+
+* Upholds: C-ABI calling convention of the Zig FFI exports, as far as the
+  Zig type checker and unit tests go (**check**, not proof).
+* Cannot uphold: Core typing, preservation, memory-safety of Idris values.
+* A Core-earned guarantee does **not** appear on this backend unless this
+  contract names it. Today it names none of the Core envelopes.
+
+== Backend-relative manifests
+
+Same program, two backends ⇒ two manifests. `scripts/emit-manifest.sh`
+takes the backend id as argv. Both current backends refuse Core envelopes.
+
+Do not close #9 until a lowering exists that preserves a named guarantee.

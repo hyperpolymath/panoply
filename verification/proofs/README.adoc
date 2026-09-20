@@ -9,22 +9,9 @@ This directory contains formal proofs organised by proof assistant.
 [source]
 ----
 proofs/
-├── idris2/          # Idris2 proofs (ABI, dependent types)
-│   ├── ABI/         # ABI-specific proofs (mandatory)
-│   │   ├── Pointers.idr    # Non-null pointer safety
-│   │   ├── Layout.idr      # Memory layout correctness
-│   │   ├── Platform.idr    # Platform type size proofs
-│   │   ├── Foreign.idr     # FFI return type proofs
-│   │   └── Compliance.idr  # C ABI compliance
-│   └── Types.idr    # Core data type well-formedness
-├── lean4/           # Lean4 proofs (algebra, lattices)
-│   └── ApiTypes.lean
-├── agda/            # Agda proofs (induction, metatheory)
-│   └── Properties.agda
-├── coq/             # Coq proofs (type systems, compilation)
-│   └── TypeSafety.v
-└── tlaplus/         # TLA+ specs (distributed protocols)
-    └── StateMachine.tla
+└── idris2/          # sole FV language
+    ├── ABI/
+    └── Types.idr
 ----
 
 == Verification Commands
