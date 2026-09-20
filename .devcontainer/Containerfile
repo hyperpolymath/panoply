@@ -7,7 +7,7 @@
 
 FROM cgr.dev/chainguard/wolfi-base:latest
 
-# Install common development tools
+# Install common development tools + Zig 0.15.1 (official tarball)
 RUN apk update && apk add --no-cache \
     bash \
     curl \
@@ -17,7 +17,13 @@ RUN apk update && apk add --no-cache \
     build-base \
     posix-libc-utils \
     shadow \
+    tar \
+    xz \
     && rm -rf /var/cache/apk/*
+RUN curl -fsSL -o /tmp/zig.tar.xz \
+      https://ziglang.org/download/0.15.1/zig-x86_64-linux-0.15.1.tar.xz \
+    && tar -xJf /tmp/zig.tar.xz -C /opt \
+    && ln -s /opt/zig-x86_64-linux-0.15.1/zig /usr/local/bin/zig
 
 # Create non-root dev user (matches devcontainer.json remoteUser)
 RUN groupadd -g 1000 nonroot || true \

@@ -27,11 +27,8 @@ trap cleanup TERM INT
 # Startup logging
 # ---------------------------------------------------------------------------
 
-echo "Starting panoply..."
-echo "  Host: ${APP_HOST:-[::]}"
-echo "  Port: ${APP_PORT:-8080}"
-echo "  Data: ${APP_DATA_DIR:-/data}"
-echo "  Log:  ${APP_LOG_FORMAT:-json}"
+echo "panoply container: library image, not an HTTP daemon"
+echo "  zig tests ran at image build; there is no listen port"
 
 # ---------------------------------------------------------------------------
 # Health check preparation

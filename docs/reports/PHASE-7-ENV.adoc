@@ -1,0 +1,26 @@
+// SPDX-License-Identifier: CC-BY-SA-4.0
+// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
+= Phase 7 — Guix, containers, mise, environments
+:revdate: 2026-09-20
+
+== 7.1 Guix
+
+`build/.guix-channel` + `build/guix.scm`. Package now **builds and checks**
+Zig FFI (`zig build test`). Guix zig may not be 0.15.1 — mise/container
+tarball is the pin. Idris2 not a Guix input yet.
+
+== 7.2 Containers
+
+`container/Containerfile` and `build/Containerfile` run Zig 0.15.1 tests.
+**No fake :8080 /health** (library). Devcontainer installs the same tarball.
+Podman, Chainguard Wolfi.
+
+== 7.3 mise
+
+`mise.toml`: just 1.40.0, zig 0.15.1, bun 1.2.21, deno 2.5.0.
+`.tool-versions` no longer claims `rust nightly`.
+
+== 7.4 GitHub environments
+
+`github-pages` already existed. `ci` created via API (no secrets).
+Pages remains the only deploy environment.
