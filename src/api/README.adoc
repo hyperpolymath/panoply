@@ -2,7 +2,5 @@
 // Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
 = api
 
-Holding directory required by `rsr-template-repo`.
-Not yet populated with panoply-specific content.
-
-TODO: see `docs/status/ROADMAP.adoc` (Phase 1 structural placeholders).
+Zig fail-closed adapter: `src/api/zig/adapter.zig` (`NotImplemented` until a
+gateway exists — ROADMAP H8). Not an HTTP product.
