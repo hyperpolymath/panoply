@@ -48,7 +48,7 @@ These proofs come from the rsr-template-repo and MUST be present in every repo:
 | # | Proof | Status | File
 
 | TP-1 | Core data type well-formedness | Needed | `verification/proofs/idris2/Types.idr`
-| TP-2 | Public API type safety (exported functions) | Needed | `verification/proofs/lean4/ApiTypes.lean`
+| TP-2 | Public API type safety (exported functions) | Needed | Idris2 (Lean4 tree removed) |
 |===
 
 == Project-Specific Proofs

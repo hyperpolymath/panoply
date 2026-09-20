@@ -21,13 +21,8 @@ No TypeScript, Python, Go, Java, Rust, Ada, V-lang application code.
 
 == Proof-scaffold languages (RSR template, not application)
 
-These live only under `verification/proofs/` as **stubs**: Coq (`.v`),
-Agda, Lean4, TLA+. Estate language policy names Idris2 as the sole
-*formal-verification language* for new work. These files are template
-holdings, not a second ABI.
-
-**Check with owner:** keep as multi-prover sketch (RSR template) or
-delete non-Idris2 proof trees? Not deleted in this phase.
+Removed 2026-09-20. Idris2 is the sole FV language. Proofs live only under
+`verification/proofs/idris2/`.
 
 == Config / docs (not CCCP “languages”)
 

@@ -1,0 +1,7 @@
+// SPDX-License-Identifier: CC-BY-SA-4.0
+// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
+= Backend `zig-ffi`
+
+Upholds: Zig FFI export calling convention (check via `zig build test`).
+Does **not** uphold Core typing or any Core-earned envelope.
+Manifest `:backend zig-ffi` is still refused for Core guarantees.

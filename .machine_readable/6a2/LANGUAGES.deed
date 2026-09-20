@@ -1,22 +1,16 @@
-# SPDX-License-Identifier: MPL-2.0
-# Copyright (c) 2026 Jonathan D.A. Jewell (hyperpolymath) <j.d.a.jewell@open.ac.uk>
-#
-# LANGUAGES.deed — Languages present in this repository
-#
-[metadata]
-version = "0.1.0"
-last-updated = "2026-06-21"
-
-[present]
-# Languages currently in the tree.
-abi-proofs = "idris2"                 # src/interface/Abi/, verification/proofs/idris2/
-ffi = "zig"                           # src/interface/ffi/
-proofs = ["coq", "agda", "idris2"]    # verification/proofs/
-config = ["nickel", "deed"]           # .machine_readable/
-build = ["just", "bash"]
-
-[planned]
-# The Panoply Core checker, evidence formats, and manifest tooling are not yet
-# implemented (see STATE.deed). Their implementation language is TBD per the
-# design discipline (docs/architecture/DESIGN-DISCIPLINE.adoc).
-core = "TBD"
+;; SPDX-FileCopyrightText: © 2026 Jonathan D.A. Jewell (hyperpolymath) <j.d.a.jewell@open.ac.uk>
+;; SPDX-License-Identifier: MPL-2.0
+(repo-deed
+  :schema-version "1.0.0"
+  :canonical-name "panoply-languages"
+  :repo-uuid #u5"hyperpolymath/panoply"
+  :beholding-chora #u5"estate/chora"
+  :last-updated "2026-09-20"
+  (present
+    :abi-proofs "idris2"
+    :ffi "zig"
+    :proofs ("idris2")
+    :config ("nickel" "deed")
+    :build ("just" "bash"))
+  (planned
+    :core "TBD"))

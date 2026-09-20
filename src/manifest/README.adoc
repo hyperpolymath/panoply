@@ -10,9 +10,9 @@ absence of type errors.
 
 [IMPORTANT]
 ====
-*Schema specified; no emitter yet.* See xref:MANIFEST-SCHEMA.adoc[MANIFEST-SCHEMA.adoc]
-and `examples/refused.manifest` (honest `:status refused`, empty `:earned`).
-Issue #7 stays open until an emitter enforces the three rules.
+*Schema specified; fail-closed emitter at `scripts/emit-manifest.sh`.*
+See xref:MANIFEST-SCHEMA.adoc[MANIFEST-SCHEMA.adoc] and
+`examples/refused.manifest`. Issue #7 stays open until accepted evidence exists.
 ====
 
 == What a manifest records

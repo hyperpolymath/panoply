@@ -9,9 +9,9 @@ must elaborate every program it accepts into Core + evidence + manifest.
 
 [IMPORTANT]
 ====
-*Not yet implemented.* Sketch area per the
-xref:../../docs/architecture/DESIGN-DISCIPLINE.adoc[charter]. No projection
-exists yet (design phase).
+*Only the `null` projection exists* (always rejects). See
+xref:PROJECTION.adoc[PROJECTION.adoc]. Issue #8 stays open until a surface
+can accept a program.
 ====
 
 == Why "projection" and not "face"
