@@ -42,3 +42,4 @@ Design phase. Charter + RSR spine + Core/Evidence *specs*. No Core checker.
 * [ ] Proofs: ABI-2..5 typecheck in CI with idris2; Core preservation after a checker
 * [ ] Tests: PBT/FUZ/TSF when Core parser exists; no fake harnesses
 * [ ] Benches: FFI-overhead once there is a hot path; Six Sigma baselines then
+* [ ] Optional berrywiki host; in-tree `docs/wikis/` is the wiki (Phase 6 scaffold)

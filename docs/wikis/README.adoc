@@ -5,10 +5,11 @@
 :toc: preamble
 :icons: font
 
-The long-form, community knowledge hub for Panoply. For the structured,
-role-divided learning path, start with xref:../guide/README.adoc[the Learning
-Path]; this wiki is for deep-dives, cross-cutting notes, and the shared
-vocabulary.
+GitHub wiki is off. In-tree hub: this directory (max 3-ply, span 7).
+Plan: xref:PLAN.adoc[PLAN.adoc]. Audiences: xref:users/README.adoc[users],
+xref:maintainers/README.adoc[maintainers],
+xref:developers/README.adoc[developers]. Setup:
+xref:../onboarding/SETUP.adoc[SETUP].
 
 == Start here
 

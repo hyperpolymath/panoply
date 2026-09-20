@@ -1,0 +1,45 @@
+// SPDX-License-Identifier: CC-BY-SA-4.0
+// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
+= Setup — four approaches
+:revdate: 2026-09-20
+
+Panoply is a **library** (Idris2 ABI + Zig FFI). There is no `panoply` binary.
+Zig **0.15.1** (not 0.16). Idris2 optional for FFI-only work.
+
+== 1. AI-assisted
+
+Paste this to an agent with repo access:
+
+----
+Read 0-AI-MANIFEST.deed, then .machine_readable/6a2/STATE.deed.
+Estate: AsciiDoc + .deed (not README.md / .a2ml). JS reach: Bun → Deno → pnpm → npm.
+No Python/Go. Do not claim a Core checker. just deps && just test-smoke.
+If idris2 is missing, skip ABI typecheck; zig tests must pass.
+Do not commit secrets. Do not close issues #5–#11.
+----
+
+== 2. Raw (manual)
+
+. Git 2.40+, just, Zig 0.15.1, optionally Idris2 0.7+
+. `git clone https://github.com/hyperpolymath/panoply && cd panoply`
+. `cd src/interface/ffi && zig build test`
+. Optional: `idris2 --build src/interface/abi.ipkg`
+
+== 3. Just
+
+----
+just deps
+just test-smoke
+just spec-tests
+just p2p
+just e2e          # SKIP idris2 if absent
+just proof-check-idris2   # SKIP without idris2
+----
+
+There is no `just setup` that downloads toolchains; Guix is `just guix-shell`.
+
+== 4. Launcher
+
+No desktop GUI. The launcher is **`just`**. Helpers live in `launcher/`
+(path resolve / gui-error) for a future GUI. Do not expect
+`/.well-known/groove` (port 0, surfaces off).

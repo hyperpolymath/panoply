@@ -1,0 +1,38 @@
+// SPDX-License-Identifier: CC-BY-SA-4.0
+// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
+= Phase 6 — documentation, wiki, bot readability
+:revdate: 2026-09-20
+
+== 6.1 README layers
+
+Estate law: **README.adoc**, not `README.md` (banned for general docs).
+Thin AsciiDoc READMEs added for directories that lacked one.
+
+== 6.2 AI manifests
+
+Root `0-AI-MANIFEST.deed` (gatekeeper kv, not DEED ABNF) +
+`.machine_readable/0.1-AI-MANIFEST.deed`. Layer `0.1`/`0.2` files already
+exist (~100). Do not duplicate `0.1` at git root (root-shape allowlist).
+
+== 6.3 AFFIRMATION
+
+Present at root, profile A. **Draft until `-S`.** Do not invent a new
+SHA in this PR.
+
+== 6.4 .deed
+
+No `.a2ml` files remain. Gatekeeper kv still not ABNF.
+
+== 6.5 Security/quality
+
+`docs/reports/security/REMEDIATION.adoc`. CRG X. #11 Hypatia.
+
+== 6.6 Setup
+
+`docs/onboarding/SETUP.adoc` — AI prompt, raw, just, launcher=`just`.
+QUICKSTART Zig pin corrected to 0.15.1.
+
+== 6.7 Wiki
+
+GitHub wiki off. `docs/wikis/PLAN.adoc` + users/maintainers/developers.
+3-ply / span 7. berrywiki not vendored.

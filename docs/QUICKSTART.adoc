@@ -10,7 +10,7 @@ Get up and running in 60 seconds.
 * Git 2.40+
 * just (command runner)
 * Idris2 0.7.0+
-* Zig 0.16.0+
+* Zig 0.15.1
 
 == Get panoply Running
 
