@@ -56,7 +56,7 @@
                         ┌─────────────────────────────────────────┐
                         │          REPO INFRASTRUCTURE            │
                         │  Justfile / Mustfile  .machine_readable/  │
-                        │  Codeowners / Reuse   0-AI-MANIFEST.a2ml  │
+                        │  Codeowners / Reuse   0-AI-MANIFEST.deed  │
                         └─────────────────────────────────────────┘
 ```
 

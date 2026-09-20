@@ -52,7 +52,7 @@ info:
     @echo "Version: {{version}}"
     @echo "RSR Tier: {{tier}}"
     @echo "Recipes: $(just --summary | wc -w)"
-    @[ -f ".machine_readable/6a2/STATE.a2ml" ] && grep -oP 'phase\s*=\s*"\K[^"]+' .machine_readable/6a2/STATE.a2ml | head -1 | xargs -I{} echo "Phase: {}" || true
+    @[ -f ".machine_readable/6a2/STATE.deed" ] && grep -oP 'phase\s*=\s*"\K[^"]+' .machine_readable/6a2/STATE.deed | head -1 | xargs -I{} echo "Phase: {}" || true
 
 # Run Invariant Path overlay tools for this repository
 invariant-path *ARGS:
@@ -151,32 +151,43 @@ bench:
     @echo "Running benchmarks..."
     bash benches/template_bench.sh
 
-# Print the current CRG grade (reads from READINESS.md '**Current Grade:** X' line)
+# Print the current CRG grade (docs/status/READINESS.adoc)
 crg-grade:
-    @grade=$$(grep -oP '(?<=\*\*Current Grade:\*\* )[A-FX]' READINESS.md 2>/dev/null | head -1); \
-    [ -z "$$grade" ] && grade="X"; \
-    echo "$$grade"
+    #!/usr/bin/env bash
+    set -euo pipefail
+    grade=$(grep -oP '(?<=\*\*Current Grade:\*\* )[A-FX]' docs/status/READINESS.adoc 2>/dev/null | head -1 || true)
+    [ -z "$grade" ] && grade="X"
+    echo "$grade"
 
 # Print a shields.io CRG badge for embedding in README files
-# Looks for '**Current Grade:** X' in READINESS.md; falls back to X
 crg-badge:
-    @grade=$$(grep -oP '(?<=\*\*Current Grade:\*\* )[A-FX]' READINESS.md 2>/dev/null | head -1); \
-    [ -z "$$grade" ] && grade="X"; \
-    case "$$grade" in \
-      A) color="brightgreen" ;; \
-      B) color="green" ;; \
-      C) color="yellow" ;; \
-      D) color="orange" ;; \
-      E) color="red" ;; \
-      F) color="critical" ;; \
-      *) color="lightgrey" ;; \
-    esac; \
-    echo "[![CRG $$grade](https://img.shields.io/badge/CRG-$$grade-$$color?style=flat-square)](https://github.com/hyperpolymath/standards/tree/main/component-readiness-grades)"
+    #!/usr/bin/env bash
+    set -euo pipefail
+    grade=$(grep -oP '(?<=\*\*Current Grade:\*\* )[A-FX]' docs/status/READINESS.adoc 2>/dev/null | head -1 || true)
+    [ -z "$grade" ] && grade="X"
+    case "$grade" in
+      A) color="brightgreen" ;;
+      B) color="green" ;;
+      C) color="yellow" ;;
+      D) color="orange" ;;
+      E) color="red" ;;
+      F) color="critical" ;;
+      *) color="lightgrey" ;;
+    esac
+    echo "[![CRG ${grade}](https://img.shields.io/badge/CRG-${grade}-${color}?style=flat-square)](https://github.com/hyperpolymath/standards/tree/main/component-readiness-grades)"
 
-# Run the full merge-requirement test suite (ALL categories)
-# Per STANDING rule: P2P + E2E + aspect + execution + lifecycle + bench
-test-all: test e2e aspect bench
+# Run the full merge-requirement test suite
+# Categories: execution (`test`) + E2E + aspect + bench + lifecycle + P2P
+test-all: test e2e aspect bench lifecycle p2p
     @echo "All test categories passed — safe to merge!"
+
+# Lifecycle: build → test → clean (FFI); skips Idris2 if absent
+lifecycle:
+    bash tests/lifecycle.sh
+
+# P2P: honest skip until a peer protocol exists; fails if P2P source appears untested
+p2p:
+    bash tests/p2p.sh
 
 # Run all quality checks
 quality: fmt-check lint test
@@ -491,32 +502,32 @@ import? "build/just/validate.just"
 # STATE MANAGEMENT
 # ═══════════════════════════════════════════════════════════════════════════════
 
-# Update STATE.a2ml timestamp
+# Update STATE.deed timestamp
 state-touch:
-    @if [ -f ".machine_readable/6a2/STATE.a2ml" ]; then \
-        sed -i 's/last-updated = "[^"]*"/last-updated = "'"$(date +%Y-%m-%d)"'"/' .machine_readable/6a2/STATE.a2ml && \
-        echo "STATE.a2ml timestamp updated"; \
+    @if [ -f ".machine_readable/6a2/STATE.deed" ]; then \
+        sed -i 's/last-updated = "[^"]*"/last-updated = "'"$(date +%Y-%m-%d)"'"/' .machine_readable/6a2/STATE.deed && \
+        echo "STATE.deed timestamp updated"; \
     fi
 
-# Show current phase from STATE.a2ml
+# Show current phase from STATE.deed
 state-phase:
-    @grep -oP 'phase\s*=\s*"\K[^"]+' .machine_readable/6a2/STATE.a2ml 2>/dev/null | head -1 || echo "unknown"
+    @grep -oP 'phase\s*=\s*"\K[^"]+' .machine_readable/6a2/STATE.deed 2>/dev/null | head -1 || echo "unknown"
 
 # ═══════════════════════════════════════════════════════════════════════════════
-# GUIX & NIX
+# GUIX (channels — Nix is deprecated in this estate)
 # ═══════════════════════════════════════════════════════════════════════════════
 
-# Enter Guix development shell (primary)
+# Enter Guix development shell
 guix-shell:
-    guix shell -D -f guix.scm
+    guix shell -D -f build/guix.scm
 
 # Build with Guix
 guix-build:
-    guix build -f guix.scm
+    guix build -f build/guix.scm
 
-# Enter Nix development shell (fallback)
-nix-shell:
-    @if [ -f "flake.nix" ]; then nix develop; else echo "No flake.nix"; fi
+# Show Guix channel pin for this repo
+guix-channel:
+    @test -f build/.guix-channel && cat build/.guix-channel || echo "No build/.guix-channel"
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # HYBRID AUTOMATION

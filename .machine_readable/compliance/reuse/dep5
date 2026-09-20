@@ -14,7 +14,7 @@ Copyright: 2026 Jonathan D.A. Jewell (hyperpolymath) <j.d.a.jewell@open.ac.uk>
 License: MPL-2.0
 
 # Machine-readable state files
-Files: .machine_readable/*.a2ml
+Files: .machine_readable/*.deed
 Copyright: 2026 Jonathan D.A. Jewell (hyperpolymath) <j.d.a.jewell@open.ac.uk>
 License: MPL-2.0
 

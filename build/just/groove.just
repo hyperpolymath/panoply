@@ -5,7 +5,7 @@
 #
 # Imported by ../../Justfile via `import? "build/just/groove.just"`.
 # Recipes here configure and validate the Groove protocol manifest at
-# .machine_readable/integrations/groove.a2ml — port assignment, API surface
+# .machine_readable/integrations/groove.deed — port assignment, API surface
 # flags (REST/gRPC/GraphQL/WebSocket/SSE), and template-placeholder hygiene.
 # The manifest itself is consumed by the Groove bridge / zig-unified-api-adapter.
 
@@ -13,7 +13,7 @@
 groove-setup:
     #!/usr/bin/env bash
     set -euo pipefail
-    MANIFEST=".machine_readable/integrations/groove.a2ml"
+    MANIFEST=".machine_readable/integrations/groove.deed"
     if [ ! -f "$MANIFEST" ]; then
         echo "Error: $MANIFEST not found. Run 'just init' first."
         exit 1
@@ -59,7 +59,7 @@ verify-template:
     FOUND=0
 
     # Check for double-brace placeholder patterns
-    HITS=$(grep -rn '{{'{{'}}[A-Z_]*{{'}}'}}' --include="*.adoc" --include="*.md" --include="*.a2ml" \
+    HITS=$(grep -rn '{{'{{'}}[A-Z_]*{{'}}'}}' --include="*.adoc" --include="*.md" --include="*.deed" \
            --include="*.scm" --include="*.toml" --include="*.yml" --include="*.yaml" \
            . 2>/dev/null | grep -v 'node_modules\|\.git/' | grep -v 'PLACEHOLDERS.adoc' || true)
     if [ -n "$HITS" ]; then
@@ -76,13 +76,13 @@ verify-template:
     fi
 
     # Check for port 0 in Groove manifest
-    if grep -q '(port 0)' .machine_readable/integrations/groove.a2ml 2>/dev/null; then
+    if grep -q '(port 0)' .machine_readable/integrations/groove.deed 2>/dev/null; then
         echo "⚠ Groove manifest has port 0 — run 'just groove-setup' to assign a port"
         FOUND=1
     fi
 
     # Check for empty SCM files
-    for f in .machine_readable/6a2/STATE.a2ml .machine_readable/6a2/META.a2ml .machine_readable/6a2/ECOSYSTEM.a2ml; do
+    for f in .machine_readable/6a2/STATE.deed .machine_readable/6a2/META.deed .machine_readable/6a2/ECOSYSTEM.deed; do
         if [ -f "$f" ] && grep -q '{{'{{'}}' "$f" 2>/dev/null; then
             echo "⚠ $f still has template placeholders"
             FOUND=1

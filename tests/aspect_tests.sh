@@ -54,7 +54,8 @@ while IFS= read -r -d '' f; do
         warn "Missing SPDX header: $f"
         MISSING_SPDX=$((MISSING_SPDX + 1))
     fi
-done < <(find src/ -type f \( -name "*.rs" -o -name "*.zig" -o -name "*.res" -o -name "*.ex" -o -name "*.exs" -o -name "*.gleam" -o -name "*.idr" -o -name "*.sh" \) -print0 2>/dev/null)
+done < <(find src/ -type f \( -name "*.rs" -o -name "*.zig" -o -name "*.res" -o -name "*.ex" -o -name "*.exs" -o -name "*.gleam" -o -name "*.idr" -o -name "*.sh" \) \
+    -not -path '*/.zig-cache/*' -not -path '*/zig-out/*' -print0 2>/dev/null)
 
 if [ "$MISSING_SPDX" -eq 0 ]; then
     pass "All source files have SPDX headers"
@@ -76,13 +77,24 @@ else
     pass "No dangerous Idris2 patterns (believe_me, assert_total)"
 fi
 
-# Coq/Lean dangerous patterns
-DANGEROUS_PROOF=$(grep -rn '\bAdmitted\b\|\bsorry\b\|\bunsafeCoerce\b\|\bObj\.magic\b' src/ verification/ 2>/dev/null | grep -v "test" | grep -v "comment" || true)
+# Coq/Lean/Haskell dangerous patterns — code tokens only.
+# Prohibition comments and AsciiDoc that *name* the banned tokens are not uses.
+# Strip line comments (//, --, #, *) and ignore documentation files.
+DANGEROUS_PROOF=$(
+    grep -rnE '\bAdmitted\b|\bsorry\b|\bunsafeCoerce\b|\bObj\.magic\b' src/ verification/ \
+        --include='*.v' --include='*.lean' --include='*.agda' --include='*.idr' \
+        --include='*.hs' --include='*.zig' --include='*.rs' \
+        2>/dev/null \
+    | grep -vE '/(\.zig-cache|zig-out)/' \
+    | grep -vE '^\S+:[[:digit:]]+:[[:space:]]*(//|--|#|\*)' \
+    | grep -viE 'NO Admitted|no Admitted|must not|MUST NOT|forbid|banned|without (Admitted|sorry)' \
+    || true
+)
 if [ -n "$DANGEROUS_PROOF" ]; then
     fail "Dangerous proof patterns found:"
     echo "$DANGEROUS_PROOF" | head -5
 else
-    pass "No dangerous proof patterns (Admitted, sorry, unsafeCoerce)"
+    pass "No dangerous proof patterns (Admitted, sorry, unsafeCoerce) in proof/source code"
 fi
 
 # ═══════════════════════════════════════════════════════════════════════

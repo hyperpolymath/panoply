@@ -4,7 +4,7 @@
 
 == Current State
 
-Panoply is at the design phase (see `.machine_readable/6a2/STATE.a2ml`):
+Panoply is at the design phase (see `.machine_readable/6a2/STATE.deed`):
 the Core, Evidence, and Manifest artefacts described by the charter are not
 yet implemented. Test infrastructure at this stage necessarily covers the
 Idris2 ABI / Zig FFI scaffold, not language semantics.
@@ -18,7 +18,10 @@ Idris2 ABI / Zig FFI scaffold, not language semantics.
 | *Unit tests* | 3 | Inline `test` blocks in `main.zig` (lifecycle, error handling, version)
 | *Integration tests* | 15 | `src/interface/ffi/test/integration_test.zig` — exercises every exported FFI function (lifecycle, process, process_array incl. null-buffer, strings, version/build_info, error handling, callbacks)
 | *E2E tests* | 1 | `tests/e2e.sh` — preflight (idris2/zig on PATH) + `idris2 --build src/interface/abi.ipkg` + `zig build test`
-| *Aspect tests* | 1 | `tests/aspect_tests.sh` — SPDX header coverage + dangerous-pattern scan (real gate; currently reports one known false positive on doc prose mentioning "Admitted"/"sorry")
+| *Aspect tests* | 1 | `tests/aspect_tests.sh` — SPDX headers (ignores `.zig-cache`) + dangerous-pattern scan on *code* (prohibition comments / `.adoc` are not hits)
+| *Lifecycle tests* | 1 | `tests/lifecycle.sh` — zig build/test/clean; skips Idris2 if absent
+| *P2P tests* | 1 | `tests/p2p.sh` — honest SKIP until a peer protocol exists; FAIL if P2P-shaped source appears untested
+| *Core spec tests* | 1 | `tests/core_spec.sh` — guards issue #5 specification artefacts
 | *Workflow tests* | 1 | `tests/workflows/validate_workflows_test.sh`
 | *Benchmarks* | 3 | `benches/template_bench.sh` (Zig build, Zig tests, workflow validation)
 | *Fuzz tests* | 0 | `verification/fuzzing/` scaffold present; no harness wired yet

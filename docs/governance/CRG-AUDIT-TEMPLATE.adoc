@@ -24,7 +24,7 @@ Evaluates the `panoply` repository against
 - Standard: `standards/component-readiness-grades/COMPONENT-READINESS-GRADES.md`
 - Template (criteria boilerplate): `rsr-template-repo/docs/governance/CRG-CRITERIA.adoc`
 - Self-declared grade (prior art):
-  * `.machine_readable/6a2/STATE.a2ml` → `grade = "<declared>"`
+  * `.machine_readable/6a2/STATE.deed` → `grade = "<declared>"`
   * `docs/READINESS.md` (if present) → per-component grades
   * Third-party badges (Glama, OpenSSF, etc.) if any — note date and scope
 - Audit date: 2026-06-21
@@ -68,7 +68,7 @@ Do *not* mark PRESENT without citing the path.
 | PRESENT (STATE, META, ECOSYSTEM, AGENTIC, NEUROSYM, PLAYBOOK) / ABSENT
 | Layout matches CLAUDE.md invariant
 
-| `0-AI-MANIFEST.a2ml`
+| `0-AI-MANIFEST.deed`
 | PRESENT / ABSENT
 | Root
 
@@ -76,7 +76,7 @@ Do *not* mark PRESENT without citing the path.
 | PRESENT / PARTIAL / ABSENT
 | `docs/`
 
-| `guix.scm` + `flake.nix`
+| `build/guix.scm` + `build/.guix-channel`
 | PRESENT (primary + fallback) / PARTIAL / ABSENT
 | Root
 
@@ -140,10 +140,10 @@ RSR compliance verdict: *met* / *partial* / *not met* — Grade D floor satisfie
 
 === Test matrix
 
-Cite *from authoritative source* (STATE.a2ml or CI log). Do not re-count by
+Cite *from authoritative source* (STATE.deed or CI log). Do not re-count by
 filesystem grep — grade the evidence that already exists.
 
-- `total-tests = N` (from `.machine_readable/6a2/STATE.a2ml` or CI).
+- `total-tests = N` (from `.machine_readable/6a2/STATE.deed` or CI).
 - Breakdown by suite: list each named suite and its count.
 - CI: `.github/workflows/<test-workflow>.yml` runs on push / tag / schedule.
 - Last green run: date + commit SHA.
@@ -166,7 +166,7 @@ v2.0 C requires **per-file and per-directory orientation**. Evidence checklist:
 
 === Dogfooding / home-stable evidence
 
-Cite STATE.a2ml `[dogfooding-status]`. For each line item:
+Cite STATE.deed `[dogfooding-status]`. For each line item:
 - WHAT was dogfooded (capability),
 - HOW (concrete use-path),
 - WHEN (date completed),
@@ -180,15 +180,15 @@ Cite STATE.a2ml `[dogfooding-status]`. For each line item:
 === External validation (Grade B / A)
 
 Distinguish carefully — v2.0 B requires **real external users with feedback**,
-not catalogue listings. Populate the canonical STATE.a2ml sections named
+not catalogue listings. Populate the canonical STATE.deed sections named
 below; internal-capability items belong under `[grade-b-status]` (legacy) or
 a roadmap section, *not* under `[external-targets]`.
 
-- STATE.a2ml `[external-targets]` — at least 6 diverse entries for B.
+- STATE.deed `[external-targets]` — at least 6 diverse entries for B.
   Target identity + date + outcome for each. If absent, grade is capped at C.
-- STATE.a2ml `[issues-fed-back]` — closed-issue trail with external-reporter
+- STATE.deed `[issues-fed-back]` — closed-issue trail with external-reporter
   label for B.
-- STATE.a2ml `[field-signal]` — multi-source external confirmation for A.
+- STATE.deed `[field-signal]` — multi-source external confirmation for A.
 - Awesome-list PRs merged (N). *Catalogue listings, not dogfooders.*
 - Directory/registry listings (MCP directory, Glama, etc.) with automated
   assessment badges — *third-party automated assessment, not external usage*.
@@ -222,7 +222,7 @@ audit for a worked example (six items all re-classified as internal).
 
 | D
 | ✓/✗
-| All RSR structural requirements met; N tests; scope documented in STATE.a2ml, ROADMAP.adoc
+| All RSR structural requirements met; N tests; scope documented in STATE.deed, ROADMAP.adoc
 | ...
 
 | C
@@ -280,7 +280,7 @@ them. Examples:
 == Related Files
 
 - `docs/READINESS.md` — per-component table. Note v1.0-vs-v2.0 schema alignment.
-- `.machine_readable/6a2/STATE.a2ml` — authoritative self-declared state.
+- `.machine_readable/6a2/STATE.deed` — authoritative self-declared state.
 - `docs/governance/CRG-LIFT-PLAN-2026-06-21.adoc` — companion plan for
   D→C (and medium-term C→B) lifts.
 - `docs/governance/CRG-CRITERIA.adoc` — boilerplate criteria doc.

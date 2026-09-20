@@ -9,18 +9,24 @@ projects. All guarantees are reasoned about here — never in a surface syntax.
 
 [IMPORTANT]
 ====
-*Not yet implemented.* This is a sketch area describing intended contents and
-obligations per the xref:../../docs/architecture/DESIGN-DISCIPLINE.adoc[charter].
-No Core checker exists today (design phase).
+*Checker not yet implemented.* The *specification* of syntax and judgements
+is in this directory (issue #5). No executable Core checker exists; per the
+charter this README asserts no guarantee it cannot witness.
 ====
 
-== What will live here
+== Specified here
 
-* The Core abstract syntax (terms, types, the substructural/affine fragment).
-* The checking judgements — what it means for a Core term to be well-formed and
-  what facts a successful check establishes.
+* xref:CORE-SYNTAX.adoc[CORE-SYNTAX.adoc] — abstract syntax (terms, types,
+  usage quantities, affine fragment).
+* xref:CORE-JUDGEMENTS.adoc[CORE-JUDGEMENTS.adoc] — checking judgements and
+  the facts a successful check establishes. A check *yields evidence* `E`,
+  not a boolean.
+
+== What will live here (implementation)
+
 * The interface every projection elaborates *into* and every backend lowers
   *from*.
+* An executable checker that constructs `E` (blocked on issue #6 formats).
 
 == Obligations
 

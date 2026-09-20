@@ -24,9 +24,7 @@ proofs*, not feature code against a running compiler.
 
 [source,bash]
 ----
-guix shell        # preferred
-# or
-nix develop       # fallback
+guix shell -D -f build/guix.scm
 git clone https://github.com/hyperpolymath/panoply.git
 cd panoply
 just              # list available recipes

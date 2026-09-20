@@ -12,26 +12,26 @@ Methodology-aware configuration for AI agents. Read by any AI agent
 |===
 | File | Purpose
 
-| `methodology.a2ml`
+| `methodology.deed`
 | Default mode, invariants, ring ceiling, priority weights, convergent budget
 
-| `coverage.a2ml`
+| `coverage.deed`
 | Session coverage tracking — what was visited, what was skipped, what has MUSTs
 
-| `debt.a2ml`
+| `debt.deed`
 | Meander debt — things found but not fixed, carried between sessions
 |===
 
 == How Agents Use These
 
-1. Read `methodology.a2ml` at session start — know mode, invariants, ceiling
-2. Read `coverage.a2ml` — know what was visited last time, what was skipped
-3. Read `debt.a2ml` — know what's outstanding from previous sessions
-4. At session end, update `coverage.a2ml` and `debt.a2ml`
+1. Read `methodology.deed` at session start — know mode, invariants, ceiling
+2. Read `coverage.deed` — know what was visited last time, what was skipped
+3. Read `debt.deed` — know what's outstanding from previous sessions
+4. At session end, update `coverage.deed` and `debt.deed`
 
 == Relationship to Other Files
 
-* `AGENTIC.a2ml` says WHAT agents can do (permissions, gating)
+* `AGENTIC.deed` says WHAT agents can do (permissions, gating)
 * `bot_directives/` says HOW agents should work (methodology)
 * `bot_directives/` says what the gitbot-fleet does (fleet-specific)
 * `CLAUDE.md` says how Claude specifically should work (Claude-specific)

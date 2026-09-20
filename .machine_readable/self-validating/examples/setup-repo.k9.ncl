@@ -48,7 +48,7 @@ K9!
 
     # RSR compliance features to enable
     features = {
-      checkpoint_files | Bool = true,  # STATE.a2ml, ECOSYSTEM.a2ml, META.a2ml
+      checkpoint_files | Bool = true,  # STATE.deed, ECOSYSTEM.deed, META.deed
       security_workflows | Bool = true,  # CodeQL, Scorecard, etc.
       quality_checks | Bool = true,  # Linting, formatting
       mirroring | Bool = false,  # GitLab/Bitbucket mirrors
@@ -120,11 +120,11 @@ K9!
     },
 
     "create-checkpoint-files" = {
-      description = "Create STATE.a2ml, ECOSYSTEM.a2ml, META.a2ml",
+      description = "Create STATE.deed, ECOSYSTEM.deed, META.deed",
       commands = [
-        "echo '(state (version \"1.0.0\") (project \"%{config.repo_name}\"))' > STATE.a2ml",
-        "echo '(ecosystem (version \"1.0.0\") (name \"%{config.repo_name}\"))' > ECOSYSTEM.a2ml",
-        "echo '(meta (version \"1.0.0\") (project \"%{config.repo_name}\"))' > META.a2ml",
+        "echo '(state (version \"1.0.0\") (project \"%{config.repo_name}\"))' > STATE.deed",
+        "echo '(ecosystem (version \"1.0.0\") (name \"%{config.repo_name}\"))' > ECOSYSTEM.deed",
+        "echo '(meta (version \"1.0.0\") (project \"%{config.repo_name}\"))' > META.deed",
         "echo '✓ Checkpoint files created'",
       ],
     },
@@ -153,7 +153,7 @@ K9!
         "echo '⚠️  This will delete all generated files'",
         "echo 'Press Ctrl+C to cancel, or wait 5 seconds...'",
         "sleep 5",
-        "rm -f STATE.a2ml ECOSYSTEM.a2ml META.a2ml",
+        "rm -f STATE.deed ECOSYSTEM.deed META.deed",
         "echo '✓ Cleaned'",
       ],
     },

@@ -9,8 +9,8 @@ Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
 
 ## Before Writing Code
 
-- Read `0-AI-MANIFEST.a2ml` in the repo root for canonical file locations.
-- State files (.a2ml) live in `.machine_readable/` ONLY, never the root.
+- Read `0-AI-MANIFEST.deed` in the repo root for canonical file locations.
+- State files (.deed) live in `.machine_readable/` ONLY, never the root.
 
 ## License
 
@@ -56,5 +56,5 @@ Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
 ## State Files
 
 Never create these in the repo root:
-STATE.a2ml, META.a2ml, ECOSYSTEM.a2ml, AGENTIC.a2ml, NEUROSYM.a2ml, PLAYBOOK.a2ml.
+STATE.deed, META.deed, ECOSYSTEM.deed, AGENTIC.deed, NEUROSYM.deed, PLAYBOOK.deed.
 They belong in `.machine_readable/` only.

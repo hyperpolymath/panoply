@@ -6,12 +6,12 @@ This directory contains the 6 core A2ML machine-readable metadata files for this
 
 ## Files
 
-- `AGENTIC.a2ml` - AI agent operational gating, safety controls
-- `ECOSYSTEM.a2ml` - Project ecosystem position, relationships, explicit boundaries
-- `META.a2ml` - Architecture decisions (ADRs), development practices, design rationale
-- `NEUROSYM.a2ml` - Symbolic semantics, composition algebra
-- `PLAYBOOK.a2ml` - Executable plans, operational runbooks
-- `STATE.a2ml` - Project state, phase, milestones, session history
+- `AGENTIC.deed` - AI agent operational gating, safety controls
+- `ECOSYSTEM.deed` - Project ecosystem position, relationships, explicit boundaries
+- `META.deed` - Architecture decisions (ADRs), development practices, design rationale
+- `NEUROSYM.deed` - Symbolic semantics, composition algebra
+- `PLAYBOOK.deed` - Executable plans, operational runbooks
+- `STATE.deed` - Project state, phase, milestones, session history
 
 ## Standards Compliance
 

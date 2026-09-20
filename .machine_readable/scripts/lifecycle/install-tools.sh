@@ -3,15 +3,20 @@
 #
 # install-tools.sh — Developer toolchain installer
 #
-# Detects and installs the required project toolchain (asdf, nix, or guix).
+# Detects Guix (canonical) or asdf. Nix is deprecated.
 
 set -euo pipefail
 
 echo "=== RSR Toolchain Installer ==="
 
-if [ -f "flake.nix" ] && command -v nix &>/dev/null; then
-    echo "Nix detected. Setting up development shell..."
-    nix develop --command echo "Nix shell verified."
+if [ -f "build/guix.scm" ] || [ -f "guix.scm" ] || [ -f "build/.guix-channel" ]; then
+    if command -v guix &>/dev/null; then
+        echo "Guix detected. Enter: just guix-shell"
+        guix --version | head -1 || true
+    else
+        echo "Guix manifest present but guix is not on PATH."
+        echo "Install Guix: https://guix.gnu.org/manual/en/html_node/Binary-Installation.html"
+    fi
 elif [ -f ".tool-versions" ] && command -v asdf &>/dev/null; then
     echo "asdf detected. Installing plugins and tools..."
     while read -r line; do
@@ -20,7 +25,7 @@ elif [ -f ".tool-versions" ] && command -v asdf &>/dev/null; then
     done < .tool-versions
     asdf install
 else
-    echo "No standard toolchain (Nix/asdf) detected or installed."
+    echo "No Guix channel/manifest detected."
     echo "Please refer to README.adoc for manual setup instructions."
 fi
 

@@ -1,0 +1,137 @@
+// SPDX-License-Identifier: CC-BY-SA-4.0
+// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
+= Panoply Core — Abstract Syntax
+:toc:
+:toc-placement: preamble
+
+Normative specification of the *checked Core* abstract syntax.
+Surface syntaxes are projections; they elaborate *into* this grammar.
+Backends lower *from* it. Guarantees are reasoned about here only.
+
+This document specifies syntax. Checking judgements live in
+xref:CORE-JUDGEMENTS.adoc[CORE-JUDGEMENTS.adoc]. Evidence kinds are
+specified under `src/evidence/` (issue #6). This file does **not**
+assert that a checker is implemented: naming a grammar is not running it.
+
+== Design constraints (from the charter)
+
+* Core is the *only* place guarantees are established.
+* A surface feature that cannot be expressed or constrained in Core
+  cannot be guaranteed.
+* Core makes **no global safety claim**. It produces *facts*; envelopes
+  name which facts are claimed.
+
+== Metavariables
+
+[cols="1,3",options="header"]
+|===
+| Meta | Ranges over
+
+| `x, y, z` | term variables
+| `α, β` | type variables
+| `ℓ` | labels (record/variant fields; affine resources)
+| `n` | natural numbers (universe / usage levels)
+| `q` | usage annotations (`0`, `1`, `ω`)
+| `t, u, v` | terms
+| `A, B, C` | types
+| `Γ` | typing contexts
+| `Δ` | usage / affine contexts (same domain as `Γ`, different role)
+|===
+
+== Usage quantities
+
+Core is substructural. Every binding carries a quantity `q`:
+
+----
+q ::= 0 | 1 | ω
+----
+
+* `0` — inspectable in types only; not consumed as a value (erased).
+* `1` — affine: used *at most once*.
+* `ω` — unrestricted (intuitionistic).
+
+Composition of quantities is commutative monoid `(Q, +, 0)` with
+`1 + 1` **undefined** in the affine fragment (a term that would require
+two uses of an affine binding is ill-usage, not a Core term).
+`ω + q = ω`. Scaling `q · r` is the usual product with `0 · q = 0`.
+
+== Universes and sorts
+
+----
+s ::= Type n | Linear n
+----
+
+`Type n` is the unrestricted universe at level `n`.
+`Linear n` classifies types whose values are affine by default.
+A coercion `Lift : Linear n → Type n` exists only as an *explicit*
+term; silent promotion is forbidden (charter: no borrowed claims).
+
+== Types
+
+----
+A, B ::=
+    α                         (type variable)
+  | Π (x : q A) → B           (dependent product; q is the domain usage)
+  | ⊗ (x : q A) → B           (dependent tensor / affine pair former)
+  | A ⊸ B                     (linear function; sugar for Π (x : 1 A) → B)
+  | A → B                     (unrestricted function; sugar for Π (x : ω A) → B)
+  | Unit | ⊤
+  | Void | ⊥
+  | A ⊕ B                     (sum)
+  | A ⊗ B                     (non-dependent tensor; sugar)
+  | Ref ℓ A                   (named resource at label ℓ)
+  | Wrap k A                  (feature wrapper; k is a feature-id)
+  | El t                      (decode a universe-coded type)
+----
+
+`Wrap k A` is how experimental features enter Core: as an explicit
+wrapper, never as a silent extension of `A`. A wrapper does not inherit
+envelopes of `A`.
+
+== Terms
+
+----
+t, u ::=
+    x
+  | λ (x : q A) → t
+  | t u                         (application; usage of u is dictated by Π)
+  | (t, u)                      (tensor intro)
+  | let (x, y) = t in u         (tensor elim; splits usage)
+  | inl t | inr t
+  | case t of { inl x → u; inr y → v }
+  | unit
+  | abort t                     (from Void)
+  | pack ℓ t                    (allocate named resource)
+  | drop ℓ                      (consume / discard a 1-resource)
+  | wrap k t | unwrap k t
+  | anno t A                    (ascription)
+----
+
+There is **no** implicit weakening for `q = 1`. Weakening of `ω` and `0`
+is structural. Contraction is allowed only for `ω`.
+
+== Contexts
+
+----
+Γ ::= · | Γ, x : q A
+----
+
+A context is well-formed when names are unique and each `A` is well-sorted
+under the prefix (see judgements).
+
+== What is *not* in Core
+
+* Surface syntax (indentation, mixfix, do-notation).
+* Backend-specific calling conventions.
+* Proof objects (those are *evidence*, not Core terms).
+* Envelope names (those are *manifest* entries).
+
+A checker that accepted a program as Core but emitted neither evidence
+nor a path to a manifest has not produced a Panoply result.
+
+== Grammar status
+
+This grammar is **specified, not implemented**. No parser or elaborator
+in this repository yet accepts Core text. Issue #5 tracks the spec;
+a checker is subsequent work and must emit evidence per
+xref:CORE-JUDGEMENTS.adoc[CORE-JUDGEMENTS].

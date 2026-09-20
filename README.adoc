@@ -64,7 +64,7 @@ infrastructure) on which those mechanisms will be built.
 
 | `docs/architecture/`     | The design discipline charter, topology, threat model.
 | `docs/decisions/`        | Architecture Decision Records.
-| `0-AI-MANIFEST.a2ml`     | Universal entry point for AI agents (read first).
+| `0-AI-MANIFEST.deed`     | Universal entry point for AI agents (read first).
 | `.machine_readable/`     | Project metadata, policies, contractiles, AI configs.
 | `src/`                   | Source pillars (core, aspects, interface ABI/FFI, …).
 | `verification/`          | Proof scripts (Coq, Agda, Idris2) and verification harness.
