@@ -13,21 +13,21 @@ and customize them with your project-specific content.
 .machine_readable/
 ├── 6a2/
 │   ├── anchors/
-│   ├── META.a2ml
-│   ├── ECOSYSTEM.a2ml
-│   ├── STATE.a2ml
-│   ├── PLAYBOOK.a2ml
-│   ├── AGENTIC.a2ml
-│   └── NEUROSYM.a2ml
+│   ├── META.deed
+│   ├── ECOSYSTEM.deed
+│   ├── STATE.deed
+│   ├── PLAYBOOK.deed
+│   ├── AGENTIC.deed
+│   └── NEUROSYM.deed
 ├── contractiles/
-│   ├── Intentfile.a2ml   <- Copy from here
-│   ├── Mustfile.a2ml     <- Copy from here
-│   ├── Trustfile.a2ml    <- Copy from here
-│   ├── Adjustfile.a2ml   <- Copy from here
+│   ├── Intentfile.deed   <- Copy from here
+│   ├── Mustfile.deed     <- Copy from here
+│   ├── Trustfile.deed    <- Copy from here
+│   ├── Adjustfile.deed   <- Copy from here
 │   ├── bust/
-│   │   └── Bustfile.a2ml <- Copy from here
+│   │   └── Bustfile.deed <- Copy from here
 │   └── dust/
-│       └── Dustfile.a2ml <- Copy from here
+│       └── Dustfile.deed <- Copy from here
 ├── self-validating/
 │   ├── examples/
 │   └── k9-svc/
@@ -42,51 +42,51 @@ The following command-line runners process these files:
 |===
 | Runner | Processes | Purpose
 
-| `intend` | Intentfile.a2ml | North-star tracking (intents + wishes)
-| `must` | Mustfile.a2ml | Hard requirements (CI gates)
-| `trust` | Trustfile.a2ml | Trust boundaries + integrity checks
-| `adjust` | Adjustfile.a2ml | Drift tolerance + corrective actions
-| `bust` | Bustfile.a2ml | Rollback procedures
-| `dust` | Dustfile.a2ml | Cleanup/hygiene checks
+| `intend` | Intentfile.deed | North-star tracking (intents + wishes)
+| `must` | Mustfile.deed | Hard requirements (CI gates)
+| `trust` | Trustfile.deed | Trust boundaries + integrity checks
+| `adjust` | Adjustfile.deed | Drift tolerance + corrective actions
+| `bust` | Bustfile.deed | Rollback procedures
+| `dust` | Dustfile.deed | Cleanup/hygiene checks
 | `anchor` | anchors/ | Anchoring system (6a2)
 | `just` | Justfile | Task automation
 |===
 
 == File Descriptions
 
-=== Intentfile.a2ml
+=== Intentfile.deed
 North-star contractile. Declares:
 - **Purpose**: What the project IS
 - **Anti-Purpose**: What the project is NOT (prevents scope creep)
 - **Committed Next-Actions**: Concrete deliverables being worked on
 - **Wishes**: Aspirational goals grouped by horizon (near/mid/far)
 
-=== Mustfile.a2ml
+=== Mustfile.deed
 Physical state contractile. Defines hard requirements:
 - File presence checks
 - Directory structure requirements
 - Repository standards compliance
 - Code quality gates
 
-=== Trustfile.a2ml
+=== Trustfile.deed
 Trust boundaries and integrity:
 - Trust level (maximal/standard/restricted/minimal)
 - Integrity invariants (secrets, provenance, container security)
 - Sensitive areas requiring explicit approval
 
-=== Adjustfile.a2ml
+=== Adjustfile.deed
 Drift tolerance contractile. Tracks:
 - Cumulative drift against tolerance bands
 - Corrective actions for when drift is detected
 - Advisory warnings (does not block, unlike MUST)
 
-=== Bustfile.a2ml
+=== Bustfile.deed
 Rollback and breakage contractile. Defines:
 - Breakage scenarios and rollback procedures
 - Escalation ladder
 - Backup points
 
-=== Dustfile.a2ml
+=== Dustfile.deed
 Cleanup and hygiene contractile. Defines:
 - Stale file patterns to remove
 - Build artifacts that should not be tracked

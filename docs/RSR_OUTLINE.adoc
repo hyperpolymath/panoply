@@ -19,7 +19,7 @@ This repository provides the standardized structure, configuration, and tooling 
 
 * Bootstrap new projects with RSR compliance
 * Reference the standard directory structure
-* Copy configuration templates (Justfile, STATE.a2ml, etc.)
+* Copy configuration templates (Justfile, STATE.deed, etc.)
 
 == Quick Start
 
@@ -97,10 +97,10 @@ just validate-rsr
 |`PLACEHOLDERS.md`
 |Template variable reference and replacement guide
 
-|`0-AI-MANIFEST.a2ml`
+|`0-AI-MANIFEST.deed`
 |Universal AI agent entry point
 
-|`AI.a2ml`
+|`AI.deed`
 |Claude-specific instructions
 
 |`src/abi/`
@@ -121,7 +121,7 @@ The template Justfile provides:
 * **Cookbook generation**: `just cookbook` -> `docs/just-cookbook.adoc`
 * **Man page generation**: `just man` -> `docs/man/project.1`
 * **RSR validation**: `just validate-rsr`
-* **STATE.a2ml management**: `just state-touch`, `just state-phase`
+* **STATE.deed management**: `just state-touch`, `just state-phase`
 * **Container support**: `just container-build`, `just container-push`
 * **CI matrix**: `just ci-matrix [stage] [depth]`
 
@@ -161,12 +161,12 @@ project/
 │   ├── humans.txt
 │   └── security.txt
 ├── .machine_readable/         # ALL machine-readable content
-│   ├── STATE.a2ml             # Project state, progress, blockers
-│   ├── META.a2ml              # Architecture decisions, governance
-│   ├── ECOSYSTEM.a2ml         # Ecosystem position, relationships
-│   ├── AGENTIC.a2ml           # AI agent interaction patterns
-│   ├── NEUROSYM.a2ml          # Neurosymbolic integration config
-│   ├── PLAYBOOK.a2ml          # Operational runbook
+│   ├── STATE.deed             # Project state, progress, blockers
+│   ├── META.deed              # Architecture decisions, governance
+│   ├── ECOSYSTEM.deed         # Ecosystem position, relationships
+│   ├── AGENTIC.deed           # AI agent interaction patterns
+│   ├── NEUROSYM.deed          # Neurosymbolic integration config
+│   ├── PLAYBOOK.deed          # Operational runbook
 │   ├── bot_directives/        # Per-bot rules and constraints
 │   └── contractiles/          # Policy enforcement contracts
 │       ├── k9/                # Security levels (Kennel/Yard/Hunt)
@@ -198,8 +198,8 @@ project/
 ├── README.adoc                # Overview
 ├── TOPOLOGY.md                # Architecture + completion
 ├── PLACEHOLDERS.md            # Template variable guide
-├── 0-AI-MANIFEST.a2ml         # Universal AI entry point
-└── AI.a2ml                    # Claude-specific instructions
+├── 0-AI-MANIFEST.deed         # Universal AI entry point
+└── AI.deed                    # Claude-specific instructions
 ----
 
 == RSR Compliance
@@ -217,11 +217,11 @@ project/
 * `Justfile`
 * `README.adoc`
 * `LICENSE` (MPL-2.0)
-* `.machine_readable/6a2/STATE.a2ml`
+* `.machine_readable/6a2/STATE.deed`
 * `.well-known/security.txt`
 * `.well-known/ai.txt`
 * `.well-known/humans.txt`
-* `guix.scm` OR `flake.nix`
+* `build/guix.scm` and `build/.guix-channel`
 
 === Prohibited
 
@@ -232,9 +232,9 @@ project/
 * npm, Bun, pnpm, yarn (use Deno)
 * Go (use Rust)
 
-== STATE.a2ml
+== STATE.deed
 
-The STATE.a2ml file tracks project state:
+The STATE.deed file tracks project state:
 
 [source]
 ----
@@ -262,7 +262,7 @@ milestones:
 
 == Badge Schema
 
-Generate badges from STATE.a2ml:
+Generate badges from STATE.deed:
 
 [source,bash]
 ----
@@ -275,7 +275,7 @@ See `docs/BADGE_SCHEMA.adoc` for the full badge taxonomy.
 
 This template is part of:
 
-* **STATE.a2ml Ecosystem**: Conversation checkpoints
+* **STATE.deed Ecosystem**: Conversation checkpoints
 * **RSR Framework**: Repository standards
 * **Consent-Aware-HTTP**: .well-known compliance
 * **Hypatia**: Neurosymbolic security scanning

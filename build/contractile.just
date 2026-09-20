@@ -5,7 +5,7 @@
 # SPDX-License-Identifier: MPL-2.0
 
 # === DUST (Recovery & Rollback) ===
-# Source: Dustfile.a2ml
+# Source: Dustfile.deed
 
 # List available dust recovery actions
 dust-status:
@@ -18,7 +18,7 @@ dust-source-rollback:
 
 
 # === INTEND (Declared Future Intent) ===
-# Source: Intentfile.a2ml
+# Source: Intentfile.deed
 
 # Display declared future intents
 intend-list:
@@ -30,7 +30,7 @@ intend-list:
 
 
 # === MUST (Physical State Checks) ===
-# Source: Mustfile.a2ml
+# Source: Mustfile.deed
 
 # Run all must checks
 must-check: must-license-present must-readme-present must-spdx-headers must-no-banned-files
@@ -54,7 +54,7 @@ must-no-banned-files:
 
 
 # === TRUST (Integrity & Provenance Verification) ===
-# Source: Trustfile.a2ml
+# Source: Trustfile.deed
 
 # Run all trust verifications
 trust-verify: trust-license-content trust-no-secrets-committed trust-container-images-pinned

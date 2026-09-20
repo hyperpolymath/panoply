@@ -37,7 +37,7 @@ one-shot relocation PR per project once the template lands.
 The full enumeration lives in `.machine_readable/root-allow.txt`. Summary:
 
 * *Authority files (root):* `README.adoc`, `AUDIT.adoc`, `EXPLAINME.adoc`,
-  `0-AI-MANIFEST.a2ml` (thin pointer), `LICENSE`, `CHANGELOG.md`.
+  `0-AI-MANIFEST.deed` (thin pointer), `LICENSE`, `CHANGELOG.md`.
 * *Build entry points (root):* `Justfile`, `coordination.k9`.
 * *Tool-required dotfiles (root):* `.editorconfig`, `.envrc`, `.gitattributes`,
   `.gitignore`, `.tool-versions`.
@@ -163,14 +163,14 @@ across `Justfile`, `scripts/`, `.machine_readable/`).
 
 === AI manifest deduplication
 
-`.machine_readable/0.1-AI-MANIFEST.a2ml` is the canonical AI manifest in both
+`.machine_readable/0.1-AI-MANIFEST.deed` is the canonical AI manifest in both
 the template and downstream repos (e.g. `the-nash-equilibrium` README line
-244). The root `0-AI-MANIFEST.a2ml` becomes a thin pointer:
+244). The root `0-AI-MANIFEST.deed` becomes a thin pointer:
 
 [source,a2ml]
 ----
-# 0-AI-MANIFEST.a2ml — pointer file
-authority = ".machine_readable/0.1-AI-MANIFEST.a2ml"
+# 0-AI-MANIFEST.deed — pointer file
+authority = ".machine_readable/0.1-AI-MANIFEST.deed"
 note = "AI agents MUST read the canonical manifest at the path above."
 ----
 

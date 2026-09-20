@@ -85,15 +85,15 @@ self-assess:
         echo "    ⚠ Consequence: no C-compatible FFI bridge."
     fi
 
-    if $HAS_API && [ -f ".machine_readable/integrations/groove.a2ml" ]; then
-        PORT=$(grep '(port ' .machine_readable/integrations/groove.a2ml 2>/dev/null | sed 's/.*(port \([0-9]*\)).*/\1/')
+    if $HAS_API && [ -f ".machine_readable/integrations/groove.deed" ]; then
+        PORT=$(grep '(port ' .machine_readable/integrations/groove.deed 2>/dev/null | sed 's/.*(port \([0-9]*\)).*/\1/')
         if [ "$PORT" = "0" ]; then
-            echo "  ⚠ groove.a2ml — Port not assigned. Run 'just groove-setup'."
+            echo "  ⚠ groove.deed — Port not assigned. Run 'just groove-setup'."
         else
-            echo "  ✓ groove.a2ml — KEEP (Groove discovery on port $PORT)"
+            echo "  ✓ groove.deed — KEEP (Groove discovery on port $PORT)"
         fi
     elif $HAS_API; then
-        echo "  ✗ groove.a2ml — MISSING. Your project has an API but no Groove manifest."
+        echo "  ✗ groove.deed — MISSING. Your project has an API but no Groove manifest."
         echo "    → Run 'just groove-setup' to enable snap-on/snap-off discovery."
     fi
 
@@ -119,14 +119,12 @@ self-assess:
         echo "  ○ .machine_readable/ai/PLACEHOLDERS.adoc — Template doc. Remove after init."
     fi
 
-    if { [ -f "build/flake.nix" ] || [ -f "flake.nix" ]; } && ! command -v nix >/dev/null 2>&1; then
-        echo "  ○ flake.nix — Nix flake. Safe to remove if you don't use Nix."
-        echo "    → KEEP if others might build with Nix."
+    if [ -f "flake.nix" ] || [ -f "build/flake.nix" ]; then
+        echo "  ✗ flake.nix — Nix is deprecated. Remove; use Guix channels."
     fi
 
     if { [ -f "build/guix.scm" ] || [ -f "guix.scm" ]; } && ! command -v guix >/dev/null 2>&1; then
-        echo "  ○ guix.scm — Guix package. Safe to remove if you don't use Guix."
-        echo "    → KEEP if others might build with Guix."
+        echo "  ○ guix.scm — Guix package present (install guix to use just guix-shell)."
     fi
 
     echo ""
@@ -203,9 +201,9 @@ verify:
     check_file "LICENSE"
     check_either "CONTRIBUTING.md" "CONTRIBUTING.adoc"
     check_either "README.adoc" "README.md"
-    check_file ".machine_readable/6a2/STATE.a2ml"
-    check_file ".machine_readable/6a2/META.a2ml"
-    check_file ".machine_readable/6a2/ECOSYSTEM.a2ml"
+    check_file ".machine_readable/6a2/STATE.deed"
+    check_file ".machine_readable/6a2/META.deed"
+    check_file ".machine_readable/6a2/ECOSYSTEM.deed"
     check_either "CHANGELOG.md" "CHANGELOG.adoc"
 
     # Check at least 1 workflow exists

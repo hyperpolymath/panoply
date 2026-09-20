@@ -1,0 +1,30 @@
+# SPDX-License-Identifier: MPL-2.0
+---
+### [META]
+id: "machine-readable-pillar"
+level: 1
+parent: "../0-AI-MANIFEST.deed"
+
+---
+### [AI_MANIFEST]
+description: |
+  Registry for all machine-readable metadata, policies, and internal
+  automation scripts.
+
+canonical_locations:
+  state: "6a2/STATE.deed"
+  meta: "6a2/META.deed"
+  ecosystem: "6a2/ECOSYSTEM.deed"
+  agentic: "6a2/AGENTIC.deed"
+  neurosym: "6a2/NEUROSYM.deed"
+  playbook: "6a2/PLAYBOOK.deed"
+  clade: "6a2/CLADE.deed"
+  anchors: "6a2/anchors/"
+  policies: "policies/"
+  ai_configs: "ai/"
+  compliance: "compliance/"
+  scripts: "scripts/"
+
+invariants:
+  - "Metadata files MUST follow a2ml format"
+  - "Internal automation MUST live in scripts/ subfolder"

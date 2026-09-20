@@ -52,7 +52,7 @@ info:
     @echo "Version: {{version}}"
     @echo "RSR Tier: {{tier}}"
     @echo "Recipes: $(just --summary | wc -w)"
-    @[ -f ".machine_readable/6a2/STATE.a2ml" ] && grep -oP 'phase\s*=\s*"\K[^"]+' .machine_readable/6a2/STATE.a2ml | head -1 | xargs -I{} echo "Phase: {}" || true
+    @[ -f ".machine_readable/6a2/STATE.deed" ] && grep -oP 'phase\s*=\s*"\K[^"]+' .machine_readable/6a2/STATE.deed | head -1 | xargs -I{} echo "Phase: {}" || true
 
 # Run Invariant Path overlay tools for this repository
 invariant-path *ARGS:
@@ -502,32 +502,32 @@ import? "build/just/validate.just"
 # STATE MANAGEMENT
 # ═══════════════════════════════════════════════════════════════════════════════
 
-# Update STATE.a2ml timestamp
+# Update STATE.deed timestamp
 state-touch:
-    @if [ -f ".machine_readable/6a2/STATE.a2ml" ]; then \
-        sed -i 's/last-updated = "[^"]*"/last-updated = "'"$(date +%Y-%m-%d)"'"/' .machine_readable/6a2/STATE.a2ml && \
-        echo "STATE.a2ml timestamp updated"; \
+    @if [ -f ".machine_readable/6a2/STATE.deed" ]; then \
+        sed -i 's/last-updated = "[^"]*"/last-updated = "'"$(date +%Y-%m-%d)"'"/' .machine_readable/6a2/STATE.deed && \
+        echo "STATE.deed timestamp updated"; \
     fi
 
-# Show current phase from STATE.a2ml
+# Show current phase from STATE.deed
 state-phase:
-    @grep -oP 'phase\s*=\s*"\K[^"]+' .machine_readable/6a2/STATE.a2ml 2>/dev/null | head -1 || echo "unknown"
+    @grep -oP 'phase\s*=\s*"\K[^"]+' .machine_readable/6a2/STATE.deed 2>/dev/null | head -1 || echo "unknown"
 
 # ═══════════════════════════════════════════════════════════════════════════════
-# GUIX & NIX
+# GUIX (channels — Nix is deprecated in this estate)
 # ═══════════════════════════════════════════════════════════════════════════════
 
-# Enter Guix development shell (primary)
+# Enter Guix development shell
 guix-shell:
-    guix shell -D -f guix.scm
+    guix shell -D -f build/guix.scm
 
 # Build with Guix
 guix-build:
-    guix build -f guix.scm
+    guix build -f build/guix.scm
 
-# Enter Nix development shell (fallback)
-nix-shell:
-    @if [ -f "flake.nix" ]; then nix develop; else echo "No flake.nix"; fi
+# Show Guix channel pin for this repo
+guix-channel:
+    @test -f build/.guix-channel && cat build/.guix-channel || echo "No build/.guix-channel"
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # HYBRID AUTOMATION

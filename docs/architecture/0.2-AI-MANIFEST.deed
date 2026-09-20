@@ -1,0 +1,21 @@
+# SPDX-License-Identifier: MPL-2.0
+---
+### [META]
+id: "architecture-track"
+level: 2
+parent: "../0.1-AI-MANIFEST.deed"
+
+---
+### [AI_MANIFEST]
+description: |
+  Documentation track for system architecture, the design discipline charter,
+  and threat models.
+
+canonical_locations:
+  design_discipline: "DESIGN-DISCIPLINE.adoc"
+  architecture: "ARCHITECTURE.adoc"
+  threat_model: "THREAT-MODEL.adoc"
+  topology: "TOPOLOGY.adoc"
+
+invariants:
+  - "Visual diagrams MUST include ASCII or Mermaid representations"

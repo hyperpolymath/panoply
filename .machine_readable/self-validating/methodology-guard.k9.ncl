@@ -3,7 +3,7 @@
 #
 # K9 Validator: Methodology Guard
 # Checks that agent work respects methodology constraints declared in
-# bot_directives/methodology.a2ml.
+# bot_directives/methodology.deed.
 #
 # Usage: k9 validate methodology-guard
 
@@ -41,9 +41,9 @@ let methodology_guard = {
     },
 
     state_not_template = {
-      description = "STATE.a2ml must not contain template placeholders",
+      description = "STATE.deed must not contain template placeholders",
       severity = "warning",
-      file = ".machine_readable/6a2/STATE.a2ml",
+      file = ".machine_readable/6a2/STATE.deed",
       # NOTE: the PROJECT token below is written as a Nickel concat
       # ("{{" ++ "PROJECT}}") ON PURPOSE. `just init` runs a sed substitution for
       # the brace-PROJECT-brace token over EVERY text file, which would otherwise
@@ -57,9 +57,9 @@ let methodology_guard = {
     },
 
     coverage_updated = {
-      description = "coverage.a2ml should be updated within 30 days",
+      description = "coverage.deed should be updated within 30 days",
       severity = "info",
-      file = ".machine_readable/bot_directives/coverage.a2ml",
+      file = ".machine_readable/bot_directives/coverage.deed",
       staleness_days = 30,
     },
   },

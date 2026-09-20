@@ -9,16 +9,16 @@ Examples:
 * `CLAUDE.md`
 * `COPILOT.md`
 * `GEMINI.md`
-* `AI.a2ml`
+* `AI.deed`
 * `AI.djot`
 
 Avoid scattering agent instruction files around the repo root.
 
 Recommended machine read order:
 
-* `.machine_readable/6a2/anchors/ANCHOR.a2ml`
-* `.machine_readable/policies/MAINTENANCE-AXES.a2ml`
-* `.machine_readable/policies/MAINTENANCE-CHECKLIST.a2ml`
-* `.machine_readable/policies/SOFTWARE-DEVELOPMENT-APPROACH.a2ml`
-* `.machine_readable/6a2/STATE.a2ml`
-* `.machine_readable/6a2/META.a2ml`
+* `.machine_readable/6a2/anchors/ANCHOR.deed`
+* `.machine_readable/policies/MAINTENANCE-AXES.deed`
+* `.machine_readable/policies/MAINTENANCE-CHECKLIST.deed`
+* `.machine_readable/policies/SOFTWARE-DEVELOPMENT-APPROACH.deed`
+* `.machine_readable/6a2/STATE.deed`
+* `.machine_readable/6a2/META.deed`

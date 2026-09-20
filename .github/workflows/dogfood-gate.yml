@@ -20,10 +20,10 @@ permissions:
 
 jobs:
   # ---------------------------------------------------------------------------
-  # Job 1: A2ML manifest validation
+  # Job 1: DEED manifest validation
   # ---------------------------------------------------------------------------
-  a2ml-validate:
-    name: Validate A2ML manifests
+  deed-validate:
+    name: Validate DEED manifests
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
@@ -34,30 +34,34 @@ jobs:
       - name: Check for A2ML files
         id: detect
         run: |
-          COUNT=$(find . -type f \( -name '*.a2ml' -o -name '*.deed' \) -not -path './.git/*' | wc -l)
+          COUNT=$(find . -type f -name '*.deed' -not -path './.git/*' | wc -l)
           echo "count=$COUNT" >> "$GITHUB_OUTPUT"
           if [ "$COUNT" -eq 0 ]; then
-            echo "::warning::No .deed manifest files found. Every RSR repo should have 0-AI-MANIFEST.deed (.a2ml is legacy and no longer authored)"
+            echo "::warning::No .deed manifest files found. Every RSR repo should have 0-AI-MANIFEST.deed"
+          fi
+          if find . -name '*.a2ml' -not -path './.git/*' | grep -q .; then
+            echo "::error::Deprecated .a2ml files present; migrate to .deed"
+            exit 1
           fi
 
-      - name: Validate A2ML manifests
+      - name: Validate DEED manifests
         if: steps.detect.outputs.count > 0
-        run: bash .github/hooks/validate-a2ml.sh
+        run: bash .github/hooks/validate-deed.sh
       - name: Write summary
         run: |
-          A2ML_COUNT="${{ steps.detect.outputs.count }}"
-          if [ "$A2ML_COUNT" -eq 0 ]; then
+          DEED_COUNT="${{ steps.detect.outputs.count }}"
+          if [ "$DEED_COUNT" -eq 0 ]; then
             cat <<'EOF' >> "$GITHUB_STEP_SUMMARY"
-          ## A2ML Validation
+          ## DEED Validation
 
-          :warning: **No manifest found.** Every RSR-compliant repo should have at least `0-AI-MANIFEST.deed`. (`.a2ml` still validates as legacy but is no longer authored.)
+          :warning: **No manifest found.** Every RSR-compliant repo should have at least `0-AI-MANIFEST.deed`.
 
           Copy one from [rsr-template-repo](https://github.com/hyperpolymath/rsr-template-repo).
           EOF
           else
-            echo "## A2ML Validation" >> "$GITHUB_STEP_SUMMARY"
+            echo "## DEED Validation" >> "$GITHUB_STEP_SUMMARY"
             echo "" >> "$GITHUB_STEP_SUMMARY"
-            echo "Scanned **${A2ML_COUNT}** manifest file(s) (.deed, or legacy .a2ml). See step output for details." >> "$GITHUB_STEP_SUMMARY"
+            echo "Scanned **${DEED_COUNT}** .deed file(s)." >> "$GITHUB_STEP_SUMMARY"
           fi
 
   # ---------------------------------------------------------------------------
@@ -369,7 +373,7 @@ jobs:
     name: Dogfooding compliance summary
     runs-on: ubuntu-latest
     timeout-minutes: 15
-    needs: [a2ml-validate, k9-validate, empty-lint, groove-check, eclexiaiser-validate]
+    needs: [deed-validate, k9-validate, empty-lint, groove-check, eclexiaiser-validate]
     if: always()
 
     steps:
@@ -382,7 +386,7 @@ jobs:
           MAX=6
 
           # A2ML manifest present?
-          if find . -type f \( -name '*.a2ml' -o -name '*.deed' \) -not -path './.git/*' | head -1 | grep -q .; then
+          if find . -type f -name '*.deed' -not -path './.git/*' | head -1 | grep -q .; then
             SCORE=$((SCORE + 1))
             A2ML_STATUS=":white_check_mark:"
           else
@@ -436,7 +440,7 @@ jobs:
 
           | Tool/Format | Status | Notes |
           |-------------|--------|-------|
-          | AI manifest (0-AI-MANIFEST.deed, or legacy .a2ml) | ${A2ML_STATUS} | Required for all RSR repos |
+          | AI manifest (0-AI-MANIFEST.deed) | ${A2ML_STATUS} | Required for all RSR repos |
           | K9 contracts | ${K9_STATUS} | Required for repos with config files |
           | .editorconfig | ${EC_STATUS} | Required for all repos |
           | Groove endpoint | ${GROOVE_STATUS} | Required for service repos |

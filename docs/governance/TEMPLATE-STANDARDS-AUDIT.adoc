@@ -48,7 +48,7 @@ Inventory snapshot at audit time:
 | Renamed to canonical lowercase `src/interface/abi/*.idr` (matches `validate-template.sh` + gossamer). Checks remain tolerant of either case.
 
 | Root manifest structure with non-existent files
-| legacy `0-AI-MANIFEST.a2ml` (pre-migration)
+| legacy `0-AI-MANIFEST.deed` (pre-migration)
 | `GOVERNANCE.adoc`, several strict root assumptions
 | outdated
 | Manifest claims did not match actual template contents.
@@ -76,7 +76,7 @@ Inventory snapshot at audit time:
 | Keep.
 
 | Central protocols are authoritative
-| `README.adoc`, `0-AI-MANIFEST.a2ml`, `AUDIT.adoc`
+| `README.adoc`, `0-AI-MANIFEST.deed`, `AUDIT.adoc`
 | `standards/session-management-standards/`
 | exists
 | Local docs now explicitly defer protocol authority to standards repo.
@@ -155,7 +155,7 @@ Current status:
 rsr-template-repo/
   README.adoc
   AUDIT.adoc
-  0-AI-MANIFEST.a2ml
+  0-AI-MANIFEST.deed
   EXPLAINME.adoc
   Justfile
   coordination.k9

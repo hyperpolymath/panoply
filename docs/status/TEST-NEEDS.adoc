@@ -4,7 +4,7 @@
 
 == Current State
 
-Panoply is at the design phase (see `.machine_readable/6a2/STATE.a2ml`):
+Panoply is at the design phase (see `.machine_readable/6a2/STATE.deed`):
 the Core, Evidence, and Manifest artefacts described by the charter are not
 yet implemented. Test infrastructure at this stage necessarily covers the
 Idris2 ABI / Zig FFI scaffold, not language semantics.
