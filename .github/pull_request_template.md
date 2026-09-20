@@ -29,9 +29,9 @@ Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
 
 ### As Applicable
 
-- [ ] `.machine_readable/6a2/STATE.deed` updated (if project state changed)
-- [ ] `.machine_readable/6a2/ECOSYSTEM.deed` updated (if integrations changed)
-- [ ] `.machine_readable/6a2/META.deed` updated (if architectural decisions changed)
+- [ ] `.machine_readable/descriptiles/STATE.deed` updated (if project state changed)
+- [ ] `.machine_readable/descriptiles/ECOSYSTEM.deed` updated (if integrations changed)
+- [ ] `.machine_readable/descriptiles/META.deed` updated (if architectural decisions changed)
 - [ ] Documentation updated for user-facing changes
 - [ ] `TOPOLOGY.md` updated (if architecture changed)
 - [ ] `CHANGELOG` or release notes updated

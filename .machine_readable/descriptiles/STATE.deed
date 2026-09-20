@@ -1,7 +1,7 @@
 ;; SPDX-FileCopyrightText: © 2026 Jonathan D.A. Jewell (hyperpolymath) <j.d.a.jewell@open.ac.uk>
 ;; SPDX-License-Identifier: MPL-2.0
 ;;
-;; Project state as a repo-deed body fragment stored under 6a2 for
+;; Project state as a repo-deed body fragment stored under descriptiles for
 ;; existing Justfile readers. Canonical identity lives in
 ;; ../../panoply_chora.deed. This file is a repo-deed so the ABNF
 ;; applies; do not reintroduce TOML [section] form.

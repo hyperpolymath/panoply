@@ -1,0 +1,76 @@
+// SPDX-License-Identifier: CC-BY-SA-4.0
+// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
+= Phase 11 — completeness, CRG/TRG, close-out
+:revdate: 2026-09-20
+
+Protocol 0–10 executed. An item is *done* only if merged to `main` **or**
+roadmapped with an issue. Owner-only UI work is listed, not faked.
+
+== 11.1 Completeness
+
+[cols="1,2,1,2",options="header"]
+|===
+| Phase | Item | State | Record
+
+| 0 | Recon, no mutation | Done | session recon (internal)
+
+| 1 | Estate: AsciiDoc + `.deed`; a2ml/nix removed | Done | merged catch-up #70+
+
+| 2.1 | Language audit | Done | `docs/reports/LANGUAGE-AUDIT.adoc`
+
+| 2.2 | NIF/SNIF | N/A roadmapped | no BEAM host
+
+| 2.3–2.4 | ABI Idris2 / FFI Zig | Done | `src/interface/`
+
+| 3 | BoJ/Groove/GUI/voice | Honest N/A | PHASE-3 + I1–I5 / #77+
+
+| 4 | Taxonomy, benches N/A, Idris2 not Lean | Done | PHASE-4; T1–T3
+
+| 5 | GitHub protection, topics, social | Partial | rulesets live; E2 owner UI
+
+| 6 | README layers, setup, wiki | Partial | PHASE-6; W1 wiki.git owner
+
+| 7 | Guix, Containerfile, mise | Done | #76
+
+| 8 | Roadmap + issues | Done | #99; #77–#98; board FORBIDDEN
+
+| 9 | proven-tests / gists / stars | Roadmapped | no vacuous PR; 403; T3 E3
+
+| 10.1 | pons-asinorum | Roadmapped | #101 plan-only
+
+| 10.2 | panic-attack assail | Done | weak_points empty after comment
+
+| 10.3 | CI dispatch | Partial | e2e dispatched; quality no dispatch
+
+| Charter | #6–#11 | Open (required) | do not close
+
+| Owner | PAT rotate, `-S` AFFIRMATION, Projects | Owner | Gate A
+|===
+
+rsr-template-repo / standards: holdings H1–H7 remain; 28 workflows present
+(not a vacuous 17-of-17 claim). A2ML six-file set lives as repo-deeds under
+`.machine_readable/descriptiles/`, not TOML.
+
+== 11.2 Grades (as-is 2026-09-20)
+
+* **CRG (project, weakest in-scope): X** — Core checker untested as a
+  checker. Zig FFI / spec shells are **E**; they do not lift the project.
+  Not D.
+* **TRG (toolchain overall): X** — required F1–F7 / M1–M2 / B1–B4 / T1
+  absent. B5 ABI/FFI is the only present surface (CRG **E**).
+
+Evidence: `docs/governance/CRG-AUDIT-2026-09-20.adoc`,
+`docs/status/READINESS.adoc`.
+
+== 11.3 Commit / affirmation / tag
+
+* Conventional commits per phase already on `main` (#70–#76, #99).
+* AFFIRMATION timestamp/hash updated this phase; **owner signs `-S`**.
+* **No product tag.** Tagging a release at CRG E / TRG X would be a lie.
+  Milestone: GitHub `deferred-phase-8` (#1) plus this audit report.
+
+== Missed-by-protocol (discretion)
+
+* `quality.yml` lacks `workflow_dispatch` — leave; do not invent a trigger.
+* Foreign.idr `%foreign` scored as `unsafe_blocks` by panic-attack — mismatch.
+* Projects v2 FORBIDDEN — owner board.

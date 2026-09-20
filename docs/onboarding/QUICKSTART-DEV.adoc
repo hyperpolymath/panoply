@@ -42,7 +42,7 @@ just              # list available recipes
 | `src/{core,evidence,manifest,projections,backends}/` | sketch areas (charter artefacts)
 | `src/interface/`                           | typed ABI (Idris2) + FFI (Zig) seam
 | `verification/proofs/`                     | Coq / Agda / Idris2 proofs
-| `.machine_readable/6a2/`                   | machine-readable project state
+| `.machine_readable/descriptiles/`                   | machine-readable project state
 |===
 
 == Before a PR

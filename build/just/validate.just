@@ -16,7 +16,7 @@ validate-rsr:
     for f in .editorconfig .gitignore Justfile README.adoc LICENSE 0-AI-MANIFEST.deed; do
         [ -f "$f" ] || MISSING="$MISSING $f"
     done
-    for f in .machine_readable/6a2/STATE.deed .machine_readable/6a2/META.deed .machine_readable/6a2/ECOSYSTEM.deed .machine_readable/6a2/anchors/ANCHOR.deed .machine_readable/policies/MAINTENANCE-AXES.deed .machine_readable/policies/MAINTENANCE-CHECKLIST.deed .machine_readable/policies/SOFTWARE-DEVELOPMENT-APPROACH.deed; do
+    for f in .machine_readable/descriptiles/STATE.deed .machine_readable/descriptiles/META.deed .machine_readable/descriptiles/ECOSYSTEM.deed .machine_readable/descriptiles/anchors/ANCHOR.deed .machine_readable/policies/MAINTENANCE-AXES.deed .machine_readable/policies/MAINTENANCE-CHECKLIST.deed .machine_readable/policies/SOFTWARE-DEVELOPMENT-APPROACH.deed; do
         [ -f "$f" ] || MISSING="$MISSING $f"
     done
     for f in licensing/exhibits/EXHIBIT-A-ETHICAL-USE.txt licensing/exhibits/EXHIBIT-B-QUANTUM-SAFE.txt licensing/texts/MPL-2.0.txt; do
@@ -31,15 +31,15 @@ validate-rsr:
     for f in docs/governance/MAINTENANCE-CHECKLIST.adoc docs/governance/SOFTWARE-DEVELOPMENT-APPROACH.adoc; do
         [ -f "$f" ] || MISSING="$MISSING $f"
     done
-    if [ -f ".machine_readable/6a2/META.deed" ]; then
-        grep -q 'axis-1 = "must > intend > like"' .machine_readable/6a2/META.deed || MISSING="$MISSING META.deed:axis-1"
-        grep -q 'axis-2 = "corrective > adaptive > perfective"' .machine_readable/6a2/META.deed || MISSING="$MISSING META.deed:axis-2"
-        grep -q 'axis-3 = "systems > compliance > effects"' .machine_readable/6a2/META.deed || MISSING="$MISSING META.deed:axis-3"
-        grep -q 'scoping-first = true' .machine_readable/6a2/META.deed || MISSING="$MISSING META.deed:scoping-first"
-        grep -q 'idris-unsound-scan = "believe_me/assert_total"' .machine_readable/6a2/META.deed || MISSING="$MISSING META.deed:idris-unsound-scan"
-        grep -q 'audit-focus = "systems in place, documentation explains actual state, safety/security accounted for, observed effects reviewed"' .machine_readable/6a2/META.deed || MISSING="$MISSING META.deed:audit-focus"
-        grep -q 'compliance-focus = "seams/compromises/exception register, bounded exceptions, anti-drift checks"' .machine_readable/6a2/META.deed || MISSING="$MISSING META.deed:compliance-focus"
-        grep -q 'effects-evidence = "benchmark execution/results and maintainer status dialogue/review"' .machine_readable/6a2/META.deed || MISSING="$MISSING META.deed:effects-evidence"
+    if [ -f ".machine_readable/descriptiles/META.deed" ]; then
+        grep -q 'axis-1 = "must > intend > like"' .machine_readable/descriptiles/META.deed || MISSING="$MISSING META.deed:axis-1"
+        grep -q 'axis-2 = "corrective > adaptive > perfective"' .machine_readable/descriptiles/META.deed || MISSING="$MISSING META.deed:axis-2"
+        grep -q 'axis-3 = "systems > compliance > effects"' .machine_readable/descriptiles/META.deed || MISSING="$MISSING META.deed:axis-3"
+        grep -q 'scoping-first = true' .machine_readable/descriptiles/META.deed || MISSING="$MISSING META.deed:scoping-first"
+        grep -q 'idris-unsound-scan = "believe_me/assert_total"' .machine_readable/descriptiles/META.deed || MISSING="$MISSING META.deed:idris-unsound-scan"
+        grep -q 'audit-focus = "systems in place, documentation explains actual state, safety/security accounted for, observed effects reviewed"' .machine_readable/descriptiles/META.deed || MISSING="$MISSING META.deed:audit-focus"
+        grep -q 'compliance-focus = "seams/compromises/exception register, bounded exceptions, anti-drift checks"' .machine_readable/descriptiles/META.deed || MISSING="$MISSING META.deed:compliance-focus"
+        grep -q 'effects-evidence = "benchmark execution/results and maintainer status dialogue/review"' .machine_readable/descriptiles/META.deed || MISSING="$MISSING META.deed:effects-evidence"
         grep -q 'compliance-tooling = "panic-attack"' .machine_readable/policies/MAINTENANCE-AXES.deed || MISSING="$MISSING MAINTENANCE-AXES.deed:compliance-tooling"
         grep -q 'effects-tooling = "ecological checking with sustainabot guidance"' .machine_readable/policies/MAINTENANCE-AXES.deed || MISSING="$MISSING MAINTENANCE-AXES.deed:effects-tooling"
         grep -q 'source-human = "docs/governance/MAINTENANCE-CHECKLIST.adoc"' .machine_readable/policies/MAINTENANCE-CHECKLIST.deed || MISSING="$MISSING MAINTENANCE-CHECKLIST.deed:source-human"
@@ -53,12 +53,12 @@ validate-rsr:
 
 # Validate STATE.deed syntax
 validate-state:
-    @if [ -f ".machine_readable/6a2/STATE.deed" ]; then \
-        grep -q '^\[metadata\]' .machine_readable/6a2/STATE.deed && \
-        grep -q 'project\s*=' .machine_readable/6a2/STATE.deed && \
+    @if [ -f ".machine_readable/descriptiles/STATE.deed" ]; then \
+        grep -q '^\[metadata\]' .machine_readable/descriptiles/STATE.deed && \
+        grep -q 'project\s*=' .machine_readable/descriptiles/STATE.deed && \
         echo "STATE.deed: valid" || echo "STATE.deed: INVALID (missing required sections)"; \
     else \
-        echo "No .machine_readable/6a2/STATE.deed found"; \
+        echo "No .machine_readable/descriptiles/STATE.deed found"; \
     fi
 
 # Validate AI installation guide completeness (finishbot pre-release check)

@@ -11,7 +11,7 @@ Zig **0.15.1** (not 0.16). Idris2 optional for FFI-only work.
 Paste this to an agent with repo access:
 
 ----
-Read 0-AI-MANIFEST.deed, then .machine_readable/6a2/STATE.deed.
+Read 0-AI-MANIFEST.deed, then .machine_readable/descriptiles/STATE.deed.
 Estate: AsciiDoc + .deed (not README.md / .a2ml). JS reach: Bun → Deno → pnpm → npm.
 No Python/Go. Do not claim a Core checker. just deps && just test-smoke.
 If idris2 is missing, skip ABI typecheck; zig tests must pass.

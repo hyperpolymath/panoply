@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: CC-BY-SA-4.0
 // SPDX-FileCopyrightText: 2026 Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
-= AFFIRMATION — panoply, as of 2026-09-20
+= AFFIRMATION — panoply, as of 2026-09-20 (Phase 11)
 :toc: macro
 :toclevels: 2
 
@@ -27,16 +27,15 @@ pass, or that a Core checker exists.
 
 | Project | panoply
 | Repo | `hyperpolymath/panoply`
-| Branch | `chore/deed-guix-core-tests`
-| Commit (HEAD) | `d18c5aeaf4d46f342624685ad80d24332ce6caac`
-| Permalink | https://github.com/hyperpolymath/panoply/tree/d18c5aeaf4d46f342624685ad80d24332ce6caac
-| Verified (UTC) | `2026-09-20T12:45:00Z`
+| Branch | `chore/phase11-final` (local; push if remote available)
+| Commit (HEAD) | `ed16b31c9b3cbfe1c151a3bfe023d3ac65a5ea4d`
+| Verified (UTC) | `2026-09-20`
 | Working-tree delta at verification
-| *dirty* — Phase 1 structural files uncommitted (dots, holdings, AFFIRMATION).
-  Zig tests were run against the FFI sources on that dirty tree; they are not
-  affected by AsciiDoc holdings.
-| Toolchain | zig 0.15.1; just 1.58.0; idris2 *not* on PATH
-| Affirmed by | engineering agent on Arena.ai (report of runs); owner signs by `-S` commit
+| Phase 11 docs + `launcher/soft-attach.sh` comment path.
+| Toolchain | zig 0.15.1 (prior session); idris2 *not* on PATH
+| Affirmed by | engineering agent on Arena.ai; owner signs by `-S` commit
+| CRG | **X** (weakest: Core). FFI **E**.
+| TRG | **X**
 |===
 
 If you are reading this at a later commit, re-run <<reproduce>>.
@@ -44,15 +43,16 @@ If you are reading this at a later commit, re-run <<reproduce>>.
 == Companion documents
 
 * `README.adoc` — aspiration
-* `EXPLAINME.adoc` — mechanism
+* `docs/governance/CRG-AUDIT-2026-09-20.adoc`
+* `docs/reports/PHASE-11-FINAL.adoc`
+* `docs/status/READINESS.adoc`
 * `panoply_chora.deed` — repo-deed identity
-* `docs/status/TEST-NEEDS.adoc` — test inventory (may lag)
 
 == The honest state (one breath)
 
 Panoply is a design-phase envelope-first *discipline*: charter and RSR
-spine exist; Core checker does not; Zig FFI tests pass; Idris2 was not
-run here.
+spine exist; Core checker does not; protocol 0–11 recorded; grades not
+inflated.
 
 === What is solid (and how we checked)
 
@@ -61,52 +61,27 @@ run here.
 | Claim | Status | Evidence
 
 | Zig FFI unit+integration tests
-| affirmed
-| `cd src/interface/ffi && zig build test --summary all` — 20/20 pass (zig 0.15.1)
+| affirmed (prior in-session)
+| `zig build test` — 20/20 (zig 0.15.1)
 
-| Aspect tests (SPDX + banned-pattern code scan)
+| panic-attack assail
 | affirmed
-| `bash tests/aspect_tests.sh` — PASS=3 FAIL=0
+| schema 2.5; `weak_points: []` after comment rewrite
 
-| ABI↔FFI P2P coupling
-| affirmed
-| `bash tests/p2p.sh` — FAIL=0 (Idris Result tags match Zig; `panoply_*` C names)
-
-| Core spec artefacts exist
-| affirmed
-| `bash tests/core_spec.sh` — FAIL=0
-
-| Evidence kinds spec + refused example
-| affirmed
-| `bash tests/evidence_spec.sh` — FAIL=0; example `:status refused`
+| Core checker
+| *not claimed*
+| not implemented
 
 | Idris2 ABI typecheck
 | *not checked*
-| idris2 not on PATH in this session
-
-| Core checker / manifest emitter
-| *not claimed*
-| not implemented
+| idris2 not on PATH
 |===
 
-=== The honest nuance you must not lose
+=== Outstanding
 
-* 20 Zig tests exercise the *FFI scaffold*, not Core typing.
-* Files named `.deed` that are `0.x-AI-MANIFEST` are still gatekeeper
-  prose, not DEED ABNF choruses.
-* CRG remains **X**.
-
-=== Known-incomplete but honestly fenced
-
-* P2P skip for a *network* peer protocol — fenced by `tests/p2p.sh`
-  failing if Idris/Zig Result drift returns.
-* No Idris2 in this environment — fenced by e2e/lifecycle SKIP, not a fake pass.
-
-=== Outstanding / weak / refuted
-
-* Hypatia scan still advisory-red (issue #11).
-* `e2e.yml` jobs still commented.
-* Remaining template `www/dns` etc. are holdings only.
+* Charter #6–#11 open. #77–#98, #101 roadmapped.
+* PRs #100 / #102 if still open.
+* Owner: PAT rotate, social preview, stars, `-S`, wiki.git, Projects.
 
 [#reproduce]
 == Reproduce it yourself
@@ -115,7 +90,6 @@ run here.
 ----
 git clone https://github.com/hyperpolymath/panoply
 cd panoply
-git checkout d18c5aeaf4d46f342624685ad80d24332ce6caac
 # zig 0.15.1 on PATH
 cd src/interface/ffi && zig build test --summary all
 cd ../../..
@@ -127,11 +101,10 @@ bash tests/evidence_spec.sh
 
 == One-line characterisation (quote this)
 
-> Panoply disciplines claims; it does not yet check Core, and the only
-> tests we re-ran here are Zig FFI plus spec/coupling shells.
+> Panoply disciplines claims; CRG X and TRG X until Core exists; FFI tests
+> are E-grade surfaces, not a product.
 
 == Joint attestation
 
-* *Engineering party (AI):* Arena.ai Agent Mode — ran the checks named
-  above at 2026-09-20T12:45:00Z.
+* *Engineering party (AI):* Arena.ai Agent Mode — Phase 11 2026-09-20.
 * *Owner / maintainer:* Jonathan D.A. Jewell — signs by `git commit -S -s`.

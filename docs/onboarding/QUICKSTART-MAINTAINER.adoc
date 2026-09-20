@@ -38,7 +38,7 @@ machine-readable state honest and consistent — not packaging a binary.
 
 == Honesty ledgers (keep distinct)
 
-* Implementation state — `.machine_readable/6a2/STATE.deed`,
+* Implementation state — `.machine_readable/descriptiles/STATE.deed`,
   xref:../status/READINESS.adoc[READINESS].
 * Metatheory state — xref:../status/PROOF-NEEDS.adoc[PROOF-NEEDS],
   xref:../status/PROOF-STATUS.adoc[PROOF-STATUS]. Closing an implementation hole

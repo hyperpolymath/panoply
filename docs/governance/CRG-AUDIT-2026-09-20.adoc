@@ -1,0 +1,91 @@
+// SPDX-License-Identifier: CC-BY-SA-4.0
+// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
+= Panoply — CRG Audit (2026-09-20)
+:toc:
+:sectnums:
+
+Evaluates `hyperpolymath/panoply` against CRG v2.0 STRICT as-is today.
+Auditor: Arena.ai Agent Mode (engineering party). Owner signs by merge.
+
+== Scope
+
+Library / language *discipline*, not a BoJ host, Groove provider, GUI, or
+voice plane. Toolchain components additionally graded under TRG (companion
+of CRG): overall **TRG X**.
+
+== Evidence inventory
+
+[cols="2,1,3"]
+|===
+| Item | State | Source
+
+| Workflows | PARTIAL (28 files; not claimed RSR-full green) | `.github/workflows/`
+| `.machine_readable/descriptiles/` | PRESENT (repo-deed STATE) | `STATE.deed`
+| `0-AI-MANIFEST.deed` | PRESENT | root
+| Docs EXPLAINME / READINESS / ROADMAP | PRESENT | `docs/`, `docs/status/`
+| `build/guix.scm` | PRESENT | Guix primary
+| `.well-known/` | PRESENT | prior phases
+| Containerfile | PRESENT | `container/`
+| Justfile, no Makefile | PRESENT | root
+| Origin | `hyperpolymath/panoply` | GitHub
+|===
+
+RSR D-floor: **not met** (no Core checker; STATE lacks numeric test matrix;
+Idris2 absent from this CI image).
+
+=== Code
+
+* Idris2 ABI under `src/interface/Abi` — not typechecked here (idris2 off PATH).
+* Zig FFI `src/interface/ffi` — 20/20 `zig build test` (0.15.1) in Phase 1 session.
+* Core checker: **not implemented**.
+
+=== Tests
+
+Zig FFI unit+integration; `tests/aspect_tests.sh`, `p2p.sh`, `core_spec.sh`,
+`evidence_spec.sh`. No PBT/FUZ (T1). panic-attack assail: `weak_points: []`.
+
+=== External validation
+
+Zero diverse external targets. Cap **C** is unreachable; **B/A** out of scope.
+
+== Grade matrix
+
+[cols="1,1,3,3"]
+|===
+| Grade | Met? | For | Against
+
+| X | no | — | Tests exist
+| F | no | — | Not harmful; not a duplicate to delete
+| E | **FFI / docs only** | Zig 20/20; panic-attack no Critical/High | Core checker has no behavioural implementation
+| D | no | Partial RSR artefacts | No Core; no CPS; Idris2 CI SKIP; STATE matrix
+| C | no | — | No dogfood window; annotation gaps
+| B | no | — | 0 external targets
+| A | no | — | No field signal
+|===
+
+== Verdict
+
+*Current CRG grade: **X** (weakest in-scope: Core).* FFI is E; that is not
+the project grade. Prior X stands. Honest X > a vanity E.
+
+Strongest positives:
+
+1. Zig FFI 20/20 and coupling shells.
+2. panic-attack assail clean after comment-only `/tmp` rewrite.
+3. Roadmap + issues #77–#98; charter #6–#11 left open.
+
+Blocks D:
+
+1. Implement Core checker (C5 / charter #5 specified, not built).
+2. Idris2 in CI (C10 / E1).
+3. STATE.deed numeric test matrix + RSR-full green.
+
+TRG overall **X**: grammar/lexer/parser/typechecker absent. Present B5
+(ABI/FFI) does not lift the toolchain.
+
+== Non-negotiables
+
+* Do not close #6–#11.
+* a2ml/nix deprecated; deeds + Guix.
+* JS reach: Bun, Deno, pnpm, npm.
+* Idris2 ABI proofs, not Lean4, for this repo.

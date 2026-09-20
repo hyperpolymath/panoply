@@ -1,3 +1,10 @@
 // SPDX-License-Identifier: CC-BY-SA-4.0
 // Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
-= .github Pillar
+= .github
+
+Workflows, community-health files, CODEOWNERS.
+
+**No `README.adoc` in this directory on purpose.** GitHub's repository
+front page prefers a README in `.github/` over the repository root
+(then `docs/`). A layer README here stole the homepage from
+`/README.adoc`. Layer notes live in this `DIRECTORY.adoc` instead.
