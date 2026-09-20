@@ -5,7 +5,7 @@
 
 == Current status
 
-Design phase. Specs + fail-closed stubs. No Core checker. CRG **X**.
+Design phase. Specs + fail-closed stubs. No Core checker. CRG **X**. TRG **X**.
 Charter issues **#6–#11 stay open**. #5 is specified (closed as spec-only).
 
 Classification: 🟠 corrective · 🟡 adaptive · 🟢 perfective
