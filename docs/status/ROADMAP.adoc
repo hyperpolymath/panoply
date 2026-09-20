@@ -39,3 +39,6 @@ Design phase. Charter + RSR spine + Core/Evidence *specs*. No Core checker.
 * [ ] Cleave: map ABI/FFI/API dial once a SNIF/host exists
 * [ ] Spline: only with a live groove session
 * [ ] Gossamer / burble: only if a GUI or voice projection appears
+* [ ] Proofs: ABI-2..5 typecheck in CI with idris2; Core preservation after a checker
+* [ ] Tests: PBT/FUZ/TSF when Core parser exists; no fake harnesses
+* [ ] Benches: FFI-overhead once there is a hot path; Six Sigma baselines then

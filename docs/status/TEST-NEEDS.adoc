@@ -1,57 +1,77 @@
 // SPDX-License-Identifier: CC-BY-SA-4.0
 // Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
 = TEST-NEEDS: panoply
+:revdate: 2026-09-20
 
 == Current State
 
-Panoply is at the design phase (see `.machine_readable/6a2/STATE.deed`):
-the Core, Evidence, and Manifest artefacts described by the charter are not
-yet implemented. Test infrastructure at this stage necessarily covers the
-Idris2 ABI / Zig FFI scaffold, not language semantics.
+Design phase. Tests cover the Idris2 ABI / Zig FFI scaffold and charter
+specs, not Core semantics. First draw:
+https://github.com/hyperpolymath/proven-tests-and-benches — suite is
+AffineScript/type-safe, not imported wholesale (would be vacuous).
+
+== Taxonomy (18 categories)
+
+Honest N/A is required. Vacuous pass is forbidden.
+
+[cols="1,1,3", options="header"]
+|===
+| Cat | Status | Evidence / justification
+
+| UT | Present | Zig unit tests in `src/interface/ffi/src/main.zig`
+| P2P | Present | `tests/p2p.sh` — ABI `Result` ↔ Zig `Result` seam
+| E2E | Present | `tests/e2e.sh` — zig (required); idris2 SKIP if absent
+| BLD | Present | `zig build`; idris2 `--build` when present
+| EXE | N/A | No VM / interpreter / REPL
+| REF | Present | `just doctor` (weak; not a runtime)
+| LCY | Present | `tests/lifecycle.sh`
+| SMK | Present | `just test-smoke` (`zig build`)
+| PBT | N/A | No Core parser to generate against
+| MUT | N/A | CRG X; mutation of Zig FFI is Phase 8
+| FUZ | N/A | No untrusted input surface; `verification/fuzzing/` is a README only — not a fake harness
+| CTR | N/A | No `must` CLI in CI; Mustfile is a pointer
+| REG | N/A | No fixed production bugs yet
+| CHS | N/A | Not a distributed system
+| CMP | N/A | No versioned wire/persist format
+| PRF | Present | `verification/proofs/idris2/`; `just proof-check-idris2` SKIP without idris2
+| TSF | N/A | No Idris2 `failing` blocks for Core yet
+| CDF | Present | P2P coupling test is the drift check for Result tags
+|===
+
+== Aspects (14)
+
+SAF (dangerous-pattern scan) and SEC (SPDX) are in `tests/aspect_tests.sh`.
+Others N/A or covered only as docs until there is a product runtime:
+DEP USA IOP PER FUN VER ACC MNT PRI OBS RPR PRT — see
+`docs/reports/PHASE-4-VERIFICATION.adoc`.
+
+== Inventory
 
 [cols="2,1,4", options="header"]
 |===
 | Category | Count | Details
 
 | *Source modules* | 3 | Idris2 ABI (`src/interface/Abi/{Types,Layout,Foreign}.idr`)
-| *FFI modules* | 1 | `src/interface/ffi/src/main.zig` (11 exported functions)
-| *Unit tests* | 3 | Inline `test` blocks in `main.zig` (lifecycle, error handling, version)
-| *Integration tests* | 15 | `src/interface/ffi/test/integration_test.zig` — exercises every exported FFI function (lifecycle, process, process_array incl. null-buffer, strings, version/build_info, error handling, callbacks)
-| *E2E tests* | 1 | `tests/e2e.sh` — preflight (idris2/zig on PATH) + `idris2 --build src/interface/abi.ipkg` + `zig build test`
-| *Aspect tests* | 1 | `tests/aspect_tests.sh` — SPDX headers (ignores `.zig-cache`) + dangerous-pattern scan on *code* (prohibition comments / `.adoc` are not hits)
-| *Lifecycle tests* | 1 | `tests/lifecycle.sh` — zig build/test/clean; skips Idris2 if absent
-| *P2P tests* | 1 | `tests/p2p.sh` — honest SKIP until a peer protocol exists; FAIL if P2P-shaped source appears untested
-| *Core spec tests* | 1 | `tests/core_spec.sh` — guards issue #5 specification artefacts
-| *Evidence spec tests* | 1 | `tests/evidence_spec.sh` — kinds + refused example (#6)
-| *Manifest spec tests* | 1 | `tests/manifest_spec.sh` — schema + refused example (#7, no emitter)
-| *Workflow tests* | 1 | `tests/workflows/validate_workflows_test.sh`
-| *Benchmarks* | 3 | `benches/template_bench.sh` (Zig build, Zig tests, workflow validation)
-| *Fuzz tests* | 0 | `verification/fuzzing/` scaffold present; no harness wired yet
+| *FFI modules* | 1 | `src/interface/ffi/src/main.zig`
+| *Unit tests* | 3 | Inline `test` in `main.zig`
+| *Integration tests* | 15 | `src/interface/ffi/test/integration_test.zig`
+| *Spec gates* | 6 | core, evidence, manifest, backend, projection, taxonomy
+| *Benchmarks* | 3 | `benches/template_bench.sh` — **build** timings only
 |===
 
-== Verified 2026-07-27
+== Benchmarks
 
-* `zig fmt --check .` — exit 0
-* `idris2 --build src/interface/abi.ipkg` — exit 0 (builds `Abi.Types`, `Abi.Layout`, `Abi.Foreign`)
-* `cd src/interface/ffi && zig build` — exit 0
-* `zig build test --summary all` — exit 0, 20/20 tests pass (3 unit + 17 integration checks across 15 `test` blocks)
-* `bash tests/e2e.sh` — PASS=2 FAIL=0
-* `bash tests/aspect_tests.sh` — PASS=2 FAIL=1 (the known Admitted/sorry doc-prose false positive above)
+Build-time only. No Core latency/throughput/FFI-overhead baseline.
+Six Sigma classification does not apply until a hot path exists.
 
-== What was removed
+== Proofs
 
-The template-distribution machinery that does not apply to an instantiated
-downstream repository has been removed:
-
-* `scripts/validate-template.sh` (8-phase template-distribution validator)
-* `tests/e2e/template_instantiation_test.sh` (clone-and-substitute E2E test)
-
-`benches/template_bench.sh` had benchmark sections gated on both scripts;
-those sections were removed and the remaining benchmarks (Zig build, Zig
-test, workflow validation) were kept and renumbered.
+Continue **Idris2** (partial ABI work in-tree). Not Lean4.
+ABI-1 constructive. ABI-2..5 + Core TP → Phase 8.
 
 == Next Steps
 
-* [ ] Wire a fuzz harness once the Core parser/checker exists (`verification/fuzzing/`)
-* [ ] Add readiness/CRG-grade tests once there is a component to grade beyond the ABI scaffold
-* [ ] Expand integration tests as the Core/Evidence/Manifest artefacts land
+* [ ] Fuzz harness once a Core parser exists
+* [ ] Property tests once Core has generators
+* [ ] Idris2 `failing` blocks (TSF) for Core judgements
+* [ ] Contribute refused-envelope fixture to proven-tests-and-benches when it is a real test

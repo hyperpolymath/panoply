@@ -1,0 +1,10 @@
+// SPDX-License-Identifier: CC-BY-SA-4.0
+// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
+= Contribution sketch → proven-tests-and-benches
+:revdate: 2026-09-20
+
+Not submitted. When Core exists, a TypeSafe/Dependent fixture for
+“refused evidence ⇒ empty earned envelopes” belongs in
+`hyperpolymath/proven-tests-and-benches` as a shared language-discipline
+test, using `templates/test-template.idr`. Until then a PR would be a
+stub that looks like coverage.
