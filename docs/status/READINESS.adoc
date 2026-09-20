@@ -3,11 +3,13 @@
 = Panoply Component Readiness Assessment
 
 *Standard:* link:https://github.com/hyperpolymath/standards/tree/main/component-readiness-grades[Component Readiness Grades (CRG) v2.0 STRICT] +
-*Assessed:* 2026-06-21 +
-*Assessor:* Jonathan D.A. Jewell +
-*Previous assessment:* _<date or "none">_
+*Assessed:* 2026-09-20 +
+*Assessor:* Arena.ai Agent Mode (owner signs by merge) +
+*Previous assessment:* 2026-06-21 (X)
 
 *Current Grade:* X
+
+*Toolchain (TRG overall):* X
 
 This line is parsed by `just crg-grade` / `just crg-badge`. The grade above is
 the worst-graded in-scope component — *the project's weakest link sets its
@@ -59,20 +61,19 @@ Below B, any publication must be explicitly abstract or provisional.
 
 '''
 
-== 2. Headline Evidence (as of 2026-06-21)
+== 2. Headline Evidence (as of 2026-09-20)
 
 [cols="2,3,3", options="header"]
 |===
 | Metric | Value | Source
 
-| Test count | _<N>_ | `.machine_readable/6a2/STATE.deed` or CI
-| Formal-verification posture | _<N `believe_me` / `sorry` / `Admitted` — irreducible only>_ | grep of proof dirs
-| Dangerous patterns (`assert_total`, `unsafeCoerce`, `Obj.magic`) | _<N>_ | grep 2026-06-21
-| Per-unit README coverage | _<M/N (percentage)>_ | filesystem scan of unit dirs
-| CI status | _<workflow name + last green run>_ | `.github/workflows/`
-| RSR mandatory workflows | _<N/17>_ | `.github/workflows/`
-| Third-party badges (if any) | _<e.g. Glama AAA; Scorecard N/10>_ | external
-| LIVE deployment (if any) | _<URL + last health check>_ | production
+| Test count | Zig FFI 20 + spec shells (aspect, p2p, core_spec, evidence_spec) | session AFFIRMATION; not yet in STATE.deed
+| Formal-verification posture | Idris2 ABI present; idris2 not on PATH this session | `src/interface/Abi`
+| Dangerous patterns | panic-attack `unsafe_blocks` on `%foreign` only (mismatch) | Phase 10
+| Per-unit README coverage | Incomplete (holdings H1–H4) | ROADMAP
+| CI status | `e2e.yml` dispatchable; `quality.yml` no dispatch | Phase 10
+| Workflows on disk | 28 yaml under `.github/workflows/` | tree
+| LIVE deployment | none | library, not a host
 |===
 
 '''
@@ -87,9 +88,12 @@ unless noted.
 |===
 | Component | Grade | Posture | Evidence Summary | Promotion blocker | Last Assessed
 
-| _<component 1>_ | X/F/E/D/C/B/A | _<shorthand>_ | _<what was checked + counts>_ | _<specific, actionable gap to next grade>_ | 2026-06-21
-| _<component 2>_ | … | … | … | … | 2026-06-21
-| _<component 3>_ | … | … | … | … | 2026-06-21
+| Zig FFI | E | pre-alpha | 20/20 zig 0.15.1 | dogfood window + annotation | 2026-09-20
+| Idris2 ABI | E | pre-alpha | sources exist; typecheck SKIP | idris2 in CI (E1) | 2026-09-20
+| Core checker | X | — | spec shells only; no checker | C5 | 2026-09-20
+| Evidence emitter | X | — | refused example only | C6 | 2026-09-20
+| Docs / governance | D | alpha-unstable | AsciiDoc estate, roadmap | holdings H1–H7 | 2026-09-20
+| Toolchain (TRG agg.) | X | — | F1–F7 M1–M2 absent | Core / grammar | 2026-09-20
 |===
 
 *Rules of thumb for populating this table:*
@@ -164,12 +168,12 @@ Real-world external feedback confirming value. Populate
 
 '''
 
-== 7. Summary (2026-06-21)
+== 7. Summary (2026-09-20)
 
-* Project grade: _<grade>_. Why: _<1-2 line justification>_.
-* Delta since last assessment: _<what changed; none if first assessment>_.
-* Next milestone: _<specific promotion target + timeline>_.
-* Machine-readable grade line present (§ header) for `just crg-grade` / `just crg-badge`.
+* Project grade: **E**. Tests exist; Core does not; RSR D-floor unmet.
+* TRG overall: **X** (worst required toolchain component).
+* Delta: X → E after protocol 0–10 (honest promotion, not a product claim).
+* Next: D requires C5 + Idris2 CI + STATE test matrix. No product tag.
 
 '''
 
