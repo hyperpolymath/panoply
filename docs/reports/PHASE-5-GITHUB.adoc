@@ -1,0 +1,50 @@
+// SPDX-License-Identifier: CC-BY-SA-4.0
+// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
+= Phase 5 — CI/CD, protection, GitHub configuration
+:revdate: 2026-09-20
+
+== 5.1 CI/CD
+
+27 workflows under `.github/workflows/` + `actions.lock`. Estate set is
+already dense (quality, e2e, codeql, scorecard, hypatia, dogfood, rhodibot
+report-only, guix-policy, secret-scanner, …).
+
+* **Not removed:** `boj-build.yml` is an honest no-op without `BOJ_SERVER_URL`.
+* **Traffic-light:** `trope-*` repos are private; rhodibot is report-only
+  canary (standards#759). No second traffic-light invented.
+* **Not all pipelines fired:** a PAT cannot substitute for merge-to-main
+  plus every `workflow_dispatch`. Coverage matrix is the workflows list
+  itself; proof verification is SKIP without idris2.
+* Deployment: Pages already on; panoply is a library, no product deploy.
+
+== 5.2 Protection
+
+Documented in `docs/github/PROTECTION.adoc`. Live = rulesets
+Optimus-Branch + Immutable-Tags. Classic branch protection unset.
+
+== 5.3 Settings (API vs UI)
+
+Already true: issues, discussions, projects, pages, squash+merge+rebase,
+delete-head-on-merge, auto-merge, update-branch, commit signoff,
+secret scanning + push protection, Dependabot security updates.
+
+Left off (estate): GitHub **wiki**. Phase 6 = `docs/wikis/`.
+`settings.yml` must not declare identity keys.
+
+Cannot set from this PAT: social preview upload, environments secrets,
+“linking” UI, discussion category GraphQL (404), star.
+
+== 5.4–5.5 Topics / SEO
+
+Topics capped at 20. Added: `idris2`, `zig`, `ffi`, `dependent-types`,
+`formal-methods`, `language-design`, `guix` (2026-09-20). Description
+unchanged (already accurate).
+
+== 5.6–5.8
+
+FUNDING.yml already lists github/ko_fi/liberapay `hyperpolymath`.
+Star + star-list taxonomy: **403** / no list API with this token.
+Owner must star and file lists in the GitHub UI.
+
+Hero/social prompt: `docs/assets/HERO-PROMPT.adoc`.
+Preview PNG generated; **not** applied in Settings (UI).
