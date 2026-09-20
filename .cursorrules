@@ -24,7 +24,7 @@
 
 # BANNED LANGUAGES
 # TypeScript -> use ReScript
-# Node.js / npm / bun -> use Deno
+# JS reach order (panoply): Bun → Deno → pnpm → npm (see docs/practice/JS-RUNTIME-ORDER.adoc)
 # Go -> use Rust
 # Python -> use Julia or Rust
 

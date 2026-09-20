@@ -17,7 +17,7 @@
 #     (e.g. missing optional verify-desktop-integrity.sh).
 #
 # The ladders mirror [resolution].desktop-tools-search and
-# [resolution].standard-search in the a2ml. They MUST stay in sync — see the
+# [resolution].standard-search in the deed. They MUST stay in sync — see the
 # CI gate referenced in launcher/README.adoc §Sync requirement.
 
 # ---------------------------------------------------------------------------

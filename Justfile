@@ -191,6 +191,12 @@ language-audit:
 api-test:
     cd src/api/zig && zig test adapter.zig
 
+# Specification artefact gates (#5 #6 #7) — not a checker
+spec-tests:
+    bash tests/core_spec.sh
+    bash tests/evidence_spec.sh
+    bash tests/manifest_spec.sh
+
 # Run the full merge-requirement test suite
 # Categories: execution (`test`) + E2E + aspect + bench + lifecycle + P2P
 test-all: test e2e aspect bench lifecycle p2p

@@ -10,9 +10,9 @@ absence of type errors.
 
 [IMPORTANT]
 ====
-*Not yet implemented.* Sketch area per the
-xref:../../docs/architecture/DESIGN-DISCIPLINE.adoc[charter]. No manifest schema
-or emitter exists yet (design phase).
+*Schema specified; no emitter yet.* See xref:MANIFEST-SCHEMA.adoc[MANIFEST-SCHEMA.adoc]
+and `examples/refused.manifest` (honest `:status refused`, empty `:earned`).
+Issue #7 stays open until an emitter enforces the three rules.
 ====
 
 == What a manifest records

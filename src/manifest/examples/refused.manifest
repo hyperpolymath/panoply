@@ -1,0 +1,12 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Jonathan D.A. Jewell (hyperpolymath) <j.d.a.jewell@open.ac.uk>
+#
+# Honest refused manifest: no emitter, no Core checker, no backend contract.
+(manifest
+  :schema-version "0.1.0"
+  :program "panoply-core"
+  :backend "none"
+  :status refused
+  :earned ()
+  :unearned (total-correctness memory-safety confluence)
+  :composition-rules ())

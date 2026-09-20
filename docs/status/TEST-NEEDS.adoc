@@ -22,6 +22,8 @@ Idris2 ABI / Zig FFI scaffold, not language semantics.
 | *Lifecycle tests* | 1 | `tests/lifecycle.sh` — zig build/test/clean; skips Idris2 if absent
 | *P2P tests* | 1 | `tests/p2p.sh` — honest SKIP until a peer protocol exists; FAIL if P2P-shaped source appears untested
 | *Core spec tests* | 1 | `tests/core_spec.sh` — guards issue #5 specification artefacts
+| *Evidence spec tests* | 1 | `tests/evidence_spec.sh` — kinds + refused example (#6)
+| *Manifest spec tests* | 1 | `tests/manifest_spec.sh` — schema + refused example (#7, no emitter)
 | *Workflow tests* | 1 | `tests/workflows/validate_workflows_test.sh`
 | *Benchmarks* | 3 | `benches/template_bench.sh` (Zig build, Zig tests, workflow validation)
 | *Fuzz tests* | 0 | `verification/fuzzing/` scaffold present; no harness wired yet

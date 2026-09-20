@@ -3,5 +3,5 @@
 = tests
 
 Shell gates: `e2e.sh`, `aspect_tests.sh`, `lifecycle.sh`, `p2p.sh`,
-`core_spec.sh`, `evidence_spec.sh`. Zig tests live under
+`core_spec.sh`, `evidence_spec.sh`, `manifest_spec.sh`. Zig tests live under
 `src/interface/ffi/`. See `docs/status/TEST-NEEDS.adoc`.
