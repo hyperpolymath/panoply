@@ -51,10 +51,10 @@ self-assess:
         fi
     done
 
-    if [ -d ".machine_readable/6a2" ]; then
-        echo "  ✓ .machine_readable/6a2/ — KEEP (SCM checkpoint files)"
+    if [ -d ".machine_readable/descriptiles" ]; then
+        echo "  ✓ .machine_readable/descriptiles/ — KEEP (SCM checkpoint files)"
     else
-        echo "  ✗ .machine_readable/6a2/ — MISSING (RSR violation!)"
+        echo "  ✗ .machine_readable/descriptiles/ — MISSING (RSR violation!)"
     fi
 
     if [ -d ".github/workflows" ]; then
@@ -201,9 +201,9 @@ verify:
     check_file "LICENSE"
     check_either "CONTRIBUTING.md" "CONTRIBUTING.adoc"
     check_either "README.adoc" "README.md"
-    check_file ".machine_readable/6a2/STATE.deed"
-    check_file ".machine_readable/6a2/META.deed"
-    check_file ".machine_readable/6a2/ECOSYSTEM.deed"
+    check_file ".machine_readable/descriptiles/STATE.deed"
+    check_file ".machine_readable/descriptiles/META.deed"
+    check_file ".machine_readable/descriptiles/ECOSYSTEM.deed"
     check_either "CHANGELOG.md" "CHANGELOG.adoc"
 
     # Check at least 1 workflow exists
