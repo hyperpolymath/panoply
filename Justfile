@@ -52,7 +52,7 @@ info:
     @echo "Version: {{version}}"
     @echo "RSR Tier: {{tier}}"
     @echo "Recipes: $(just --summary | wc -w)"
-    @[ -f ".machine_readable/descriptiles/STATE.deed" ] && grep -oP 'phase\s*=\s*"\K[^"]+' .machine_readable/descriptiles/STATE.deed | head -1 | xargs -I{} echo "Phase: {}" || true
+    @[ -f ".machine_readable/descriptiles/STATE.deed" ] && grep -oP ':phase\s+\K[A-Za-z]+' .machine_readable/descriptiles/STATE.deed | head -1 | xargs -I{} echo "Phase: {}" || true
 
 # Run Invariant Path overlay tools for this repository
 invariant-path *ARGS:
@@ -526,7 +526,7 @@ import? "build/just/validate.just"
 # Attempt to update the timestamp in a key-value-formatted STATE.deed
 state-touch:
     @if [ -f ".machine_readable/descriptiles/STATE.deed" ]; then \
-        sed -i 's/last-updated = "[^"]*"/last-updated = "'"$(date +%Y-%m-%d)"'"/' .machine_readable/descriptiles/STATE.deed && \
+        sed -i 's/:last-updated "[^"]*"/:last-updated "'"$(date +%Y-%m-%d)"'"/' .machine_readable/descriptiles/STATE.deed && \
         echo "STATE.deed timestamp updated"; \
     fi
 

@@ -53,13 +53,23 @@ validate-rsr:
 
 # Report whether STATE.deed contains key-value metadata and project markers
 validate-state:
-    @if [ -f ".machine_readable/descriptiles/STATE.deed" ]; then \
-        grep -q '^\[metadata\]' .machine_readable/descriptiles/STATE.deed && \
-        grep -q 'project\s*=' .machine_readable/descriptiles/STATE.deed && \
-        echo "STATE.deed: valid" || echo "STATE.deed: INVALID (missing required sections)"; \
-    else \
-        echo "No .machine_readable/descriptiles/STATE.deed found"; \
+    #!/usr/bin/env bash
+    STATE_FILE=".machine_readable/descriptiles/STATE.deed"
+    if [ ! -f "$STATE_FILE" ]; then
+        echo "No $STATE_FILE found"
+        exit 1
     fi
+    for field in schema-version canonical-name repo-uuid beholding-chora last-updated status phase; do
+        if ! grep -Eq "^[[:space:]]*:${field}[[:space:]]" "$STATE_FILE"; then
+            echo "STATE.deed: INVALID (missing :${field})"
+            exit 1
+        fi
+    done
+    if ! grep -q '^(repo-deed' "$STATE_FILE"; then
+        echo "STATE.deed: INVALID (missing repo-deed form)"
+        exit 1
+    fi
+    echo "STATE.deed: valid"
 
 # Validate AI installation guide completeness (finishbot pre-release check)
 validate-ai-install:
