@@ -1,0 +1,30 @@
+// SPDX-License-Identifier: CC-BY-SA-4.0
+// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
+= Phase 10 — pons-asinorum & panic-attack
+:revdate: 2026-09-20
+
+== 10.1 Pons Asinus
+
+Canonical repo is `hyperpolymath/pons-asinorum` (not `pons-asinus`).
+README: *Planning complete; implementation not started.* **Cannot run.**
+Tracked as panoply **#101**.
+
+== 10.2 Panic Attack
+
+Ran `panic-attack assail --headless` (release binary built from
+`hyperpolymath/panic-attack`) against the tree. schema 2.5, exit 0.
+
+One Medium finding: `PathTraversal` — `/tmp/` in a **comment** in
+`launcher/soft-attach.sh`. Rewritten to `$XDG_STATE_HOME`. Re-assail:
+`weak_points: []`.
+
+`unsafe_blocks: 4` on `src/interface/Abi/Foreign.idr` — Idris `%foreign`,
+not Rust `unsafe`. Recorded as scanner language-mismatch, not a defect.
+
+Did **not** run `assault`/`attack` (dynamic execution against a process).
+Panoply has no daemon.
+
+== 10.3 CI
+
+`e2e.yml` dispatched on `main`. `quality.yml` has no `workflow_dispatch`
+(422). Traffic-light: rhodibot report-only.
