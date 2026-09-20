@@ -1,0 +1,33 @@
+// SPDX-License-Identifier: CC-BY-SA-4.0
+// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
+= Phase 9 — cross-repository contributions
+:revdate: 2026-09-20
+
+Catch-up: PR **#99** (Phase 8 roadmap) squash-merged.
+
+== 9.1 proven-tests-and-benches
+
+Repo name is `proven-tests-and-benches` (not `*benchmarks`). Push access
+exists. **No PR opened.**
+
+Phase 4 did not produce an admissible suite member. That repo's
+`TEST-DOCTRINE.adoc` requires committed **silence** and **firing**
+fixtures (exit 0 / 1 / 2). A refused-envelope sketch without that pair
+would be *inadmissible* and would look like coverage. Tracked as panoply
+**#93 / T3**.
+
+== 9.2 Gists
+
+Owner gist pattern: public community-health / `.well-known` templates.
+`POST /gists` with this token → **403**. Drafts to paste:
+
+* Four-approach setup (from `docs/onboarding/SETUP.adoc`)
+* JS reach order (from `docs/practice/JS-RUNTIME-ORDER.adoc`)
+
+== 9.3 Star lists
+
+Lists already exist, including `[PEOPLE] EXTERNAL REPOSITORIES` (third
+party) and `[CORE] AERIE & PROVEN ARCHITECTURES` / `[LANG] …`.
+`updateUserListsForItem` / `addStar` → **403**. Owner: add
+`hyperpolymath/panoply` to `[LANG]` and `[CORE]`; keep third-party stars
+on EXTERNAL (already 50+).
