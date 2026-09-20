@@ -19,10 +19,18 @@ agents = [
   { name = "VIBE", role = "UI/frontend, PanLL panels, ReScript components, theming, rapid prototyping" },
 ]
 
+[startup]
+read-first = ["0-AI-MANIFEST.deed", ".machine_readable/6a2/STATE.deed", "docs/onboarding/SETUP.adoc"]
+estate = "AsciiDoc + .deed; not README.md or .a2ml"
+js-reach = "Bun, Deno, pnpm, npm"
+no-core-checker = true
+do-not-close-issues = ["5", "6", "7", "8", "9", "10", "11"]
+
 [policy]
 rules = [
   "Do not duplicate tasks across sections. If a task needs multiple LLMs, note the handoff.",
   "Update THIS file during sessions. Do NOT recreate per-repo TODO files.",
+  "Gatekeeper kv is not DEED ABNF; do not pretend [metadata] is a repo-deed.",
 ]
 
 [work-allocation]

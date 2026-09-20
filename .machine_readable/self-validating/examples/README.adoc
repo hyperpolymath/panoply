@@ -1,0 +1,6 @@
+// SPDX-License-Identifier: CC-BY-SA-4.0
+// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
+= .machine_readable/self-validating/examples
+
+Layer README (AsciiDoc; estate forbids README.md here).
+Parent: repository panoply. See `/README.adoc` and `/0-AI-MANIFEST.deed`.

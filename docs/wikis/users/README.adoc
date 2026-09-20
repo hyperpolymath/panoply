@@ -1,0 +1,8 @@
+// SPDX-License-Identifier: CC-BY-SA-4.0
+// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
+= Wiki — users
+
+A Panoply **manifest** lists earned and un-earned envelopes. Today every
+honest manifest is `:status refused` with empty `:earned`. Silence is not
+safety. See xref:../../guide/for-users.adoc[For users] if present, else
+xref:../../architecture/DESIGN-DISCIPLINE.adoc[charter].

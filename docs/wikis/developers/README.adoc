@@ -1,0 +1,8 @@
+// SPDX-License-Identifier: CC-BY-SA-4.0
+// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
+= Wiki — developers
+
+ABI = Idris2 `src/interface/Abi`. FFI = Zig `src/interface/ffi`.
+API = fail-closed stub `src/api/zig/adapter.zig`. Proofs: Idris2 only.
+JS reach: Bun → Deno → pnpm → npm. No Python/Go.
+See xref:../../onboarding/SETUP.adoc[setup].

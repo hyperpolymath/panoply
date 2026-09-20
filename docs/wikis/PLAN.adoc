@@ -1,0 +1,43 @@
+// SPDX-License-Identifier: CC-BY-SA-4.0
+// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
+= Wiki plan (berrywiki-shaped, 3-ply / span 7)
+:revdate: 2026-09-20
+
+GitHub wiki is **off** (estate). Content lives in `docs/wikis/`.
+`metadatastician/berrywiki` is a Cargo wiki app — **not vendored**.
+This tree follows its audience split, not its Rust runtime.
+
+== Constraints
+
+* Max **3-ply** nesting (`docs/wikis/{audience}/{page}`)
+* Max **span 7** at each layer
+
+== Layer 0 (≤7)
+
+. xref:README.adoc[Home]
+. xref:users/README.adoc[Users]
+. xref:maintainers/README.adoc[Maintainers]
+. xref:developers/README.adoc[Developers]
+. xref:../onboarding/SETUP.adoc[Setup]
+. xref:GLOSSARY.adoc[Glossary]
+. xref:../status/ROADMAP.adoc[Status]
+
+== Layer 1 — Users (≤7)
+
+Reading a refused manifest; what is not guaranteed; Core vs surface;
+evidence kinds; backends as contracts; no GUI; FAQ.
+
+== Layer 1 — Maintainers (≤7)
+
+RSR shape; Guix not Nix; CI rulesets; Hypatia ignore; deed vs TOML
+gatekeepers; CRG X honesty; release (none yet).
+
+== Layer 1 — Developers (≤7)
+
+ABI Idris2; FFI Zig; API stub; adding a projection; adding a backend;
+proofs Idris2-only; tests taxonomy N/A rules.
+
+== Phase 8
+
+Optional berrywiki deploy if a hosted wiki is wanted. Not required for
+in-tree `docs/wikis/`.

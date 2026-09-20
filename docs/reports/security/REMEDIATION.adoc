@@ -1,0 +1,17 @@
+// SPDX-License-Identifier: CC-BY-SA-4.0
+// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
+= Security findings — remediation
+:revdate: 2026-09-20
+
+No product CVE tracker: panoply has no network server.
+
+| Finding | Plan |
+|---|---|
+| Hypatia FPs on RSR scaffolding | Issue #11 — precise `.hypatia-ignore` when a findings dump exists |
+| Secret scanning | Already enabled + push protection |
+| Dependabot | Enabled |
+| PAT in agent sessions | Owner rotates after sessions; never commit |
+| Groove REST lie | Fixed Phase 3 (surfaces off) |
+
+Quality: CRG **X** until unit+smoke+RSR evidence is recorded without
+vacuous passes. Taxonomy N/A rows in `docs/status/TEST-NEEDS.adoc`.
