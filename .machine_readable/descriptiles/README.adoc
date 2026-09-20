@@ -1,0 +1,9 @@
+// SPDX-License-Identifier: CC-BY-SA-4.0
+// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
+= descriptiles
+
+The RSR template stores STATE/META/ECOSYSTEM here.
+Panoply's live descriptiles are `.machine_readable/6a2/*.deed` (s-expression
+repo-deed form). This directory is a holding pointer so the template path exists.
+
+See `../6a2/README.adoc`.

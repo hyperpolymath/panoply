@@ -1,0 +1,6 @@
+// SPDX-License-Identifier: CC-BY-SA-4.0
+// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
+= scripts
+
+Root-shape, docs-format, and invariant-path helpers. Git hooks: see
+`session/local-hooks.sh` and `.pre-commit-config.yaml`.

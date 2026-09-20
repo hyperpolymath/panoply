@@ -38,6 +38,19 @@ coordination.k9            # repo-local session binding (template-mandated)
 .gitignore
 .tool-versions
 .hypatia-ignore            # repo-scoped Hypatia scanner exemptions (read from repo root)
+.cicd-hygiene-allow        # rsr-template-repo
+.clinerules                # agent roots (copies of .machine_readable/ai/)
+.cursorrules
+.windsurfrules
+.gitleaksignore
+.gitmessage
+.mailmap
+mise.toml                  # local toolchain helper; Guix remains packager
+CITATION.cff               # citation-file-format (also docs/attribution/)
+CLAUDE.md                  # thin pointer to 0-AI-MANIFEST.deed
+GEMINI.md                  # same
+panoply_chora.deed         # DEED ABNF repo-deed (filename dispatch *_chora.deed)
+archetypes/                # RSR template holding; panoply is not a julia mint
 
 # ─── Directories ─────────────────────────────────────────────────────────────
 .devcontainer/             # VS Code dev container spec; tool-required at root

@@ -1,0 +1,7 @@
+// SPDX-License-Identifier: CC-BY-SA-4.0
+// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
+= tests
+
+Shell gates: `e2e.sh`, `aspect_tests.sh`, `lifecycle.sh`, `p2p.sh`,
+`core_spec.sh`, `evidence_spec.sh`. Zig tests live under
+`src/interface/ffi/`. See `docs/status/TEST-NEEDS.adoc`.
