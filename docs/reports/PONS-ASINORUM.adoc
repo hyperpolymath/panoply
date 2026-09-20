@@ -1,0 +1,31 @@
+// SPDX-License-Identifier: CC-BY-SA-4.0
+// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
+= pons-asinorum vs panoply (2026-09-20)
+
+== What happened
+
+GitHub `hyperpolymath/pons-asinorum` **does** have an implementation
+(commit `ed2a3c46` M0+M1+M2: workspace, engine skeleton, T0 catalogue +
+falsifier). `crates/pons-cli` builds; `pons scan` runs.
+
+The **root README.adoc still says** “Planning complete; implementation
+not started.” That sentence is **stale**. That is why Phase 10 treated
+it as plan-only (#101).
+
+== What it actually scans
+
+T0 rules + tree-sitter for **Python, JavaScript/JSX, TypeScript/TSX,
+Rust only**. Panoply application code is Idris2 + Zig + Bash.
+
+Ran `pons scan` (release binary, 2026-09-20) on this tree: **zero
+findings**, exit 0 — expected, not a clean bill of health for Idris/Zig.
+
+== What is not done
+
+* Idris2 / Zig / Bash grammars
+* Dataflow / typestate (T1/T2) beyond the skeleton
+* README status line
+
+Issue **#101** remains open until either (a) pons covers this estate’s
+languages, or (b) we document N/A and close as “scanner not applicable
+yet”. Prefer (a). Do not close charter issues on an empty scan.
