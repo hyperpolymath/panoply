@@ -5,7 +5,7 @@
 # validate-k9.sh — K9 configuration file validation script
 #
 # Scans for .k9 and .k9.ncl files and validates:
-#   1. K9! magic number on line 1
+#   1. Dialect-appropriate K9! format marker
 #   2. Pedigree block presence with required fields (name, version)
 #   3. Security level is one of: kennel, yard, hunt (case-insensitive)
 #   4. Hunt-level files must have a signature or signature_required field
@@ -27,7 +27,16 @@ set -euo pipefail
 
 SCAN_PATH="${INPUT_PATH:-.}"
 STRICT="${INPUT_STRICT:-false}"
-PATHS_IGNORE_RAW="${INPUT_PATHS_IGNORE:-}"
+# coordination.k9 and the session policy file use the plain K9 suffix but are
+# not pedigree contracts. The methodology guard is a Nickel policy module,
+# rather than a standalone K9 component. Keep the defaults aligned with the
+# canonical K9 validator while still allowing callers to override them.
+DEFAULT_PATHS_IGNORE=$'coordination.k9\nsession/custom-checks.k9\nself-validating/methodology-guard.k9.ncl'
+if [[ ${INPUT_PATHS_IGNORE+x} == x ]]; then
+    PATHS_IGNORE_RAW="$INPUT_PATHS_IGNORE"
+else
+    PATHS_IGNORE_RAW="$DEFAULT_PATHS_IGNORE"
+fi
 GITHUB_OUTPUT_FILE="${GITHUB_OUTPUT:-/dev/null}"
 
 # Parse paths-ignore: newline-separated fragments, blank lines and # comments
@@ -114,7 +123,7 @@ validate_k9() {
     local file="$1"
     FILES_SCANNED=$((FILES_SCANNED + 1))
 
-    # --- Check 1: K9! magic number on first non-empty line ---
+    # --- Check 1: dialect-appropriate K9! format marker ---
     local first_content_line=""
     local first_content_line_num=0
     local line_num=0
@@ -130,7 +139,24 @@ validate_k9() {
         break
     done < "$file"
 
-    if [[ "$first_content_line" != "K9!" ]]; then
+    if [[ "$file" == *.k9.ncl ]]; then
+        # A bare K9! preamble is accepted for templates that are preprocessed
+        # before Nickel evaluation. Executable Nickel may instead carry the
+        # marker in its pedigree or receive it through a pedigree schema.
+        local has_marker=false
+        if [[ "$first_content_line" == "K9!" ]]; then
+            has_marker=true
+        elif grep -Eq '^[[:space:]]*magic_number[[:space:]]*=[[:space:]]*"K9!"' "$file"; then
+            has_marker=true
+        elif grep -Eq '(K9Pedigree|pedigree_schema)|import[[:space:]]*"[^"]*(pedigree|\.k9)\.ncl"' "$file"; then
+            has_marker=true
+        fi
+
+        if [[ "$has_marker" == "false" ]]; then
+            report_issue "error" "$file" "$first_content_line_num" \
+                "Missing K9 format marker. A .k9.ncl file needs a magic_number = \"K9!\" field, a K9! preamble line, or a K9 pedigree schema import/application/merge"
+        fi
+    elif [[ "$first_content_line" != "K9!" ]]; then
         report_issue "error" "$file" "$first_content_line_num" \
             "Missing K9! magic number. First non-empty line must be exactly 'K9!'"
     fi
@@ -179,7 +205,7 @@ validate_k9() {
         # brace, depth started at 0, and the first nested block's close
         # prematurely terminated the validator's view of the pedigree —
         # making `pedigree.metadata.name` invisible.
-        if [[ "$line" =~ ^[[:space:]]*pedigree[[:space:]]*= ]]; then
+        if [[ "$line" =~ ^[[:space:]]*(let[[:space:]]+)?[A-Za-z_]*pedigree[[:space:]]*= ]]; then
             has_pedigree=true
             in_pedigree=true
             pedigree_depth=0
