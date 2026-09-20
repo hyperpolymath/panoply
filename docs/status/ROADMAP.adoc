@@ -31,3 +31,11 @@ Design phase. Charter + RSR spine + Core/Evidence *specs*. No Core checker.
 * [ ] #9 none + zig-ffi contracts (do not close)
 * [ ] #10 ABI-1 in-tree Idris2 (do not close; typecheck SKIP without idris2)
 * [ ] #11 Hypatia ignore from findings dump
+
+== Phase 8 — deferred integrations
+
+* [ ] BoJ: consume a cartridge from `boj-server-cartridges` only if a host capability is needed
+* [ ] Groove: advertise `/.well-known/groove` only when panoply has a process (bare-by-default until then)
+* [ ] Cleave: map ABI/FFI/API dial once a SNIF/host exists
+* [ ] Spline: only with a live groove session
+* [ ] Gossamer / burble: only if a GUI or voice projection appears

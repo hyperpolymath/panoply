@@ -10,7 +10,13 @@
 
   (related
     (project :name affinescript :relationship lessons-source)
-    (project :name standards :relationship standard-source))
+    (project :name standards :relationship standard-source)
+    (project :name boj-server-cartridges :relationship registry-not-consumed)
+    (project :name groove :relationship protocol-not-advertised)
+    (project :name spline :relationship wire-layer-not-applied)
+    (project :name cleave :relationship adjacent-law-not-applied)
+    (project :name gossamer :relationship n-a-no-gui)
+    (project :name burble :relationship n-a-no-voice))
 
   (not-the-same-as
     (project :name affinescript :why "broad surface language vs envelope-first discipline")))
