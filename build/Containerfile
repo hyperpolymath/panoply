@@ -1,41 +1,19 @@
 # SPDX-License-Identifier: MPL-2.0
 # Copyright (c) 2026 Jonathan D.A. Jewell (hyperpolymath) <j.d.a.jewell@open.ac.uk>
 #
-# Containerfile for Panoply
-# Build: podman build -t panoply:latest -f Containerfile .
-# Run:   podman run --rm -it panoply:latest
-# Seal:  selur seal panoply:latest
+#   podman build -t panoply:test -f build/Containerfile .
 
-# --- Build stage ---
 FROM cgr.dev/chainguard/wolfi-base:latest AS build
+WORKDIR /src
+RUN apk add --no-cache curl tar xz
+RUN curl -fsSL -o /tmp/zig.tar.xz \
+      https://ziglang.org/download/0.15.1/zig-x86_64-linux-0.15.1.tar.xz \
+    && tar -xJf /tmp/zig.tar.xz -C /opt \
+    && ln -s /opt/zig-x86_64-linux-0.15.1/zig /usr/local/bin/zig
+COPY src/interface/ffi /src/src/interface/ffi
+WORKDIR /src/src/interface/ffi
+RUN zig version && zig build test
 
-# TODO: Install build dependencies for your stack
-# Examples:
-#   RUN apk add --no-cache rust cargo       # Rust
-#   RUN apk add --no-cache elixir erlang    # Elixir
-#   RUN apk add --no-cache zig              # Zig
-
-WORKDIR /build
-COPY . .
-
-# TODO: Replace with your build command
-# Examples:
-#   RUN cargo build --release
-#   RUN mix deps.get && MIX_ENV=prod mix release
-#   RUN zig build -Doptimize=ReleaseSafe
-
-# --- Runtime stage ---
 FROM cgr.dev/chainguard/static:latest
-
-# Copy built artifact from build stage
-# TODO: Replace with your binary/artifact path
-# Examples:
-#   COPY --from=build /build/target/release/panoply /usr/local/bin/
-#   COPY --from=build /build/_build/prod/rel/panoply /app/
-#   COPY --from=build /build/zig-out/bin/panoply /usr/local/bin/
-
-# Non-root user (chainguard images default to nonroot)
+# Test-build artefact only. No daemon.
 USER nonroot
-
-# TODO: Replace with your entrypoint
-# ENTRYPOINT ["/usr/local/bin/panoply"]

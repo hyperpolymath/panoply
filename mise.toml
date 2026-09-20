@@ -1,13 +1,12 @@
 # SPDX-License-Identifier: MPL-2.0
-# Panoply toolchain pins (mise).
-# JS reach order (owner 2026-09-20): Bun → Deno → pnpm → npm.
-# Packager remains Guix (`build/guix.scm`); mise is a local version helper.
+# Panoply toolchain pins (mise). Packager remains Guix (`build/guix.scm`).
+# JS reach: Bun → Deno → pnpm → npm.
 
 [tools]
-just = "latest"
+just = "1.40.0"
 zig = "0.15.1"
-bun = "latest"
-deno = "latest"
+bun = "1.2.21"
+deno = "2.5.0"
 
 [env]
-# Idris2 is not a mise registry tool; install via Guix.
+# Idris2 is not in the mise registry; install via Guix or the Idris2 installer.

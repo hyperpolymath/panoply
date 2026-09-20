@@ -1,79 +1,51 @@
 ;; SPDX-License-Identifier: MPL-2.0
 ;; Copyright (c) 2026 Jonathan D.A. Jewell (hyperpolymath) <j.d.a.jewell@open.ac.uk>
 ;;
-;; Guix package definition for Panoply
+;; Guix package for panoply (library: Zig FFI tests; Idris2 optional).
+;;   guix shell -D -f build/guix.scm
+;;   guix build -f build/guix.scm
 ;;
-;; Usage:
-;;   guix shell -D -f guix.scm    # Enter development shell
-;;   guix build -f guix.scm       # Build package
-;;
-;; TODO: wire real build/check phases and native/runtime inputs once the
-;; Core/Evidence/Manifest artefacts land (currently text-level placeholders
-;; only — no guix toolchain was available locally to verify a real build).
-;; See: https://guix.gnu.org/manual/en/html_node/Defining-Packages.html
+;; Guix's zig package may lag 0.15.1 (mise pin). If check fails on version,
+;; use the Containerfile tarball or mise — do not silently skip tests.
 
 (use-modules (guix packages)
              (guix gexp)
-             (guix git-download)
              (guix build-system gnu)
              (guix licenses)
-             (gnu packages base))
+             (gnu packages zig)
+             (gnu packages commencement))
 
 (package
   (name "panoply")
   (version "0.1.0")
-  (source (local-file "." "source"
+  (source (local-file ".." "source"
                        #:recursive? #t
                        #:select? (lambda (file stat)
                                    (not (string-contains file ".git")))))
   (build-system gnu-build-system)
   (arguments
-   '(#:phases
+   '(#:tests? #t
+     #:phases
      (modify-phases %standard-phases
-       ;; TODO: Customize build phases for your project
-       ;; Examples for common stacks:
-       ;;
-       ;; Rust:
-       ;;   (replace 'build (lambda _ (invoke "cargo" "build" "--release")))
-       ;;   (replace 'check (lambda _ (invoke "cargo" "test")))
-       ;;
-       ;; Elixir:
-       ;;   (replace 'build (lambda _ (invoke "mix" "compile")))
-       ;;   (replace 'check (lambda _ (invoke "mix" "test")))
-       ;;
-       ;; Zig:
-       ;;   (replace 'build (lambda _ (invoke "zig" "build")))
-       ;;   (replace 'check (lambda _ (invoke "zig" "build" "test")))
        (delete 'configure)
-       (delete 'build)
-       (delete 'check)
+       (replace 'build
+         (lambda _
+           (with-directory-excursion "src/interface/ffi"
+             (invoke "zig" "build"))))
+       (replace 'check
+         (lambda _
+           (with-directory-excursion "src/interface/ffi"
+             (invoke "zig" "build" "test"))))
        (replace 'install
          (lambda* (#:key outputs #:allow-other-keys)
            (let ((out (assoc-ref outputs "out")))
-             (mkdir-p (string-append out "/share/doc"))
+             (mkdir-p (string-append out "/share/doc/panoply"))
              (copy-file "README.adoc"
-                        (string-append out "/share/doc/README.adoc"))))))))
-  (native-inputs
-   (list
-    ;; TODO: Add build-time dependencies
-    ;; Examples:
-    ;;   rust (gnu packages rust)
-    ;;   elixir (gnu packages elixir)
-    ;;   zig (gnu packages zig)
-    ))
-  (inputs
-   (list
-    ;; TODO: Add runtime dependencies
-    ))
+                        (string-append out "/share/doc/panoply/README.adoc"))))))))
+  (native-inputs (list zig gcc-toolchain))
   (home-page "https://github.com/hyperpolymath/panoply")
-  (synopsis "An envelope-first language discipline: every safety claim explicit, scoped, inspectable, and mechanically accountable.")
-  (description "Panoply is defined by three artefacts: a checked Core into
-which every accepted program projects, explicit evidence for the claims a
-program makes, and a safety-envelope manifest recording which guarantees
-have been earned and which have not.  It is not yet feature-complete; the
-Core checker, evidence formats, manifest schema, and backend contracts
-named by the charter are still being built.  See README.adoc and
-docs/architecture/DESIGN-DISCIPLINE.adoc for details.")
-  (license (list
-            ;; MPL-2.0 extends MPL-2.0
-            mpl2.0)))
+  (synopsis "Envelope-first language discipline (Idris2 ABI + Zig FFI)")
+  (description "Panoply is a library, not a server. This package runs the
+Zig FFI test build. Idris2 ABI typecheck is optional and not a Guix input
+until a channel pin exists.")
+  (license mpl2.0))
