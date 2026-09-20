@@ -1,0 +1,35 @@
+// SPDX-License-Identifier: CC-BY-SA-4.0
+// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
+= Branch and tag protection — panoply
+:revdate: 2026-09-20
+
+Live enforcement is **repository rulesets**, not classic branch protection
+(`GET .../branches/main/protection` → 404).
+
+== Optimus-Branch (branch, default)
+
+* Target: `~DEFAULT_BRANCH` (`main`)
+* Deletion forbidden
+* PRs required (review count **0**; CodeRabbit + Copilot review on push)
+* Required signatures
+* Required checks (strict): CodeRabbit, SonarCloud Code Analysis,
+  `governance / Code quality + docs`
+* Code scanning: CodeQL, Hypatia, Scorecard (all alerts)
+* Bypass: RepositoryRole 5, pull_request mode
+
+`.github/settings.yml` still lists classic protection (1 review, hypatia-scan /
+codeql / openssf-compliance). **Rulesets win.** Do not dual-write classic
+protection on top without an owner ruling.
+
+== Immutable-Tags (tags, all)
+
+Creation, update, deletion, and force-push forbidden. Signatures required.
+No bypass actors.
+
+== Operator notes
+
+Social preview: `docs/assets/social-preview.png` — set in GitHub UI
+(Settings → General → Social preview). API cannot upload it.
+Wiki: GitHub wiki stays **off** (estate `has_wiki: false`); Phase 6 uses
+`docs/wikis/`.
+Stars / lists: this PAT cannot star (`403`) or edit lists.

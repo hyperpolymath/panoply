@@ -1,0 +1,17 @@
+// SPDX-License-Identifier: CC-BY-SA-4.0
+// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
+= Image prompts — panoply
+:revdate: 2026-09-20
+
+== README hero (suggested)
+
+----
+Wide banner. Dark charcoal field. A nested gold-and-teal wireframe envelope
+around a small crystalline core, like a safety envelope in formal methods.
+Thin geometric lines, no letters, no logos, austere academic tone.
+----
+
+== Social preview (used)
+
+Same motif, 2:1. Generated file: `docs/assets/social-preview.png`.
+Owner must attach it in GitHub Settings → General → Social preview.
