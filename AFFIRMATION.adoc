@@ -28,7 +28,7 @@ pass, or that a Core checker exists.
 | Project | panoply
 | Repo | `hyperpolymath/panoply`
 | Branch | `chore/phase11-final` (local; push if remote available)
-| Commit (HEAD) | *this tree — hash after commit*
+| Commit (HEAD) | `ed16b31c9b3cbfe1c151a3bfe023d3ac65a5ea4d`
 | Verified (UTC) | `2026-09-20`
 | Working-tree delta at verification
 | Phase 11 docs + `launcher/soft-attach.sh` comment path.
