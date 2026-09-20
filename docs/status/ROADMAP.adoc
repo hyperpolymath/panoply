@@ -20,7 +20,7 @@ Design phase. Charter + RSR spine + Core/Evidence *specs*. No Core checker.
 * [ ] Owner: keep or delete Coq/Agda/Lean/TLA proof stubs (Idris2-only FV policy vs RSR template)
 * [ ] Implement Zig API adapter beyond `NotImplemented` when a gateway exists
 * [ ] Desktop launcher via launch-scaffolder when a GUI exists
-* [ ] Root `Mustfile` (contractile, not Makefile)
+* [x] Root `Mustfile` (pointer to `.machine_readable/contractiles/Mustfile.deed`)
 
 == Charter product
 

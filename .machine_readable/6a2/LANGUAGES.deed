@@ -12,7 +12,7 @@ last-updated = "2026-06-21"
 abi-proofs = "idris2"                 # src/interface/Abi/, verification/proofs/idris2/
 ffi = "zig"                           # src/interface/ffi/
 proofs = ["coq", "agda", "idris2"]    # verification/proofs/
-config = ["nickel", "a2ml"]           # .machine_readable/
+config = ["nickel", "deed"]           # .machine_readable/
 build = ["just", "bash"]
 
 [planned]

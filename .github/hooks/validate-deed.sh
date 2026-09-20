@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MPL-2.0
 # Copyright (c) 2026 Jonathan D.A. Jewell (hyperpolymath) <j.d.a.jewell@open.ac.uk>
 #
-# validate-a2ml.sh — A2ML manifest validation script
+# validate-deed.sh — DEED / machine-readable validation script
 #
 # Scans for .deed and .deed files and validates:
 #   1. Required fields: agent-id or pedigree name, version

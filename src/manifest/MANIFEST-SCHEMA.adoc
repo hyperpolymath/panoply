@@ -1,0 +1,54 @@
+// SPDX-License-Identifier: CC-BY-SA-4.0
+// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
+= Safety-envelope manifest schema (issue #7)
+:revdate: 2026-09-20
+
+A manifest is the *per-program, per-backend* statement of which guarantees
+were earned and which were not. It is the deliverable. There is **no emitter**
+yet: this document is the data model only.
+
+== Central rule (emitter, when it exists)
+
+. No guarantee without an envelope.
+. No envelope without evidence.
+. No composition without a named composition rule.
+
+A reader must be able to see what is **not** guaranteed. Silence is not
+absence of risk.
+
+== On-disk form
+
+S-expression, one top form `(manifest ...)`. Keywords:
+
+[cols="1,3"]
+|===
+| `:schema-version` | REQUIRED. Semver string.
+| `:program` | REQUIRED. Subject identity (name or content hash).
+| `:backend` | REQUIRED. Backend id the envelopes are relative to.
+| `:status` | REQUIRED. `draft` \| `refused` \| `emitted`.
+| `:earned` | List of envelope records.
+| `:unearned` | List of named guarantees that were **not** earned.
+| `:composition-rules` | Named rules that license combining envelopes. Empty unless a rule exists.
+|===
+
+Each earned envelope:
+
+[cols="1,3"]
+|===
+| `:name` | Envelope name.
+| `:scope` | Feature subset / projection / compiler mode (free text until Core exists).
+| `:evidence` | Pointer to an evidence artefact (`:kind` + path or hash).
+|===
+
+`:status refused` is the honest value until an emitter runs. Do not write
+`:status emitted` without an emitter and evidence that is not itself refused.
+
+== Example
+
+See `examples/refused.manifest` — empty earned set, explicit unearned
+guarantees, refused status.
+
+== Non-goals (this commit)
+
+* No emitter, no CI consumer, no backend contract (#9).
+* Do not close issue #7 until an emitter enforces the three rules.

@@ -29,6 +29,7 @@ CHANGELOG.adoc             # Current changelog after the AsciiDoc migration.
 
 # ─── Build entry points (must live at root for their tooling) ────────────────
 Justfile                   # delegates phases to build/just/*.just
+Mustfile                   # root contractile pointer → .machine_readable/contractiles/Mustfile.deed
 coordination.k9            # repo-local session binding (template-mandated)
 
 # ─── Conventional dotfiles (tool-required at root) ───────────────────────────
@@ -60,7 +61,7 @@ www/                       # site-operations bundle; canonical .well-known/ live
 LICENSES/                  # REUSE/SPDX licence texts (LICENSES/MPL-2.0.txt)
 .machine_readable/         # AI manifests, contractiles, custom-format configs
 .well-known/
-build/                     # contractile.just, setup.sh, flake.{nix,lock}, guix.scm, .guix-channel, Containerfile
+build/                     # contractile.just, setup.sh, guix.scm, .guix-channel, Containerfile
 ci/                        # .gitlab-ci.yml, .pre-commit-config.yaml (root shims if tools require)
 docs/                      # onboarding/, status/, governance/, ...
 docs-template/             # template-only: scaffolding docs copied into new repos
