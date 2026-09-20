@@ -12,14 +12,14 @@ description: |
   automation scripts.
 
 canonical_locations:
-  state: "6a2/STATE.deed"
-  meta: "6a2/META.deed"
-  ecosystem: "6a2/ECOSYSTEM.deed"
-  agentic: "6a2/AGENTIC.deed"
-  neurosym: "6a2/NEUROSYM.deed"
-  playbook: "6a2/PLAYBOOK.deed"
-  clade: "6a2/CLADE.deed"
-  anchors: "6a2/anchors/"
+  state: "descriptiles/STATE.deed"
+  meta: "descriptiles/META.deed"
+  ecosystem: "descriptiles/ECOSYSTEM.deed"
+  agentic: "descriptiles/AGENTIC.deed"
+  neurosym: "descriptiles/NEUROSYM.deed"
+  playbook: "descriptiles/PLAYBOOK.deed"
+  clade: "descriptiles/CLADE.deed"
+  anchors: "descriptiles/anchors/"
   policies: "policies/"
   ai_configs: "ai/"
   compliance: "compliance/"

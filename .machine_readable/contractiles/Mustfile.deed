@@ -62,13 +62,13 @@ fails.
 - severity: critical
 
 ### six-directory-present
-- description: 6a2 directory exists with required files
-- run: test -d .machine_readable/6a2 && test -f .machine_readable/6a2/META.deed && test -f .machine_readable/6a2/ECOSYSTEM.deed && test -f .machine_readable/6a2/STATE.deed && test -f .machine_readable/6a2/PLAYBOOK.deed && test -f .machine_readable/6a2/AGENTIC.deed && test -f .machine_readable/6a2/NEUROSYM.deed
+- description: descriptiles directory exists with required files
+- run: test -d .machine_readable/descriptiles && test -f .machine_readable/descriptiles/META.deed && test -f .machine_readable/descriptiles/ECOSYSTEM.deed && test -f .machine_readable/descriptiles/STATE.deed && test -f .machine_readable/descriptiles/PLAYBOOK.deed && test -f .machine_readable/descriptiles/AGENTIC.deed && test -f .machine_readable/descriptiles/NEUROSYM.deed
 - severity: critical
 
 ### anchors-directory
-- description: anchors directory exists in 6a2
-- run: test -d .machine_readable/6a2/anchors
+- description: anchors directory exists in descriptiles
+- run: test -d .machine_readable/descriptiles/anchors
 - severity: warning
 
 ### self-validating-structure

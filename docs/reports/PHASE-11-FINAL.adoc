@@ -49,7 +49,7 @@ roadmapped with an issue. Owner-only UI work is listed, not faked.
 
 rsr-template-repo / standards: holdings H1–H7 remain; 28 workflows present
 (not a vacuous 17-of-17 claim). A2ML six-file set lives as repo-deeds under
-`.machine_readable/6a2/`, not TOML.
+`.machine_readable/descriptiles/`, not TOML.
 
 == 11.2 Grades (as-is 2026-09-20)
 

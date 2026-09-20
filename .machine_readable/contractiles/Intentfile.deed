@@ -31,7 +31,7 @@ Panoply is an envelope-first language discipline: every safety claim
 explicit, scoped, inspectable, and mechanically accountable. It is defined
 by three artefacts — a checked Core, explicit evidence, and a
 safety-envelope manifest (see docs/architecture/DESIGN-DISCIPLINE.adoc and
-.machine_readable/6a2/STATE.deed for current status).
+.machine_readable/descriptiles/STATE.deed for current status).
 
 This repository follows the Rhodium Standard Repository governance model
 (contractile files, machine-readable specifications, session bindings)
@@ -44,7 +44,7 @@ This repository is NOT:
   FROM rsr-template-repo; see hyperpolymath/rsr-template-repo for the
   master scaffold
 - Feature-complete — Core, Evidence, and Manifest are design-phase only
-  (see .machine_readable/6a2/STATE.deed)
+  (see .machine_readable/descriptiles/STATE.deed)
 - A runtime library or framework by itself — it is a language-discipline
   specification with an Idris2 ABI (abi.ipkg) and a Zig FFI surface
   (src/interface/ffi/)
@@ -62,7 +62,7 @@ If you are unsure whether a change is in scope, ask. Sensitive areas:
 ### core-language-spec
 - description: Specify the Core — abstract syntax, typing/checking judgements, projection target
 - status: declared
-- notes: See .machine_readable/6a2/STATE.deed [route-to-mvp]
+- notes: See .machine_readable/descriptiles/STATE.deed [route-to-mvp]
 
 ### evidence-model-spec
 - description: Specify the evidence model — what counts as a witness for each guarantee class
