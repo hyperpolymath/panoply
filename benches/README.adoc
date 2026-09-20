@@ -2,5 +2,6 @@
 // Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
 = benches
 
-`template_bench.sh` — Zig build/test + workflow validation timings.
-Not a Core-language benchmark (no checker yet).
+`template_bench.sh` — Zig build/test + workflow validation timings
+(**build** category, not latency/throughput). No Core hot path. FFI-overhead
+and Six Sigma baselines are Phase 8.

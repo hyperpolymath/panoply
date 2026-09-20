@@ -1,0 +1,39 @@
+// SPDX-License-Identifier: CC-BY-SA-4.0
+// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
+= Phase 4 — Tests, benchmarks, proofs
+:revdate: 2026-09-20
+
+== 4.1 Tests
+
+First source: https://github.com/hyperpolymath/proven-tests-and-benches
+(cloned 2026-09-20). That suite is **Idris2 AffineScript / type-safe
+subcategories**, not panoply Core. Adapting it wholesale would be a
+vacuous import.
+
+Applicable draw: taxonomy enumerations + “honest N/A > vacuous pass”.
+Panoply’s live tests stay Zig FFI units + ABI↔FFI P2P + spec gates.
+
+Did **not** open a PR on proven-tests-and-benches: nothing here is a
+generic suite member yet (refused-manifest is panoply-charter specific).
+Contribution sketch: `docs/reports/proven-tests-contribution.adoc`.
+
+== 4.2 Benchmarks
+
+`benches/template_bench.sh` = **build-time** (Zig compile, zig test,
+workflow validation). Not latency/throughput of Core.
+
+FFI-overhead benches need a real hot path. Marked N/A until then.
+Idris2 `benchmarks/Benchmark.idr` in proven-tests is a framework, not
+panoply numbers — not vendored.
+
+== 4.3 Proofs
+
+Preference (protocol): continue **existing** assistant = **Idris2**
+(ABI-1..5 + Types.idr). Lean4 default does **not** apply.
+
+Checked: `just proof-check-idris2` SKIP if no `idris2`. Dangerous-pattern
+scan on `verification/proofs/**/*.idr`.
+
+Do now: ABI-1 (`SafePtr`, `checkPtrZeroIsNothing`).
+Phase 8: ABI-2..5 typecheck in CI with idris2; Core preservation (TP)
+after a checker exists. No Lean/Agda/Coq/TLA trees.

@@ -198,6 +198,7 @@ spec-tests:
     bash tests/manifest_spec.sh
     bash tests/backend_spec.sh
     bash tests/projection_spec.sh
+    bash tests/taxonomy_spec.sh
     bash scripts/emit-manifest.sh >/dev/null
 
 # Run the full merge-requirement test suite
