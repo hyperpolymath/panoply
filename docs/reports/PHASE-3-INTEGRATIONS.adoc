@@ -1,0 +1,44 @@
+// SPDX-License-Identifier: CC-BY-SA-4.0
+// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
+= Phase 3 — Integrations & cartridges
+:revdate: 2026-09-20
+
+Panoply is an **envelope-first language discipline** (Idris2 ABI + Zig FFI
+library). It is not a server, desktop shell, or voice platform.
+
+== 3.1 boj-server-cartridge
+
+Classification: 🔴 audit → **N/A as author**; holding as consumer.
+
+* Registry exists: https://github.com/hyperpolymath/boj-server-cartridges
+  (plural). Hosts (`boj-server`, panll) fetch cartridges on demand.
+* Panoply does **not** mint a cartridge: there is no MCP/BoJ capability
+  surface and no host runtime.
+* `features/boj-server/` remains a README holding, not an installed cartridge.
+* Future (Phase 8): if a Core checker ever needs a BoJ capability, consume a
+  cartridge from the registry — do not vendor one here.
+
+== 3.2 gossamer & burble
+
+Classification: 🔴 audit → **not relevant now** (🟡 adaptive later).
+
+* **gossamer** — desktop shell / groove consumer (native window around a web
+  frontend). Panoply has no GUI (launcher is `just`).
+* **burble** — voice-first communications. Panoply has no voice plane.
+* No integration to verify. Roadmap Phase 8 if a GUI or voice projection appears.
+
+== 3.3 groove, spline, cleave
+
+Classification: 🔴 audit → 🟠 corrective (groove lie) + 🟢 Phase 8.
+
+* **groove** (`metadatastician/groove`) — working draft 0.3; CLI + reference
+  provider exist **in that repo**. Panoply shipped a template
+  `groove.deed` with REST enabled and no HTTP server — **false**. Corrected:
+  all API surfaces disabled, port 0, no capabilities.
+* **spline** — experimental seed; wire layer for groove. Not applied.
+* **cleave** — design corpus toward a transmutable FFI↔SNIF↔protocol dial.
+  Conceptually adjacent to panoply ABI/FFI/API law, **not implemented here**.
+  Do not pretend the Zig adapter is a cleave kernel.
+
+Phase 8: consume groove (probe-only, bare-by-default) when there is a process
+to advertise; consider cleave once SNIF/host exists; spline only with groove.

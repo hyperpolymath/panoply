@@ -1,16 +1,16 @@
 // SPDX-License-Identifier: CC-BY-SA-4.0
 // Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
-= BoJ Server Integration
+= BoJ Server — holding (not a cartridge)
 :icons: font
 
-This unit provides a "starting hand" for integrating with the **BoJ-Server** (Box of Justice) ecosystem — a high-rigor, verified server infrastructure.
+Panoply is **not** a BoJ host and does **not** ship a cartridge.
 
-== Integration Options
+Canonical registry:
+https://github.com/hyperpolymath/boj-server-cartridges
 
-* **Core:** Use BoJ-Server as the primary verified backend for this project.
-* **Bridge:** Utilize the BoJ-Server IPC bridge for cross-boundary communication.
+Hosts (`boj-server`, panll) fetch cartridges from that registry. This
+directory exists so the RSR feature slot is occupied with an honest
+decline, not a fake integration.
 
-== Related Repository
-
-For the full specification and source, visit:
-https://github.com/hyperpolymath/boj-server
+Phase 8: consume a registry cartridge if a Core checker needs a BoJ
+capability. Do not vendor cartridge source here.
