@@ -1,45 +1,95 @@
 // SPDX-License-Identifier: CC-BY-SA-4.0
 // Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
 = Panoply roadmap
+:revdate: 2026-09-20
 
 == Current status
 
-Design phase. Charter + RSR spine + Core/Evidence *specs*. No Core checker.
+Design phase. Specs + fail-closed stubs. No Core checker. CRG **X**.
+Charter issues **#6–#11 stay open**. #5 is specified (closed as spec-only).
 
-== Phase 1 structural placeholders (TODO)
+Classification: 🟠 corrective · 🟡 adaptive · 🟢 perfective
+Effort: S <1d · M 2–5d · L >1w
 
-* [ ] Populate `.machine_readable/arrival-pack/` and `coaptation/` or drop if unused
-* [ ] Collapse `6a2/` into template `descriptiles/` *or* document 6a2 as the live path
-* [ ] Fill `src/api/zig/` (interface law) or record an explicit escape
-* [ ] `www/dns` and related site-ops trees — panoply is not a site; keep holding or delete after owner ruling
-* [ ] `archetypes/` — not a minting template; candidate for removal
-* [ ] Relocate `.gitlab-ci.yml` → `ci/` after GitLab setting update
-* [ ] Relocate `.pre-commit-config.yaml` → `ci/` after invocation pattern decided
-* [ ] Convert remaining `0.x-AI-MANIFEST.deed` files from TOML/prose or keep as exempt gatekeeper docs
-* [x] Wire `e2e.yml` jobs (aspect + zig) with SHA-pinned actions
-* [x] Owner: keep or delete Coq/Agda/Lean/TLA proof stubs (Idris2-only FV policy vs RSR template)
-* [ ] Implement Zig API adapter beyond `NotImplemented` when a gateway exists
-* [ ] Desktop launcher via launch-scaffolder when a GUI exists
-* [x] Root `Mustfile` (pointer to `.machine_readable/contractiles/Mustfile.deed`)
+== Now (blocked on a checker / product)
 
-== Charter product
+[cols="1,3,2,1,1,2",options="header"]
+|===
+| ID | Item | Rationale | Class | Effort | Deps
 
-* [x] #5 Core syntax + judgements specified (checker not implemented)
-* [x] #6 Evidence kinds specified (no emitter)
-* [ ] #7 Manifest schema + fail-closed emitter (do not close)
-* [ ] #8 null projection + refuse≡refuse witness (do not close)
-* [ ] #9 none + zig-ffi contracts (do not close)
-* [ ] #10 ABI-1 in-tree Idris2 (do not close; typecheck SKIP without idris2)
-* [ ] #11 Hypatia ignore from findings dump
+| C5 | Core checker that yields evidence | Charter #5 done-when | 🟠 | L | —
+| C6 | Evidence emitter | #6 | 🟠 | M | C5
+| C7 | Manifest emitter with accepted evidence | #7 | 🟠 | M | C6
+| C8 | Accepting projection | #8 | 🟠 | L | C5 C7
+| C9 | Lowering that preserves a named guarantee | #9 | 🟠 | L | C7
+| C10 | ABI-2..5 + Core preservation in CI with idris2 | #10 | 🟠 | M | idris2 in CI
+| C11 | Hypatia ignore from findings dump | #11 | 🟡 | S | dump
+|===
 
-== Phase 8 — deferred integrations
+== Holdings / structure
 
-* [ ] BoJ: consume a cartridge from `boj-server-cartridges` only if a host capability is needed
-* [ ] Groove: advertise `/.well-known/groove` only when panoply has a process (bare-by-default until then)
-* [ ] Cleave: map ABI/FFI/API dial once a SNIF/host exists
-* [ ] Spline: only with a live groove session
-* [ ] Gossamer / burble: only if a GUI or voice projection appears
-* [ ] Proofs: ABI-2..5 typecheck in CI with idris2; Core preservation after a checker
-* [ ] Tests: PBT/FUZ/TSF when Core parser exists; no fake harnesses
-* [ ] Benches: FFI-overhead once there is a hot path; Six Sigma baselines then
-* [ ] Sync `/wiki` Markdown into `panoply.wiki.git` / `berrywiki serve`
+[cols="1,3,2,1,1,2",options="header"]
+|===
+| ID | Item | Rationale | Class | Effort | Deps
+
+| H1 | Populate or drop `arrival-pack/` `coaptation/` | empty holdings | 🟡 | S | owner
+| H2 | Document `6a2/` as live path *or* collapse to `descriptiles/` | path law | 🟡 | S | owner
+| H3 | `www/dns` keep or delete | not a site | 🟡 | S | owner
+| H4 | Remove `archetypes/` if not a mint | template leftover | 🟢 | S | owner
+| H5 | Relocate `.gitlab-ci.yml` → `ci/` | GitLab setting | 🟡 | S | GitLab
+| H6 | Relocate `.pre-commit-config.yaml` → `ci/` | invocation | 🟡 | S | hooks
+| H7 | Gatekeeper `0.x-AI-MANIFEST.deed` stay kv or convert | G1.1 remainder | 🟡 | M | ABNF
+| H8 | Zig API beyond `NotImplemented` | when a gateway exists | 🟠 | M | gateway
+| H9 | Desktop launcher | when a GUI exists | 🟢 | L | GUI
+|===
+
+== Integrations (deferred from Phase 3)
+
+[cols="1,3,2,1,1,2",options="header"]
+|===
+| ID | Item | Rationale | Class | Effort | Deps
+
+| I1 | Consume BoJ cartridge if a host capability appears | not an author | 🟢 | M | host
+| I2 | Groove advertise only with a process | bare-by-default | 🟡 | M | process
+| I3 | Cleave dial once SNIF/host exists | adjacent law | 🟢 | L | SNIF
+| I4 | Spline with a live groove session | seed layer | 🟢 | M | I2
+| I5 | Gossamer / burble | GUI / voice only | 🟢 | L | GUI
+|===
+
+== Tests / benches / wiki / env
+
+[cols="1,3,2,1,1,2",options="header"]
+|===
+| ID | Item | Rationale | Class | Effort | Deps
+
+| T1 | PBT / FUZ / TSF when Core parser exists | no fake harness | 🟠 | L | C5
+| T2 | FFI-overhead benches + Six Sigma | need hot path | 🟢 | M | C9
+| T3 | Contribute refused-envelope fixture to proven-tests-and-benches | taxonomy first-draw | 🟢 | S | C7
+| W1 | Sync `/wiki` → `panoply.wiki.git` + berrywiki serve | Phase 6 | 🟢 | S | —
+| E1 | Idris2 Guix input / CI typecheck | ABI proofs rot | 🟠 | M | channel
+| E2 | Attach social preview in Settings | API cannot upload | 🟢 | S | UI
+| E3 | Star + star lists | PAT 403 | 🟢 | S | owner
+| E4 | AFFIRMATION signed commit `-S` | draft until signed | 🟠 | S | owner
+|===
+
+== Scheduling (not dates — gates)
+
+. **Gate A** — owner UI: E2 E3 E4 W1
+. **Gate B** — holdings rulings H1–H7
+. **Gate C** — Core checker (C5) then C6→C7→C8/C9
+. **Gate D** — proofs CI (C10 E1) in parallel with C5
+. **Gate E** — integrations I* only after a process/GUI/host exists
+
+== Issues and board
+
+Milestone `deferred-phase-8` (#1). Issues **#77–#98** map 1:1 to H/I/T/W/E ids.
+Charter **#6–#11 remain open**.
+
+GitHub Projects v2 is **not writable** with the session token (FORBIDDEN).
+Owner: Settings → Projects, link a board, add #77–#98.
+
+== Branch topology
+
+Remote has **`main` only** (2026-09-20). Feature branches were PR'd and
+deleted on merge. No stale remote worktrees to discard. Local agent
+branches are disposable.
