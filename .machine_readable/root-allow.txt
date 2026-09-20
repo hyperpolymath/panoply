@@ -76,6 +76,7 @@ features/
 scripts/
 verification/
 container/                 # may host Containerfile if not at build/
+launcher/                  # estate launcher helpers (standards/launcher thin bind)
 
 # ─── Tolerated pending follow-up (re-evaluate when item lands) ───────────────
 .gitlab-ci.yml             # TODO: relocate to ci/.gitlab-ci.yml after GitLab project-setting update

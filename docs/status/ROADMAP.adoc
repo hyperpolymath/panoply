@@ -17,6 +17,9 @@ Design phase. Charter + RSR spine + Core/Evidence *specs*. No Core checker.
 * [ ] Relocate `.pre-commit-config.yaml` → `ci/` after invocation pattern decided
 * [ ] Convert remaining `0.x-AI-MANIFEST.deed` files from TOML/prose or keep as exempt gatekeeper docs
 * [ ] Wire `e2e.yml` jobs (aspect + zig) with SHA-pinned actions
+* [ ] Owner: keep or delete Coq/Agda/Lean/TLA proof stubs (Idris2-only FV policy vs RSR template)
+* [ ] Implement Zig API adapter beyond `NotImplemented` when a gateway exists
+* [ ] Desktop launcher via launch-scaffolder when a GUI exists
 * [ ] Root `Mustfile` (contractile, not Makefile)
 
 == Charter product

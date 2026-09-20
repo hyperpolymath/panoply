@@ -1,0 +1,50 @@
+// SPDX-License-Identifier: CC-BY-SA-4.0
+// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
+= Language audit — panoply (Phase 2.1)
+:revdate: 2026-09-20
+
+== Application / interface languages (in `src/`)
+
+[cols="1,2,1",options="header"]
+|===
+| Language | Role | Policy
+
+| Idris2 | ABI (`src/interface/Abi`) | allowed (sole ABI)
+| Zig | FFI (`src/interface/ffi`) + API stub (`src/api/zig`) | allowed
+| Bash | tests, scripts, Just recipes | allowed
+| Nickel | K9 contracts (`.k9.ncl`) | allowed
+| Guile Scheme | `build/guix.scm` only | allowed (packaging)
+| Just | Justfile | allowed (not Makefile)
+|===
+
+No TypeScript, Python, Go, Java, Rust, Ada, V-lang application code.
+
+== Proof-scaffold languages (RSR template, not application)
+
+These live only under `verification/proofs/` as **stubs**: Coq (`.v`),
+Agda, Lean4, TLA+. Estate language policy names Idris2 as the sole
+*formal-verification language* for new work. These files are template
+holdings, not a second ABI.
+
+**Check with owner:** keep as multi-prover sketch (RSR template) or
+delete non-Idris2 proof trees? Not deleted in this phase.
+
+== Config / docs (not CCCP “languages”)
+
+AsciiDoc, YAML (Actions), TOML, Markdown (GitHub-required `SECURITY.md`
+etc.), JSON, jq.
+
+== JS runtimes (if JS ever appears)
+
+Owner 2026-09-20: Bun → Deno → pnpm → npm. No JS sources today.
+
+== NIF / SNIF (2.2)
+
+No NIFs. `hyperpolymath/snifs` does not apply until a BEAM host exists.
+Marked N/A.
+
+== ABI / FFI / API (2.3–2.4)
+
+* ABI = Idris2 (`src/interface/Abi`). `%foreign` symbols `panoply_*`.
+* FFI = Zig (`src/interface/ffi`).
+* API adapter = Zig stub `src/api/zig/adapter.zig` (no HTTP gateway yet).

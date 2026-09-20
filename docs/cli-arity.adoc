@@ -1,0 +1,28 @@
+// SPDX-License-Identifier: CC-BY-SA-4.0
+// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
+= CLI arity (panoply)
+
+Panoply ships **no application binary**. The CLI is `just`.
+
+== Help
+
+* `just` / `just --list` — all recipes
+* `just help <recipe>` — recipe body
+* `just --help` — just(1) itself
+
+== Man page
+
+`just man` writes `docs/man/panoply.1` (groff). Install is not packaged.
+
+== High-arity surface (recipes, not flags)
+
+Build:: `just build`, `just build-release`, `just clean`, `just install prefix=`
+Test:: `just test`, `just e2e`, `just aspect`, `just bench`, `just lifecycle`, `just p2p`, `just test-all`
+Quality:: `just fmt`, `just fmt-check`, `just lint`, `just quality`
+Guix:: `just guix-shell`, `just guix-build`, `just guix-channel`
+Proofs:: imported from `build/just/proofs.just`
+Session:: `just intake-repo`, `just verify-maintenance`, …
+CRG:: `just crg-grade`, `just crg-badge`
+
+There is no `panoply --verbose --output --format` tree until a checker
+exists. Do not invent flags.

@@ -1,8 +1,7 @@
 // SPDX-License-Identifier: CC-BY-SA-4.0
 // Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
-= zig
+= API adapter (Zig)
 
-Holding directory required by `rsr-template-repo`.
-Not yet populated with panoply-specific content.
-
-TODO: see `docs/status/ROADMAP.adoc` (Phase 1 structural placeholders).
+Interface law: API layer is Zig. `adapter.zig` is a fail-closed stub
+(`NotImplemented`). There is no unified-api-adapter vendored until a
+gateway exists. Roadmap: Phase 8 / `docs/status/ROADMAP.adoc`.
