@@ -170,9 +170,10 @@ Real-world external feedback confirming value. Populate
 
 == 7. Summary (2026-09-20)
 
-* Project grade: **E**. Tests exist; Core does not; RSR D-floor unmet.
+* Project grade: **X**. Tests exist; Core does not; RSR D-floor unmet.
+  FFI / spec surfaces are **E**; they do not lift the project grade.
 * TRG overall: **X** (worst required toolchain component).
-* Delta: X → E after protocol 0–10 (honest promotion, not a product claim).
+* Delta: X → X after protocol 0–10 (FFI / spec surfaces reached E, not the project).
 * Next: D requires C5 + Idris2 CI + STATE test matrix. No product tag.
 
 '''
