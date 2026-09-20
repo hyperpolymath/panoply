@@ -51,7 +51,7 @@ validate-rsr:
     fi
     echo "RSR compliance: PASS"
 
-# Validate STATE.deed syntax
+# Report whether STATE.deed contains key-value metadata and project markers
 validate-state:
     @if [ -f ".machine_readable/descriptiles/STATE.deed" ]; then \
         grep -q '^\[metadata\]' .machine_readable/descriptiles/STATE.deed && \

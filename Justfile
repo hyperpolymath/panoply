@@ -523,7 +523,7 @@ import? "build/just/validate.just"
 # STATE MANAGEMENT
 # ═══════════════════════════════════════════════════════════════════════════════
 
-# Update STATE.deed timestamp
+# Attempt to update the timestamp in a key-value-formatted STATE.deed
 state-touch:
     @if [ -f ".machine_readable/descriptiles/STATE.deed" ]; then \
         sed -i 's/last-updated = "[^"]*"/last-updated = "'"$(date +%Y-%m-%d)"'"/' .machine_readable/descriptiles/STATE.deed && \
