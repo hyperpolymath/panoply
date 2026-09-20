@@ -5,4 +5,4 @@
 Holding directory required by `rsr-template-repo`.
 Not yet populated with panoply-specific content.
 
-TODO: see `docs/status/ROADMAP.adoc` (Phase 1 structural placeholders).
+Holding — see `docs/status/ROADMAP.adoc` (H1). Not a product surface.

@@ -13,4 +13,4 @@
     :config ("nickel" "deed")
     :build ("just" "bash"))
   (planned
-    :core "TBD"))
+    :core "not-implemented"))

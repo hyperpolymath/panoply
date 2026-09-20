@@ -52,7 +52,7 @@ info:
     @echo "Version: {{version}}"
     @echo "RSR Tier: {{tier}}"
     @echo "Recipes: $(just --summary | wc -w)"
-    @[ -f ".machine_readable/descriptiles/STATE.deed" ] && grep -oP 'phase\s*=\s*"\K[^"]+' .machine_readable/descriptiles/STATE.deed | head -1 | xargs -I{} echo "Phase: {}" || true
+    @[ -f ".machine_readable/descriptiles/STATE.deed" ] && grep -oP ':phase\s+\K[A-Za-z]+' .machine_readable/descriptiles/STATE.deed | head -1 | xargs -I{} echo "Phase: {}" || true
 
 # Run Invariant Path overlay tools for this repository
 invariant-path *ARGS:
@@ -265,14 +265,10 @@ deps:
     @command -v zig >/dev/null 2>&1 && echo "  [OK] zig" || echo "  [FAIL] zig not found"
     @command -v just >/dev/null 2>&1 && echo "  [OK] just" || echo "  [FAIL] just not found"
 
-# Audit dependencies for vulnerabilities
+# Audit dependencies for vulnerabilities (no cargo/mix; trivy if present)
 deps-audit:
     @echo "Auditing for vulnerabilities..."
-    # TODO: Replace with your audit command
-    # Examples:
-    #   cargo audit
-    #   mix audit
-    @command -v trivy >/dev/null && trivy fs --severity HIGH,CRITICAL --quiet . || true
+    @command -v trivy >/dev/null && trivy fs --severity HIGH,CRITICAL --quiet . || echo "trivy not installed — skip"
     @echo "Audit complete"
 
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -527,10 +523,10 @@ import? "build/just/validate.just"
 # STATE MANAGEMENT
 # ═══════════════════════════════════════════════════════════════════════════════
 
-# Update STATE.deed timestamp
+# Attempt to update the timestamp in a key-value-formatted STATE.deed
 state-touch:
     @if [ -f ".machine_readable/descriptiles/STATE.deed" ]; then \
-        sed -i 's/last-updated = "[^"]*"/last-updated = "'"$(date +%Y-%m-%d)"'"/' .machine_readable/descriptiles/STATE.deed && \
+        sed -i 's/:last-updated "[^"]*"/:last-updated "'"$(date +%Y-%m-%d)"'"/' .machine_readable/descriptiles/STATE.deed && \
         echo "STATE.deed timestamp updated"; \
     fi
 

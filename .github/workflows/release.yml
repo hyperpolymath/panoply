@@ -68,11 +68,7 @@ jobs:
             echo "Expected one of: mix.exs, Cargo.toml, build.zig, deno.json, gossamer.conf.json, gleam.toml, rebar.config, Justfile"
             exit 1
           fi
-        # TODO: Upload build artifacts if needed
-        # - uses: actions/upload-artifact@v4
-        #   with:
-        #     name: release-artifacts
-        #     path: target/release/
+        # Library: no release binary to upload (Zig FFI is not a tagged product).
   changelog:
     name: Generate Changelog
     runs-on: ubuntu-latest
@@ -122,11 +118,7 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v7.0.1
-      # TODO: Download build artifacts if uploading to the release
-      # - uses: actions/download-artifact@v4
-      #   with:
-      #     name: release-artifacts
-      #     path: artifacts/
+      # No binary artifacts — notes-only GitHub Release.
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v3.0.3
         with:
@@ -134,9 +126,6 @@ jobs:
           draft: false
           prerelease: ${{ contains(github.ref_name, '-rc') || contains(github.ref_name, '-beta') || contains(github.ref_name, '-alpha') }}
           generate_release_notes: false
-          # TODO: Add artifact files to the release
-          # files: |
-          #   artifacts/*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   provenance:
