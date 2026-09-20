@@ -265,14 +265,10 @@ deps:
     @command -v zig >/dev/null 2>&1 && echo "  [OK] zig" || echo "  [FAIL] zig not found"
     @command -v just >/dev/null 2>&1 && echo "  [OK] just" || echo "  [FAIL] just not found"
 
-# Audit dependencies for vulnerabilities
+# Audit dependencies for vulnerabilities (no cargo/mix; trivy if present)
 deps-audit:
     @echo "Auditing for vulnerabilities..."
-    # TODO: Replace with your audit command
-    # Examples:
-    #   cargo audit
-    #   mix audit
-    @command -v trivy >/dev/null && trivy fs --severity HIGH,CRITICAL --quiet . || true
+    @command -v trivy >/dev/null && trivy fs --severity HIGH,CRITICAL --quiet . || echo "trivy not installed — skip"
     @echo "Audit complete"
 
 # ═══════════════════════════════════════════════════════════════════════════════
