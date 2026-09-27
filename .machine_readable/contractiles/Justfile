@@ -52,7 +52,7 @@ info:
     @echo "Version: {{version}}"
     @echo "RSR Tier: {{tier}}"
     @echo "Recipes: $(just --summary | wc -w)"
-    @[ -f ".machine_readable/descriptiles/STATE.deed" ] && grep -oP 'phase\s*=\s*"\K[^"]+' .machine_readable/descriptiles/STATE.deed | head -1 | xargs -I{} echo "Phase: {}" || true
+    @[ -f ".machine_readable/descriptiles/STATE.deed" ] && grep -oP ':phase\s+\K[A-Za-z]+' .machine_readable/descriptiles/STATE.deed | head -1 | xargs -I{} echo "Phase: {}" || true
 
 # Run Invariant Path overlay tools for this repository
 invariant-path *ARGS:
@@ -547,16 +547,16 @@ import? "build/just/validate.just"
 # STATE MANAGEMENT
 # ═══════════════════════════════════════════════════════════════════════════════
 
-# Update STATE.deed timestamp
+# Attempt to update the timestamp in a key-value-formatted STATE.deed
 state-touch:
     @if [ -f ".machine_readable/descriptiles/STATE.deed" ]; then \
-        sed -i 's/last-updated = "[^"]*"/last-updated = "'"$(date +%Y-%m-%d)"'"/' .machine_readable/descriptiles/STATE.deed && \
+        sed -i 's/:last-updated "[^"]*"/:last-updated "'"$(date +%Y-%m-%d)"'"/' .machine_readable/descriptiles/STATE.deed && \
         echo "STATE.deed timestamp updated"; \
     fi
 
-# Show current phase from STATE.deed
+# Show the phase from a key-value-formatted STATE.deed
 state-phase:
-    @grep -oP 'phase\s*=\s*"\K[^"]+' .machine_readable/descriptiles/STATE.deed 2>/dev/null | head -1 || echo "unknown"
+    @grep -oP ':phase\s+\K[A-Za-z]+' .machine_readable/descriptiles/STATE.deed 2>/dev/null | head -1 || echo "unknown"
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # GUIX (channels — Nix is deprecated)

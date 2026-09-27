@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: CC-BY-SA-4.0
+// SPDX-License-Identifier: MPL-2.0
 // Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
 = Panoply — CRG Audit (2026-09-20)
 :toc:
@@ -46,7 +46,9 @@ Zig FFI unit+integration; `tests/aspect_tests.sh`, `p2p.sh`, `core_spec.sh`,
 
 === External validation
 
-Zero diverse external targets. Cap **C** is unreachable; **B/A** out of scope.
+Zero diverse external targets. This blocks **B/A** while **C** remains the
+maximum possible grade. C still depends on home-context dogfooding and
+annotation requirements and is separately unmet here for lack of evidence.
 
 == Grade matrix
 
