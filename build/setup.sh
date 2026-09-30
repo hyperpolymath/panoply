@@ -135,6 +135,8 @@ detect_platform() {
 # rather than fetching a plausible-looking binary for the wrong target.
 JUST_VERSION="1.58.0"
 
+# Print the release target for the current Linux or macOS architecture.
+# Unrecognised platforms print an empty line with a successful exit status.
 just_target() {
     case "$(uname -s 2>/dev/null):$(uname -m 2>/dev/null)" in
         Linux:x86_64|Linux:amd64)    echo "x86_64-unknown-linux-musl" ;;
@@ -145,6 +147,8 @@ just_target() {
     esac
 }
 
+# Print the pinned release archive SHA-256 for the target in $1.
+# Unrecognised targets print an empty line with a successful exit status.
 just_sha256() {
     case "$1" in
         x86_64-unknown-linux-musl)  echo "4a5cc2f53e6f0f8c59092a6cc38291eb729d46a7dd95d3ae582008881b84931d" ;;
@@ -155,13 +159,21 @@ just_sha256() {
     esac
 }
 
+# Print the SHA-256 of the file at $1 to standard output.
 # sha256sum is GNU; macOS ships shasum instead.
+# A hashing failure can produce no output yet return success via cut.
 sha256_of() {
     if command -v sha256sum >/dev/null 2>&1; then sha256sum "$1" | cut -d" " -f1
     else shasum -a 256 "$1" | cut -d" " -f1
     fi
 }
 
+# Download and checksum-verify JUST_VERSION for this platform, then use sudo
+# to install it as /usr/local/bin/just with mode 0755, replacing any existing file.
+# Return 1 for an unsupported platform, download failure, checksum mismatch or
+# failure to create /usr/local/bin. Temporary files are removed on these handled
+# failures and after installation. If execution reaches cleanup, return its status;
+# in the conditional call from main, extraction or copy failures can be masked.
 install_just_verified() {
     jv_target="$(just_target)"
     [ -z "$jv_target" ] && { fail "just: no verified build for $(uname -s)/$(uname -m); use your package manager"; return 1; }
@@ -182,6 +194,10 @@ install_just_verified() {
 }
 
 # ── Install just ──
+# Keep an existing just command, or install using the detected PKG_MGR.
+# Use the verified release if apt fails or PKG_MGR has no supported install branch.
+# Return 1 if just is still unavailable on PATH; the final availability check
+# determines success in main's conditional call even if an installer failed.
 install_just() {
     if command -v just >/dev/null 2>&1; then
         ok "just already installed: $(just --version 2>/dev/null | head -1)"
