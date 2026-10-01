@@ -15,8 +15,14 @@ jobs:
   dispatch:
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    # `secrets` is not available in step `if:`; job-level env is. Without the
+    # PAT the dispatch falls back to GITHUB_TOKEN and fails 401 cross-repo, so
+    # skip cleanly where FARM_DISPATCH_TOKEN has not been propagated.
+    env:
+      FARM_DISPATCH_TOKEN: ${{ secrets.FARM_DISPATCH_TOKEN }}
     steps:
       - name: Trigger Propagation
+        if: ${{ env.FARM_DISPATCH_TOKEN != '' }}
         uses: peter-evans/repository-dispatch@v4.0.1
         with:
           token: ${{ secrets.FARM_DISPATCH_TOKEN }}
@@ -30,6 +36,7 @@ jobs:
               "forges": ""
             }
       - name: Confirm
+        if: ${{ env.FARM_DISPATCH_TOKEN != '' }}
         env:
           REPO_NAME: ${{ github.event.repository.name }}
         run: echo "::notice::Propagation triggered for ${REPO_NAME}"
