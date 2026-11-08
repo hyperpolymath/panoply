@@ -120,7 +120,7 @@ jobs:
       - uses: actions/checkout@v7.0.1
       # No binary artifacts — notes-only GitHub Release.
       - name: Create GitHub Release
-        uses: softprops/action-gh-release@v3.0.3
+        uses: softprops/action-gh-release@v3.0.4
         with:
           body: ${{ needs.changelog.outputs.changelog }}
           draft: false
