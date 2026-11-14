@@ -4,8 +4,8 @@
 (repo-deed
   :schema-version "1.0.0"
   :canonical-name "panoply-playbook"
-  :repo-uuid #u5"hyperpolymath/panoply"
-  :beholding-chora #u5"estate/chora"
+  :repo-uuid #u8"gv-clade-index:github.com/hyperpolymath/panoply"
+  :beholding-chora #u8"chora:estate/github.com/hyperpolymath"
   :last-updated "2026-09-20"
   :authority-allowlist ".machine_readable/root-allow.txt"
   :enforcement-workflow ".github/workflows/estate-rules.yml"
