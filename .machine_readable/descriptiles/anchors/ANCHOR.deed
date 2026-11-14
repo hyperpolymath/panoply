@@ -3,8 +3,8 @@
 (repo-deed
   :schema-version "1.0.0"
   :canonical-name "panoply-anchor"
-  :repo-uuid #uuid"c6ce29e7-e7bf-8da3-9130-1841ac24bde8"
-  :beholding-chora #uuid"0889b37b-defb-831f-973c-e119500db00e"
+  :repo-uuid #u8"gv-clade-index:github.com/hyperpolymath/panoply"
+  :beholding-chora #u8"chora:estate/github.com/hyperpolymath"
   :last-updated "2026-09-20"
   :schema "hyperpolymath.anchor/1"
   :authority "upstream-canonical"
