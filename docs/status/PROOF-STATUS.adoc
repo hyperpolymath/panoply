@@ -10,8 +10,8 @@
 |===
 | Category | Total | Done | In Progress | Blocked | Remaining
 
-| ABI/FFI (ABI) | 5 | 1 | 0 | 0 | 4
-| Typing (TP) | 2 | 0 | 0 | 1 | 1
+| ABI/FFI (ABI) | 5 | 0 | 0 | 0 | 5
+| Typing (TP) | 2 | 0 | 0 | 0 | 2
 | Invariant (INV) | 0 | 0 | 0 | 0 | 0
 | Security (SEC) | 0 | 0 | 0 | 0 | 0
 | Concurrency (CONC) | 0 | 0 | 0 | 0 | 0
@@ -20,7 +20,7 @@
 | *Total* | *7* | *0* | *0* | *0* | *7*
 |===
 
-*Overall*: 0% proven
+*Overall*: 0 of 7 obligations proven
 
 == Proofs Done
 
