@@ -24,7 +24,7 @@
 # Rust: transmute (unless FFI with // SAFETY: comment)
 
 # BANNED LANGUAGES
-# TypeScript -> ReScript
+# TypeScript -> AffineScript
 # JS reach order (panoply): Bun → Deno → pnpm → npm (see docs/practice/JS-RUNTIME-ORDER.adoc)
 # Go -> Rust
 # Python -> Julia or Rust
